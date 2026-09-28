@@ -1,0 +1,83 @@
+{
+  "_aciklama": "İstanbul Ticaret Üniversitesi odak alanları ve ekosistem ortakları. Anahtar kelimeler İngilizcedir çünkü AB çağrı metinleri İngilizcedir. Alanları/kelimeleri serbestçe düzenleyebilirsiniz.",
+  "institution": "İstanbul Ticaret Üniversitesi",
+  "focus_areas": [
+    {
+      "id": "trade_logistics",
+      "name": "Uluslararası Ticaret, Lojistik ve Tedarik Zinciri",
+      "keywords": ["trade", "logistics", "supply chain", "customs", "export", "internationalisation", "e-commerce", "value chain", "freight", "port"]
+    },
+    {
+      "id": "finance_fintech",
+      "name": "Finans, Bankacılık ve Fintech",
+      "keywords": ["finance", "financial", "fintech", "banking", "blockchain", "digital euro", "payment", "investment", "insurance", "crowdfunding"]
+    },
+    {
+      "id": "business_sme",
+      "name": "İşletme, KOBİ ve Girişimcilik",
+      "keywords": ["sme", "smes", "entrepreneur", "entrepreneurship", "start-up", "startup", "business model", "management", "family business", "scale-up", "marketing"]
+    },
+    {
+      "id": "economics_policy",
+      "name": "İktisat ve Kamu Politikası",
+      "keywords": ["economic", "economy", "policy", "labour market", "inequality", "growth", "competitiveness", "productivity", "migration"]
+    },
+    {
+      "id": "digital_ai",
+      "name": "Dijital Dönüşüm, Yapay Zeka ve Veri",
+      "keywords": ["artificial intelligence", "ai", "machine learning", "data", "digital", "digitalisation", "big data", "cloud", "software", "cybersecurity", "internet of things", "iot"]
+    },
+    {
+      "id": "engineering_industry",
+      "name": "Mühendislik ve Endüstri 4.0",
+      "keywords": ["manufacturing", "industry 4.0", "industrial", "robotics", "automation", "energy efficiency", "optimisation", "electronics", "semiconductor"]
+    },
+    {
+      "id": "green_sustainability",
+      "name": "Yeşil Dönüşüm ve Sürdürülebilirlik",
+      "keywords": ["green", "circular economy", "sustainability", "sustainable", "climate", "carbon", "renewable", "energy transition", "decarbonisation"]
+    },
+    {
+      "id": "law_governance",
+      "name": "Hukuk, Regülasyon ve Yönetişim",
+      "keywords": ["law", "legal", "regulation", "regulatory", "governance", "rule of law", "compliance", "consumer protection", "intellectual property"]
+    },
+    {
+      "id": "design_architecture",
+      "name": "Mimarlık, Tasarım ve Kentsel Çalışmalar",
+      "keywords": ["architecture", "design", "urban", "city", "cities", "built environment", "housing", "new european bauhaus", "cultural heritage"]
+    },
+    {
+      "id": "communication_social",
+      "name": "İletişim, Medya ve Sosyal Bilimler",
+      "keywords": ["media", "communication", "disinformation", "social", "society", "culture", "creative", "education", "skills", "youth", "gender"]
+    }
+  ],
+  "ecosystem": [
+    {
+      "id": "ito",
+      "name": "İTO — İstanbul Ticaret Odası",
+      "role": "KOBİ ağı / iş destek kuruluşu ortağı; üyelere yaygınlaştırma, pilot firma sağlama",
+      "keywords": ["sme", "smes", "chamber", "business support", "internationalisation", "single market", "enterprise europe network", "trade", "retail", "cluster", "business associations"]
+    },
+    {
+      "id": "teknopark_istanbul",
+      "name": "Teknopark İstanbul",
+      "role": "Teknoloji geliştirme bölgesi / kuluçka ortağı; start-up ve Ar-Ge firmaları, test-deney altyapısı",
+      "keywords": ["startup", "start-up", "scale-up", "innovation", "incubator", "accelerator", "deep tech", "technology transfer", "digital innovation hub", "testing and experimentation", "pilot", "eic", "innovation ecosystem"]
+    },
+    {
+      "id": "bim",
+      "name": "BİM Ekosistemi",
+      "role": "Bilişim/inovasyon ekosistemi ortağı (kurum tanımını ve anahtar kelimeleri lütfen doğrulayın)",
+      "keywords": ["digital innovation hub", "edih", "ict", "cloud", "data spaces", "cybersecurity", "software", "artificial intelligence", "digital skills", "open source"]
+    }
+  ],
+  "turkey_participation": {
+    "Horizon Europe": "Türkiye ilişkili (associated) ülke — tam katılım",
+    "Erasmus+": "Türkiye programa katılan ülke — tam katılım",
+    "Single Market Programme": "Türkiye katılımcı — ilgili bileşenleri kontrol edin",
+    "Digital Europe Programme": "Katılım koşullarını çağrı metninden kontrol edin",
+    "_default": "Türkiye'nin uygunluğunu çağrı metninden kontrol edin"
+  }
+}

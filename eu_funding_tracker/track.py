@@ -1,39 +1,53 @@
 #!/usr/bin/env python3
-"""Daily tracker for the EU Funding & Tenders Portal (SEDIA search API).
+"""EU Funding & Tenders Portal tracker with academic / ecosystem matching.
 
-Queries the portal for currently OPEN calls for proposals (grant topics)
-matching KEYWORDS below, compares them against state.json (calls already
-seen on a previous run), and prints a Turkish markdown summary of anything
-new. Run daily; state.json is meant to be committed so the "new since
-yesterday" diff survives across runs.
+Pulls every OPEN and FORTHCOMING grant topic from the portal's public SEDIA
+search API, scores each one against İstanbul Ticaret Üniversitesi's focus
+areas (profile.json), its academics (academics.csv) and ecosystem partners
+(İTO, Teknopark İstanbul, BİM), and writes a Turkish HTML + Markdown report.
+Calls already reported are remembered in state.json.
 
-Edit KEYWORDS to change what gets tracked.
+    python3 track.py                 # print Markdown report
+    python3 track.py --email         # also send the HTML report via SMTP
+    python3 track.py --fixture f.json  # offline run against a saved API response
+
+SMTP settings come from the environment: SMTP_HOST (default smtp.gmail.com),
+SMTP_PORT (default 465), SMTP_USER, SMTP_PASSWORD, REPORT_TO.
 """
 
+import argparse
+import csv
+import html
 import json
+import os
+import re
+import smtplib
 import sys
-from datetime import datetime, timezone
+from datetime import datetime, timedelta, timezone
+from email.message import EmailMessage
 from pathlib import Path
 
 import requests
 
+HERE = Path(__file__).parent
+STATE_PATH = HERE / "state.json"
+PROFILE_PATH = HERE / "profile.json"
+ACADEMICS_PATH = HERE / "academics.csv"
+REPORTS_DIR = HERE / "reports"
+
 ENDPOINT = "https://api.tech.ec.europa.eu/search-api/prod/rest/search"
 API_KEY = "SEDIA"
-STATE_PATH = Path(__file__).parent / "state.json"
-
-TYPE_GRANTS = "1"
+TYPE_GRANTS = ["1", "2", "8"]
+STATUS_FORTHCOMING = "31094501"
 STATUS_OPEN = "31094502"
-PAGE_SIZE = 50
+STATUS_LABELS = {STATUS_OPEN: "Açık", STATUS_FORTHCOMING: "Yakında açılacak"}
+PAGE_SIZE = 100
+MAX_PAGES = 40
+TOPIC_URL = "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/{}"
 
-# Dijitalleşme / Yapay Zeka / Teknoloji odaklı arama terimleri.
-KEYWORDS = [
-    "artificial intelligence",
-    "digital transformation",
-    "digitalisation",
-    "digital technology",
-    "cybersecurity",
-    "data economy",
-]
+MIN_AREA_SCORE = 3  # a call must reach this total focus-area score to be reported
+MAX_ACADEMICS_PER_CALL = 5
+UPCOMING_DAYS = 30
 
 PROGRAMME_LABELS = {
     "43108390": "Horizon Europe",
@@ -50,18 +64,14 @@ PROGRAMME_LABELS = {
 }
 
 
-def search(text, page_size=PAGE_SIZE, page_number=1):
-    params = {
-        "apiKey": API_KEY,
-        "text": text,
-        "pageSize": str(page_size),
-        "pageNumber": str(page_number),
-    }
+# --------------------------------------------------------------------------- API
+
+def search_page(page_number, statuses):
     query = {
         "bool": {
             "must": [
-                {"terms": {"type": [TYPE_GRANTS]}},
-                {"terms": {"status": [STATUS_OPEN]}},
+                {"terms": {"type": TYPE_GRANTS}},
+                {"terms": {"status": statuses}},
             ]
         }
     }
@@ -72,8 +82,14 @@ def search(text, page_size=PAGE_SIZE, page_number=1):
         "languages": (None, json.dumps(["en"]), "application/json"),
         "sort": (None, json.dumps({"field": "deadlineDate", "order": "ASC"}), "application/json"),
     }
+    params = {
+        "apiKey": API_KEY,
+        "text": "***",
+        "pageSize": str(PAGE_SIZE),
+        "pageNumber": str(page_number),
+    }
     resp = requests.post(
-        ENDPOINT, params=params, files=files, headers={"Accept": "application/json"}, timeout=30
+        ENDPOINT, params=params, files=files, headers={"Accept": "application/json"}, timeout=60
     )
     resp.raise_for_status()
     data = resp.json()
@@ -82,38 +98,255 @@ def search(text, page_size=PAGE_SIZE, page_number=1):
     return data
 
 
+def fetch_all_hits():
+    hits = []
+    for page in range(1, MAX_PAGES + 1):
+        results = search_page(page, [STATUS_OPEN, STATUS_FORTHCOMING]).get("results") or []
+        hits.extend(results)
+        if len(results) < PAGE_SIZE:
+            break
+    return hits
+
+
+def values(meta, key):
+    """Every metadata value the API returns is wrapped in a list."""
+    v = (meta or {}).get(key)
+    if v is None:
+        return []
+    return [str(x) for x in v] if isinstance(v, list) else [str(v)]
+
+
 def one(meta, key):
-    """Every metadata value the API returns is wrapped in a single-element list."""
-    v = meta.get(key) if meta else None
-    if isinstance(v, list):
-        return str(v[0]) if v else None
-    return str(v) if v is not None else None
+    vs = values(meta, key)
+    return vs[0] if vs else None
 
 
-def collect_open_calls():
-    rows = []
-    seen_ids = set()
-    for kw in KEYWORDS:
-        data = search(kw)
-        for hit in data.get("results", []):
-            meta = hit.get("metadata") or {}
-            identifier = one(meta, "identifier")
-            if not identifier or identifier in seen_ids:
-                continue
-            seen_ids.add(identifier)
-            programme_id = one(meta, "frameworkProgramme")
-            rows.append(
-                {
-                    "identifier": identifier,
-                    "title": one(meta, "title"),
-                    "deadline": one(meta, "deadlineDate"),
-                    "programme": PROGRAMME_LABELS.get(programme_id, programme_id),
-                    "url": one(meta, "url"),
-                    "matched_keyword": kw,
-                }
-            )
-    return rows
+def strip_html(text):
+    return re.sub(r"\s+", " ", html.unescape(re.sub(r"<[^>]+>", " ", text or ""))).strip()
 
+
+def parse_calls(hits):
+    calls, seen = [], set()
+    for hit in hits:
+        meta = hit.get("metadata") or {}
+        identifier = one(meta, "identifier")
+        if not identifier or identifier in seen:
+            continue
+        seen.add(identifier)
+        programme_id = one(meta, "frameworkProgramme")
+        title = one(meta, "title") or hit.get("title") or identifier
+        body = " ".join(
+            [one(meta, "callTitle") or ""]
+            + values(meta, "keywords")
+            + values(meta, "tags")
+            + [strip_html(one(meta, "descriptionByte")), strip_html(hit.get("summary"))]
+        )
+        calls.append(
+            {
+                "identifier": identifier,
+                "title": title,
+                "call_title": one(meta, "callTitle"),
+                "deadline": (one(meta, "deadlineDate") or "")[:10] or None,
+                "status": STATUS_LABELS.get(one(meta, "status"), one(meta, "status")),
+                "programme": PROGRAMME_LABELS.get(programme_id, programme_id),
+                "url": one(meta, "url") or hit.get("url") or TOPIC_URL.format(identifier.lower()),
+                "title_text": title.lower(),
+                "body_text": body.lower(),
+            }
+        )
+    return calls
+
+
+# ---------------------------------------------------------------------- matching
+
+def load_profile():
+    return json.loads(PROFILE_PATH.read_text(encoding="utf-8"))
+
+
+def load_academics(path=ACADEMICS_PATH):
+    if not path.exists():
+        return []
+    lines = [l for l in path.read_text(encoding="utf-8").splitlines() if l.strip() and not l.startswith("#")]
+    split = lambda s: [x.strip() for x in (s or "").split(";") if x.strip()]
+    return [
+        {
+            "name": row["name"].strip(),
+            "department": (row.get("department") or "").strip(),
+            "email": (row.get("email") or "").strip(),
+            "focus_areas": split(row.get("focus_areas")),
+            "keywords": [k.lower() for k in split(row.get("keywords"))],
+        }
+        for row in csv.DictReader(lines)
+        if (row.get("name") or "").strip()
+    ]
+
+
+def keyword_hits(call, keywords):
+    """Return (score, matched keywords). A hit in the title counts 3, elsewhere 1."""
+    score, matched = 0, []
+    for kw in keywords:
+        pattern = r"\b" + re.escape(kw.lower()) + r"\b"
+        if re.search(pattern, call["title_text"]):
+            score += 3
+            matched.append(kw)
+        elif re.search(pattern, call["body_text"]):
+            score += 1
+            matched.append(kw)
+    return score, matched
+
+
+def match_call(call, profile, academics):
+    areas = []
+    for area in profile["focus_areas"]:
+        score, matched = keyword_hits(call, area["keywords"])
+        if score:
+            areas.append({"id": area["id"], "name": area["name"], "score": score, "matched": matched})
+    areas.sort(key=lambda a: -a["score"])
+    area_scores = {a["id"]: a["score"] for a in areas}
+
+    people = []
+    for ac in academics:
+        own, matched = keyword_hits(call, ac["keywords"])
+        via_area = max((area_scores.get(a, 0) for a in ac["focus_areas"]), default=0)
+        score = own * 2 + via_area
+        if score:
+            people.append({**ac, "score": score, "matched": matched})
+    people.sort(key=lambda p: -p["score"])
+
+    ecosystem = []
+    for partner in profile["ecosystem"]:
+        score, matched = keyword_hits(call, partner["keywords"])
+        if score:
+            ecosystem.append({**partner, "score": score, "matched": matched})
+    ecosystem.sort(key=lambda e: -e["score"])
+
+    total = sum(a["score"] for a in areas)
+    return {
+        "total": total,
+        "areas": areas[:3],
+        "academics": people[:MAX_ACADEMICS_PER_CALL],
+        "ecosystem": ecosystem,
+    }
+
+
+def turkey_note(profile, programme):
+    notes = profile.get("turkey_participation", {})
+    return notes.get(programme or "", notes.get("_default", ""))
+
+
+# ------------------------------------------------------------------------ report
+
+def build_report(new_matches, upcoming, profile, academics_count, stats):
+    today = datetime.now(timezone.utc).strftime("%Y-%m-%d")
+    title = f"AB Fon Çağrıları — {profile['institution']} Eşleştirme Raporu ({today})"
+    md = [f"# {title}", ""]
+    md.append(
+        f"Taranan açık/yakında açılacak çağrı: **{stats['scanned']}** · "
+        f"Kurumla eşleşen: **{stats['matched']}** · Yeni: **{len(new_matches)}** · "
+        f"Kayıtlı akademisyen: **{academics_count}**"
+    )
+    if academics_count == 0:
+        md.append(
+            "\n> Not: `academics.csv` henüz boş; eşleştirmeler şimdilik odak alanı düzeyinde. "
+            "Akademisyen eklendiğinde kişi bazlı öneriler de görünecek."
+        )
+    md.append("")
+
+    def call_md(call, m):
+        out = [f"### {call['title']}"]
+        out.append(f"- **Kod:** `{call['identifier']}` · **Program:** {call['programme'] or '-'} · **Durum:** {call['status'] or '-'}")
+        out.append(f"- **Son başvuru:** {call['deadline'] or 'Belirtilmemiş'} · **Uygunluk puanı:** {m['total']}")
+        out.append(f"- **Türkiye:** {turkey_note(profile, call['programme'])}")
+        out.append("- **Odak alanları:** " + "; ".join(f"{a['name']} ({', '.join(a['matched'][:4])})" for a in m["areas"]))
+        if m["academics"]:
+            out.append("- **Önerilen akademisyenler:** " + "; ".join(
+                f"{p['name']} – {p['department']}" + (f" ({', '.join(p['matched'][:3])})" if p["matched"] else "")
+                for p in m["academics"]))
+        if m["ecosystem"]:
+            out.append("- **Ekosistem ortakları:** " + "; ".join(f"{e['name']}: {e['role']}" for e in m["ecosystem"]))
+        out.append(f"- **Bağlantı:** {call['url']}")
+        out.append("")
+        return out
+
+    md.append(f"## Yeni eşleşen çağrılar ({len(new_matches)})\n")
+    if not new_matches:
+        md.append("Bu dönemde kurum profiliyle eşleşen yeni bir çağrı bulunamadı.\n")
+    for call, m in new_matches:
+        md += call_md(call, m)
+
+    md.append(f"## Son başvurusu {UPCOMING_DAYS} gün içinde olan eşleşen çağrılar ({len(upcoming)})\n")
+    if not upcoming:
+        md.append("Yok.\n")
+    for call, m in upcoming:
+        eco = ", ".join(e["name"] for e in m["ecosystem"]) or "-"
+        md.append(f"- **{call['deadline']}** — [{call['title']}]({call['url']}) (`{call['identifier']}`, puan {m['total']}, ekosistem: {eco})")
+    md.append("")
+    md.append("---\nOtomatik olarak EU Funding & Tenders Portal verisinden üretilmiştir; "
+              "uygunluk ve Türkiye katılım bilgilerini çağrı metninden teyit edin.")
+    markdown = "\n".join(md)
+    return title, markdown, markdown_to_html(title, markdown)
+
+
+def markdown_to_html(title, markdown):
+    """Tiny renderer for the subset of Markdown build_report emits."""
+    def inline(s):
+        s = html.escape(s)
+        s = re.sub(r"\*\*(.+?)\*\*", r"<b>\1</b>", s)
+        s = re.sub(r"`(.+?)`", r"<code>\1</code>", s)
+        s = re.sub(r"\[(.+?)\]\((https?://[^)]+)\)", r'<a href="\2">\1</a>', s)
+        s = re.sub(r"(?<![\"=>])(https?://[^\s<;]+)", r'<a href="\1">\1</a>', s)
+        return s
+
+    out, in_list = [], False
+    for line in markdown.splitlines():
+        if line.startswith("- "):
+            if not in_list:
+                out.append("<ul>")
+                in_list = True
+            out.append(f"<li>{inline(line[2:])}</li>")
+            continue
+        if in_list:
+            out.append("</ul>")
+            in_list = False
+        if line.startswith("### "):
+            out.append(f"<h3 style='margin:18px 0 4px;color:#1a3d7c'>{inline(line[4:])}</h3>")
+        elif line.startswith("## "):
+            out.append(f"<h2 style='border-bottom:2px solid #1a3d7c;padding-bottom:4px'>{inline(line[3:])}</h2>")
+        elif line.startswith("# "):
+            out.append(f"<h1 style='font-size:20px'>{inline(line[2:])}</h1>")
+        elif line.startswith("> "):
+            out.append(f"<p style='background:#fff6d6;padding:8px'>{inline(line[2:])}</p>")
+        elif line.strip() == "---":
+            out.append("<hr>")
+        elif line.strip():
+            out.append(f"<p>{inline(line)}</p>")
+    if in_list:
+        out.append("</ul>")
+    body = "\n".join(out)
+    return (f"<!doctype html><html><head><meta charset='utf-8'><title>{html.escape(title)}</title></head>"
+            f"<body style='font-family:Arial,sans-serif;max-width:860px;margin:auto;color:#222'>{body}</body></html>")
+
+
+def send_email(subject, markdown, html_body):
+    user = os.environ.get("SMTP_USER")
+    password = os.environ.get("SMTP_PASSWORD")
+    to = os.environ.get("REPORT_TO") or user
+    if not (user and password and to):
+        raise RuntimeError("SMTP_USER / SMTP_PASSWORD / REPORT_TO ortam değişkenleri eksik")
+    msg = EmailMessage()
+    msg["Subject"] = subject
+    msg["From"] = user
+    msg["To"] = to
+    msg.set_content(markdown)
+    msg.add_alternative(html_body, subtype="html")
+    host = os.environ.get("SMTP_HOST") or "smtp.gmail.com"
+    port = int(os.environ.get("SMTP_PORT") or 465)
+    with smtplib.SMTP_SSL(host, port, timeout=60) as smtp:
+        smtp.login(user, password)
+        smtp.send_message(msg)
+
+
+# -------------------------------------------------------------------------- main
 
 def load_state():
     if STATE_PATH.exists():
@@ -127,46 +360,69 @@ def save_state(state):
     )
 
 
-def format_summary(new_calls, error=None):
-    today = datetime.now(timezone.utc).strftime("%Y-%m-%d")
-    lines = [f"# AB Fonları Günlük Özet — {today}", ""]
-    if error:
-        lines.append(f"Kontrol başarısız oldu: {error}")
-        return "\n".join(lines)
-    if not new_calls:
-        lines.append("Bugün takip edilen anahtar kelimelerle yeni bir açık çağrı bulunamadı.")
-        return "\n".join(lines)
-    lines.append(f"Bugün {len(new_calls)} yeni açık çağrı bulundu:\n")
-    for c in new_calls:
-        lines.append(f"## {c['title']}")
-        lines.append(f"- Tanımlayıcı: `{c['identifier']}`")
-        lines.append(f"- Program: {c['programme'] or 'Belirtilmemiş'}")
-        lines.append(f"- Son başvuru tarihi: {c['deadline'] or 'Belirtilmemiş'}")
-        lines.append(f"- Eşleşen anahtar kelime: {c['matched_keyword']}")
-        if c["url"]:
-            lines.append(f"- Bağlantı: {c['url']}")
-        lines.append("")
-    return "\n".join(lines)
+def run(hits, state, now=None):
+    now = now or datetime.now(timezone.utc)
+    profile = load_profile()
+    academics = load_academics()
+    calls = parse_calls(hits)
+
+    matched = []
+    for call in calls:
+        m = match_call(call, profile, academics)
+        if m["total"] >= MIN_AREA_SCORE:
+            matched.append((call, m))
+    matched.sort(key=lambda cm: -cm[1]["total"])
+
+    new_matches = [(c, m) for c, m in matched if c["identifier"] not in state["seen"]]
+    horizon = (now + timedelta(days=UPCOMING_DAYS)).strftime("%Y-%m-%d")
+    today = now.strftime("%Y-%m-%d")
+    upcoming = sorted(
+        [(c, m) for c, m in matched if c["deadline"] and today <= c["deadline"] <= horizon],
+        key=lambda cm: cm[0]["deadline"],
+    )
+
+    for c, _ in matched:
+        state["seen"].setdefault(c["identifier"], {"first_seen": now.isoformat(), "title": c["title"]})
+    state["last_run"] = now.isoformat()
+
+    stats = {"scanned": len(calls), "matched": len(matched)}
+    return build_report(new_matches, upcoming, profile, len(academics), stats), len(new_matches)
 
 
 def main():
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--email", action="store_true", help="raporu SMTP ile e-postala")
+    parser.add_argument("--fixture", type=Path, help="API yerine kaydedilmiş JSON yanıtını kullan")
+    parser.add_argument("--no-save", action="store_true", help="state.json'u güncelleme")
+    args = parser.parse_args()
+
     state = load_state()
     try:
-        calls = collect_open_calls()
-    except Exception as exc:  # noqa: BLE001 - surface any failure in the summary
-        print(format_summary([], error=str(exc)))
+        if args.fixture:
+            hits = json.loads(args.fixture.read_text(encoding="utf-8")).get("results", [])
+        else:
+            hits = fetch_all_hits()
+    except Exception as exc:  # noqa: BLE001 - surface any failure to the user
+        print(f"Portal taraması başarısız: {exc}")
+        if args.email:
+            send_email("AB Fon Taraması BAŞARISIZ", f"Portal taraması başarısız: {exc}",
+                       f"<p>Portal taraması başarısız: {html.escape(str(exc))}</p>")
         sys.exit(1)
 
-    new_calls = [c for c in calls if c["identifier"] not in state["seen"]]
+    (title, markdown, html_body), new_count = run(hits, state)
 
-    now = datetime.now(timezone.utc).isoformat()
-    for c in calls:
-        state["seen"].setdefault(c["identifier"], {"first_seen": now, "title": c["title"]})
-    state["last_run"] = now
-    save_state(state)
+    REPORTS_DIR.mkdir(exist_ok=True)
+    stamp = datetime.now(timezone.utc).strftime("%Y-%m-%d")
+    (REPORTS_DIR / f"rapor-{stamp}.md").write_text(markdown, encoding="utf-8")
+    (REPORTS_DIR / f"rapor-{stamp}.html").write_text(html_body, encoding="utf-8")
+    if not args.no_save:
+        save_state(state)
 
-    print(format_summary(new_calls))
-    print(f"\n---\nNEW_CALLS_COUNT={len(new_calls)}")
+    print(markdown)
+    print(f"\n---\nNEW_CALLS_COUNT={new_count}")
+    if args.email:
+        send_email(f"{title} — {new_count} yeni çağrı", markdown, html_body)
+        print("E-posta gönderildi.")
 
 
 if __name__ == "__main__":

@@ -1,0 +1,6 @@
+name,department,email,focus_areas,keywords
+# Her satır bir akademisyen. "#" ile başlayan satırlar yok sayılır.
+# focus_areas: profile.json'daki alan id'leri, ";" ile ayrılmış (örn. digital_ai;finance_fintech)
+# keywords: kişiye özgü İngilizce araştırma anahtar kelimeleri, ";" ile ayrılmış
+# Örnek (başındaki # işaretini kaldırıp gerçek bilgilerle doldurun):
+# Dr. Ad Soyad,Bilgisayar Mühendisliği,ad.soyad@ticaret.edu.tr,digital_ai;engineering_industry,machine learning;computer vision;federated learning

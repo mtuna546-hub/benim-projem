@@ -1,0 +1,57 @@
+name: AB Fon Çağrı Taraması
+
+on:
+  schedule:
+    # Her Pazartesi 05:47 (İstanbul, UTC+3)
+    - cron: "47 2 * * 1"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: eu-funding-report
+  cancel-in-progress: false
+
+jobs:
+  scan:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Bağımlılıklar
+        run: pip install -r eu_funding_tracker/requirements.txt
+
+      - name: Testler
+        working-directory: eu_funding_tracker
+        run: python -m unittest discover -s tests
+
+      - name: Portalı tara, eşleştir ve e-postala
+        working-directory: eu_funding_tracker
+        env:
+          SMTP_HOST: ${{ secrets.SMTP_HOST }}
+          SMTP_PORT: ${{ secrets.SMTP_PORT }}
+          SMTP_USER: ${{ secrets.SMTP_USER }}
+          SMTP_PASSWORD: ${{ secrets.SMTP_PASSWORD }}
+          REPORT_TO: ${{ secrets.REPORT_TO || 'mtuna546@gmail.com' }}
+        run: python track.py --email
+
+      - name: Raporu sakla
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: ab-fon-raporu
+          path: eu_funding_tracker/reports/
+          if-no-files-found: ignore
+
+      - name: state.json'u kaydet
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add eu_funding_tracker/state.json
+          git diff --cached --quiet || git commit -m "AB fon taraması: $(date -u +%F) state güncellemesi"
+          git push
