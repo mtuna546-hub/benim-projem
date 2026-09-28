@@ -2,8 +2,8 @@ name: AB Fon Çağrı Taraması
 
 on:
   schedule:
-    # Her Pazartesi 05:47 (İstanbul, UTC+3)
-    - cron: "47 2 * * 1"
+    # Her Çarşamba 09:00 (İstanbul, UTC+3)
+    - cron: "0 6 * * 3"
   workflow_dispatch:
 
 permissions:

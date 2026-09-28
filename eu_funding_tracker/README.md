@@ -3,7 +3,7 @@
 Bu araç [EU Funding & Tenders Portal](https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/home)
 üzerindeki **açık** ve **yakında açılacak** hibe çağrılarını düzenli olarak tarar. Her çağrıyı
 **İstanbul Ticaret Üniversitesi**'nin odak alanları, akademisyenleri ve ekosistem ortakları
-(**İTO**, **Teknopark İstanbul**, **BİM**) ile eşleştirir. Sonucu Türkçe bir HTML raporu
+(**İTO**, **Teknopark İstanbul**, **BTM — Bilgiyi Ticarileştirme Merkezi**) ile eşleştirir. Sonucu Türkçe bir HTML raporu
 olarak e-postayla gönderir.
 
 ## Dosyalar
@@ -50,8 +50,8 @@ olarak e-postayla gönderir.
 5. **İlk raporu hemen alın.** Actions → "AB Fon Çağrı Taraması" → **Run workflow** yolunu izleyin.
    İlk çalıştırmada tüm eşleşen açık çağrılar yeni sayılır, bu yüzden ilk rapor uzun olur.
 
-Workflow her **Pazartesi 05:47'de (İstanbul saati)** çalışır. Zamanı değiştirmek için
-workflow dosyasındaki `cron` satırını düzenleyin. Günlük çalıştırma için `"47 2 * * *"` yazın.
+Workflow her **Çarşamba 09:00'da (İstanbul saati)** çalışır. GitHub yoğunluğa göre birkaç dakika
+gecikebilir. Zamanı değiştirmek için workflow dosyasındaki `cron` satırını (UTC) düzenleyin.
 
 ## Elle çalıştırma
 
@@ -65,8 +65,6 @@ python3 -m unittest discover -s tests
 
 ## Notlar
 
-- `profile.json`'daki **BİM** tanımı ve anahtar kelimeleri tahmine dayanır. Kastedilen
-  kuruma göre `role` ve `keywords` alanlarını güncelleyin.
 - Türkiye katılım notları genel bilgi amaçlıdır. Her çağrının uygunluk koşullarını çağrı
   metninden doğrulayın.
 - Portal API'si (`api.tech.ec.europa.eu`) Claude Code bulut ortamının ağ politikasında

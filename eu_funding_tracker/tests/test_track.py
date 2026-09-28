@@ -46,6 +46,8 @@ class TrackTest(unittest.TestCase):
         self.assertNotIn("Başka Akademisyen", md)
         self.assertIn("İTO", md)
         self.assertIn("Teknopark İstanbul", md)
+        self.assertIn("BTM", md)
+        self.assertNotIn("BİM", md)
         self.assertIn("Türkiye ilişkili", md)
         self.assertIn("2026-10-15", md)  # within 30-day deadline window
         self.assertIn("<h1", html_body)

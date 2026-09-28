@@ -4,7 +4,7 @@
 Pulls every OPEN and FORTHCOMING grant topic from the portal's public SEDIA
 search API, scores each one against İstanbul Ticaret Üniversitesi's focus
 areas (profile.json), its academics (academics.csv) and ecosystem partners
-(İTO, Teknopark İstanbul, BİM), and writes a Turkish HTML + Markdown report.
+(İTO, Teknopark İstanbul, BTM), and writes a Turkish HTML + Markdown report.
 Calls already reported are remembered in state.json.
 
     python3 track.py                 # print Markdown report
