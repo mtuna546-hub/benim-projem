@@ -9,13 +9,16 @@
         "trade",
         "logistics",
         "supply chain",
+        "supply chains",
         "customs",
         "export",
+        "exports",
         "internationalisation",
         "e-commerce",
         "value chain",
         "freight",
-        "port"
+        "port",
+        "ports"
       ]
     },
     {
@@ -23,15 +26,18 @@
       "name": "Finans, Bankacılık ve Fintech",
       "keywords": [
         "finance",
-        "financial",
         "fintech",
         "banking",
         "blockchain",
         "digital euro",
         "payment",
-        "investment",
+        "payments",
         "insurance",
-        "crowdfunding"
+        "crowdfunding",
+        "financial inclusion",
+        "financial literacy",
+        "sustainable finance",
+        "capital markets"
       ]
     },
     {
@@ -41,29 +47,36 @@
         "sme",
         "smes",
         "entrepreneur",
+        "entrepreneurs",
         "entrepreneurship",
         "start-up",
+        "start-ups",
         "startup",
+        "startups",
         "business model",
-        "management",
+        "business models",
         "family business",
         "scale-up",
-        "marketing"
+        "scale-ups",
+        "marketing",
+        "corporate governance"
       ]
     },
     {
       "id": "economics_policy",
       "name": "İktisat ve Kamu Politikası",
       "keywords": [
-        "economic",
-        "economy",
-        "policy",
+        "economics",
         "labour market",
         "inequality",
-        "growth",
+        "inequalities",
         "competitiveness",
         "productivity",
-        "migration"
+        "migration",
+        "public policy",
+        "economic growth",
+        "taxation",
+        "public procurement"
       ]
     },
     {
@@ -73,15 +86,21 @@
         "artificial intelligence",
         "ai",
         "machine learning",
-        "data",
-        "digital",
-        "digitalisation",
         "big data",
+        "data analytics",
+        "data spaces",
+        "data science",
+        "digitalisation",
+        "digital transformation",
+        "digital twin",
+        "digital twins",
         "cloud",
         "software",
         "cybersecurity",
         "internet of things",
-        "iot"
+        "iot",
+        "generative ai",
+        "large language models"
       ]
     },
     {
@@ -90,28 +109,28 @@
       "keywords": [
         "manufacturing",
         "industry 4.0",
-        "industrial",
+        "industry 5.0",
         "robotics",
         "automation",
         "energy efficiency",
         "optimisation",
         "electronics",
-        "semiconductor"
+        "semiconductor",
+        "semiconductors"
       ]
     },
     {
       "id": "green_sustainability",
       "name": "Yeşil Dönüşüm ve Sürdürülebilirlik",
       "keywords": [
-        "green",
         "circular economy",
-        "sustainability",
-        "sustainable",
-        "climate",
-        "carbon",
-        "renewable",
+        "circularity",
+        "green transition",
+        "twin transition",
         "energy transition",
-        "decarbonisation"
+        "decarbonisation",
+        "esg",
+        "green deal"
       ]
     },
     {
@@ -119,14 +138,14 @@
       "name": "Hukuk, Regülasyon ve Yönetişim",
       "keywords": [
         "law",
-        "legal",
-        "regulation",
-        "regulatory",
-        "governance",
         "rule of law",
-        "compliance",
         "consumer protection",
-        "intellectual property"
+        "intellectual property",
+        "data protection",
+        "regulatory sandbox",
+        "regulatory sandboxes",
+        "competition law",
+        "justice"
       ]
     },
     {
@@ -134,14 +153,14 @@
       "name": "Mimarlık, Tasarım ve Kentsel Çalışmalar",
       "keywords": [
         "architecture",
-        "design",
         "urban",
-        "city",
         "cities",
         "built environment",
         "housing",
         "new european bauhaus",
-        "cultural heritage"
+        "cultural heritage",
+        "design thinking",
+        "product design"
       ]
     },
     {
@@ -149,16 +168,15 @@
       "name": "İletişim, Medya ve Sosyal Bilimler",
       "keywords": [
         "media",
-        "communication",
         "disinformation",
-        "social",
-        "society",
-        "culture",
-        "creative",
-        "education",
-        "skills",
+        "media literacy",
+        "journalism",
+        "creative industries",
+        "cultural and creative",
+        "higher education",
         "youth",
-        "gender"
+        "social innovation",
+        "social economy"
       ]
     }
   ],
@@ -171,14 +189,16 @@
         "sme",
         "smes",
         "chamber",
+        "chambers",
         "business support",
         "internationalisation",
         "single market",
         "enterprise europe network",
-        "trade",
         "retail",
         "cluster",
-        "business associations"
+        "clusters",
+        "business associations",
+        "trade"
       ]
     },
     {
@@ -187,18 +207,26 @@
       "role": "Teknoloji geliştirme bölgesi / kuluçka ortağı; start-up ve Ar-Ge firmaları, test-deney altyapısı",
       "keywords": [
         "startup",
+        "startups",
         "start-up",
+        "start-ups",
         "scale-up",
-        "innovation",
+        "scale-ups",
         "incubator",
+        "incubators",
         "accelerator",
+        "accelerators",
         "deep tech",
         "technology transfer",
         "digital innovation hub",
+        "digital innovation hubs",
+        "edih",
         "testing and experimentation",
-        "pilot",
         "eic",
-        "innovation ecosystem"
+        "innovation ecosystem",
+        "innovation ecosystems",
+        "science park",
+        "science parks"
       ]
     },
     {
@@ -209,23 +237,23 @@
         "commercialisation",
         "commercialization",
         "valorisation",
+        "knowledge valorisation",
         "knowledge transfer",
         "technology transfer",
         "spin-off",
         "spin-offs",
         "startup",
+        "startups",
         "start-up",
+        "start-ups",
         "entrepreneurship",
-        "investor",
-        "investors",
         "venture capital",
         "business angels",
         "mentoring",
         "accelerator",
         "acceleration",
-        "market uptake",
-        "exploitation",
-        "innovation"
+        "technology licensing",
+        "university-industry"
       ]
     }
   ],
@@ -234,6 +262,7 @@
     "Erasmus+": "Türkiye programa katılan ülke — tam katılım",
     "Single Market Programme": "Türkiye katılımcı — ilgili bileşenleri kontrol edin",
     "Digital Europe Programme": "Katılım koşullarını çağrı metninden kontrol edin",
-    "_default": "Türkiye'nin uygunluğunu çağrı metninden kontrol edin"
+    "_default": "Türkiye'nin uygunluğunu çağrı metninden kontrol edin",
+    "European Defence Fund": "Türkiye uygun değil (yalnızca AB/EEA)"
   }
 }

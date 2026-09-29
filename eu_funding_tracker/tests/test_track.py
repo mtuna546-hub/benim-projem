@@ -37,7 +37,7 @@ class TrackTest(unittest.TestCase):
     def test_matching_and_report(self):
         state = {"seen": {}, "last_run": None}
         now = datetime(2026, 9, 28, tzinfo=timezone.utc)
-        (title, md, html_body), new_count = track.run(self.hits(), state, now=now)
+        (title, md, html_body), (_, summary, _), new_count = track.run(self.hits(), state, now=now)
 
         self.assertEqual(new_count, 1)  # the LIFE nature call does not match the profile
         self.assertIn("HORIZON-CL4-2027-DIGITAL-01-01", state["seen"])
@@ -51,11 +51,27 @@ class TrackTest(unittest.TestCase):
         self.assertIn("Türkiye ilişkili", md)
         self.assertIn("2026-10-15", md)  # within 30-day deadline window
         self.assertIn("<h1", html_body)
+        self.assertIn("En uygun açık çağrılar", summary)
 
         # second run: nothing new
-        (_, md2, _), new_count2 = track.run(self.hits(), state, now=now)
+        _, (_, md2, _), new_count2 = track.run(self.hits(), state, now=now)
         self.assertEqual(new_count2, 0)
         self.assertIn("eşleşen yeni bir çağrı bulunamadı", md2)
+
+    def test_generic_body_words_alone_do_not_match(self):
+        hit = {"metadata": {
+            "identifier": ["HORIZON-X-01"],
+            "title": ["Advanced materials for batteries"],
+            "descriptionByte": ["SMEs, startups, supply chain, cloud, software, trade, export, fintech."],
+        }}
+        state = {"seen": {}, "last_run": None}
+        _, _, new_count = track.run([hit], state)
+        self.assertEqual(new_count, 0)  # no focus keyword in the title
+
+    def test_programme_label_falls_back_to_identifier_prefix(self):
+        self.assertEqual(track.programme_label("43108390", "X"), "Horizon Europe")
+        self.assertEqual(track.programme_label("44181033", "EDF-2026-RA-01"), "European Defence Fund")
+        self.assertEqual(track.programme_label("999", "UNKNOWN-1"), "999")
 
 
 if __name__ == "__main__":
