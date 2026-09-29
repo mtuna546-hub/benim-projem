@@ -4,7 +4,7 @@ Bu araç [EU Funding & Tenders Portal](https://ec.europa.eu/info/funding-tenders
 üzerindeki **açık** ve **yakında açılacak** hibe çağrılarını düzenli olarak tarar. Her çağrıyı
 **İstanbul Ticaret Üniversitesi**'nin odak alanları, akademisyenleri ve ekosistem ortakları
 (**İTO**, **Teknopark İstanbul**, **BTM — Bilgiyi Ticarileştirme Merkezi**) ile eşleştirir. Sonucu Türkçe bir HTML raporu
-olarak e-postayla gönderir.
+olarak GitHub Issue'su açar; GitHub bunu size e-postayla bildirir.
 
 ## Dosyalar
 
@@ -15,7 +15,7 @@ olarak e-postayla gönderir.
 | `academics.csv` | Akademisyen listesi: ad, bölüm, e-posta, odak alanı id'leri, kişisel anahtar kelimeler |
 | `state.json` | Daha önce raporlanmış çağrılar; aynı çağrı iki kez "yeni" diye gelmez |
 | `tests/` | Çevrimdışı test (örnek API yanıtı ile) |
-| `../.github/workflows/eu-funding-report.yml` | Haftalık otomatik çalıştırma + e-posta |
+| `../.github/workflows/eu-funding-report.yml` | Haftalık otomatik çalıştırma + rapor issue'su |
 
 ## Rapor içeriği
 
@@ -36,22 +36,24 @@ olarak e-postayla gönderir.
 ## Kurulum (bir kez)
 
 1. **Akademisyenleri girin.** `academics.csv` dosyasına her akademisyen için bir satır ekleyin.
-   Bu bilgileri üniversitenin AVESİS / YÖK Akademik sayfalarından alabilirsiniz.
-2. **Gmail uygulama şifresi alın.** Google Hesabı → Güvenlik → 2 Adımlı Doğrulama → Uygulama
-   şifreleri yolunu izleyin ve 16 haneli bir şifre oluşturun.
-3. **GitHub Secrets ekleyin.** Depoda Settings → Secrets and variables → Actions yoluna gidin:
-   - `SMTP_USER`: gönderen Gmail adresi (örn. `mtuna546@gmail.com`)
-   - `SMTP_PASSWORD`: 2. adımda aldığınız uygulama şifresi
-   - `REPORT_TO` (isteğe bağlı): alıcı adresi. Varsayılan `mtuna546@gmail.com`'dur.
-     Birden fazla alıcıyı virgülle ayırın.
-   - `SMTP_HOST` / `SMTP_PORT` (isteğe bağlı): Gmail dışında bir sunucu kullanacaksanız
-4. **Workflow'u varsayılan branch'e alın.** GitHub, zamanlanmış workflow'ları yalnızca
-   varsayılan branch'ten çalıştırır.
-5. **İlk raporu hemen alın.** Actions → "AB Fon Çağrı Taraması" → **Run workflow** yolunu izleyin.
+2. **İlk raporu hemen alın.** Actions → "AB Fon Çağrı Taraması" → **Run workflow** yolunu izleyin.
    İlk çalıştırmada tüm eşleşen açık çağrılar yeni sayılır, bu yüzden ilk rapor uzun olur.
 
 Workflow her **Çarşamba 09:00'da (İstanbul saati)** çalışır. GitHub yoğunluğa göre birkaç dakika
 gecikebilir. Zamanı değiştirmek için workflow dosyasındaki `cron` satırını (UTC) düzenleyin.
+
+## Rapor nasıl ulaşır (şifre gerekmez)
+
+- **GitHub Issue:** Her tarama, raporu repoda yeni bir **Issue** olarak açar ve bir önceki rapor
+  issue'sunu kapatır. GitHub, repo sahibine yeni issue'ları hesabında kayıtlı e-posta adresine
+  bildirim olarak gönderir. E-posta gelmiyorsa github.com → Settings → Notifications altında
+  "Watching" için **Email** seçeneğinin açık olduğunu ve reponun "Watch" edildiğini kontrol edin.
+- **Repoda dosya olarak:** Tam rapor `eu_funding_tracker/reports/rapor-YYYY-MM-DD.md` (ve `.html`)
+  olarak kaydedilir.
+- **Hata olursa:** Tarama başarısız olursa "AB fon taraması başarısız" başlıklı bir issue açılır.
+
+`track.py --email` ile SMTP üzerinden doğrudan e-posta gönderme seçeneği kodda duruyor, ama
+workflow bunu kullanmıyor.
 
 ## Elle çalıştırma
 
