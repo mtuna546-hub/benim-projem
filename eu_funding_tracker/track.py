@@ -217,7 +217,7 @@ def load_profile(path=PROFILE_PATH):
     profile = json.loads(Path(path).read_text(encoding="utf-8"))
     if Path(path).resolve() != PROFILE_PATH.resolve():
         base = json.loads(PROFILE_PATH.read_text(encoding="utf-8"))
-        for key in ("ecosystem", "turkey_participation"):
+        for key in ("ecosystem", "turkey_participation", "exclude_programmes"):
             profile.setdefault(key, base.get(key, {}))
     return profile
 
@@ -465,8 +465,12 @@ def run(hits, state, now=None, profile=None):
 
     # The portal keeps some 2023-2024 topics flagged open/forthcoming long after
     # every deadline has passed; drop those and show each call's next deadline.
+    # Programmes Turkish organisations cannot join (e.g. EDF: EU/EEA only), by identifier prefix.
+    excluded = tuple(p.upper() + "-" for p in profile.get("exclude_programmes", []))
     calls, stale = [], 0
     for call in parse_calls(hits):
+        if call["identifier"].upper().startswith(excluded):
+            continue
         future = [d for d in call["deadlines"] if d >= today]
         if call["deadlines"] and not future:
             stale += 1

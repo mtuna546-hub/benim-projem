@@ -123,5 +123,14 @@ class TrackTest(unittest.TestCase):
         self.assertIn("1 çağrı elendi", md)
 
 
+    def test_edf_calls_are_excluded_from_both_profiles(self):
+        hits = [{"metadata": {"identifier": ["EDF-2026-RA-SENS-MSDT"],
+                              "title": ["Multidomain sensors and AI for logistics and supply chain"]}}]
+        for name in ("profile.json", "profile_muhendislik.json"):
+            profile = track.load_profile(track.HERE / name)
+            _, _, new_count = track.run(hits, {"seen": {}, "last_run": None}, profile=profile)
+            self.assertEqual(new_count, 0, name)
+
+
 if __name__ == "__main__":
     unittest.main()
