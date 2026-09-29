@@ -46,20 +46,13 @@ jobs:
         with:
           name: ab-fon-raporu
           path: eu_funding_tracker/reports/
-          if-no-files-found: ignore
-
-      - name: state.json'u kaydet
-        run: |
-          git config user.name "github-actions[bot]"
-
-          - name: Raporu Kaydet
+          - name: Raporu ve Durumu Kaydet
         run: |
           git config --global user.name 'github-actions[bot]'
           git config --global user.email 'github-actions[bot]@users.noreply.github.com'
           git add .
-          git commit -m "Güncel AB Fon Raporu" || exit 0
+          git commit -m "Güncel AB Fon Raporu ve durum güncellemesi" || exit 0
           git push
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add eu_funding_tracker/state.json
-          git diff --cached --quiet || git commit -m "AB fon taraması: $(date -u +%F) state güncellemesi"
-          git push
+          if-no-files-found: ignore
+
+
