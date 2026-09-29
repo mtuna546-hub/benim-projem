@@ -8,6 +8,7 @@ on:
 
 permissions:
   contents: write
+  issues: write
 
 concurrency:
   group: eu-funding-report
@@ -30,15 +31,9 @@ jobs:
         working-directory: eu_funding_tracker
         run: python -m unittest discover -s tests
 
-      - name: Portalı tara, eşleştir ve e-postala
+      - name: Portalı tara ve eşleştir
         working-directory: eu_funding_tracker
-        env:
-          SMTP_HOST: ${{ secrets.SMTP_HOST }}
-          SMTP_PORT: ${{ secrets.SMTP_PORT }}
-          SMTP_USER: ${{ secrets.SMTP_USER }}
-          SMTP_PASSWORD: ${{ secrets.SMTP_PASSWORD }}
-          REPORT_TO: ${{ secrets.REPORT_TO || 'mtuna546@gmail.com' }}
-        run: python track.py 
+        run: python track.py
 
       - name: Raporu sakla
         if: always()
@@ -46,13 +41,41 @@ jobs:
         with:
           name: ab-fon-raporu
           path: eu_funding_tracker/reports/
-          - name: Raporu ve Durumu Kaydet
-        run: |
-          git config --global user.name 'github-actions[bot]'
-          git config --global user.email 'github-actions[bot]@users.noreply.github.com'
-          git add .
-          git commit -m "Güncel AB Fon Raporu ve durum güncellemesi" || exit 0
-          git push
           if-no-files-found: ignore
 
+      - name: Raporu ve durumu kaydet
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add eu_funding_tracker/state.json
+          git add -f eu_funding_tracker/reports/
+          git diff --cached --quiet || git commit -m "Güncel AB fon raporu ve durum güncellemesi: $(date -u +%F)"
+          git push
 
+      # GitHub, repo sahibine yeni issue'ları kendi bildirim e-postasıyla iletir;
+      # bu yüzden SMTP ya da Gmail şifresi gerekmez.
+      - name: Raporu GitHub Issue olarak yayınla
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          report=$(ls -1 eu_funding_tracker/reports/rapor-*.md | sort | tail -n 1)
+          title=$(head -n 1 "$report" | sed 's/^# //')
+          link="${{ github.server_url }}/${{ github.repository }}/blob/${{ github.ref_name }}/$report"
+          {
+            echo "@${{ github.repository_owner }} haftalık AB fon taraması tamamlandı. Tam rapor: $link"
+            echo
+            head -c 60000 "$report"
+          } > issue_body.md
+          gh issue list --state open --search "AB Fon Çağrıları in:title" --json number,author \
+            -q '.[] | select(.author.login == "app/github-actions" or .author.login == "github-actions") | .number' \
+            | xargs -r -n1 gh issue close --comment "Yeni haftalık rapor yayınlandı."
+          gh issue create --title "$title" --body-file issue_body.md
+
+      - name: Hata bildir
+        if: failure()
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh issue create \
+            --title "AB fon taraması başarısız ($(date -u +%F))" \
+            --body "@${{ github.repository_owner }} haftalık tarama hata verdi. Ayrıntılar: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"
