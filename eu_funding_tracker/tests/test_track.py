@@ -106,5 +106,22 @@ class TrackTest(unittest.TestCase):
         self.assertIn("sığmadı", big)
 
 
+    def test_stale_and_multi_cutoff_deadlines(self):
+        now = datetime(2026, 9, 29, tzinfo=timezone.utc)
+        hits = [
+            {"metadata": {"identifier": ["HORIZON-CL4-2024-DIGITAL-01"],
+                          "title": ["AI-powered robots for trade and logistics"],
+                          "deadlineDate": ["2024-03-19T17:00:00.000+0000"]}},
+            {"metadata": {"identifier": ["HORIZON-CL4-2026-DIGITAL-02"],
+                          "title": ["AI-powered robots for supply chain logistics"],
+                          "deadlineDate": ["2026-02-01T17:00:00.000+0000", "2027-02-01T17:00:00.000+0000"]}},
+        ]
+        (_, md, _), _, new_count = track.run(hits, {"seen": {}, "last_run": None}, now=now)
+        self.assertEqual(new_count, 1)
+        self.assertNotIn("HORIZON-CL4-2024-DIGITAL-01", md)
+        self.assertIn("**Son başvuru:** 2027-02-01", md)
+        self.assertIn("1 çağrı elendi", md)
+
+
 if __name__ == "__main__":
     unittest.main()

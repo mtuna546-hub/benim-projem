@@ -197,7 +197,9 @@ def parse_calls(hits):
                 "identifier": identifier,
                 "title": title,
                 "call_title": one(meta, "callTitle"),
-                "deadline": (one(meta, "deadlineDate") or "")[:10] or None,
+                # Multi-cut-off topics list several deadlines; run() picks the next one.
+                "deadlines": sorted(d[:10] for d in values(meta, "deadlineDate") if d),
+                "deadline": None,
                 "status": STATUS_LABELS.get(one(meta, "status"), one(meta, "status")),
                 "programme": programme_label(programme_id, identifier),
                 "url": one(meta, "url") or hit.get("url") or TOPIC_URL.format(identifier.lower()),
@@ -314,7 +316,8 @@ def build_report(new_matches, best, upcoming, profile, academics_count, stats, s
     title = f"AB Fon Çağrıları — {profile['institution']} Eşleştirme Raporu ({today})"
     md = [f"# {title}", ""]
     md.append(
-        f"Taranan açık/yakında açılacak çağrı: **{stats['scanned']}** · "
+        f"Taranan açık/yakında açılacak çağrı: **{stats['scanned']}** "
+        f"(süresi geçtiği hâlde portalda açık görünen {stats.get('stale', 0)} çağrı elendi) · "
         f"Kurumla eşleşen: **{stats['matched']}** · Yeni: **{len(new_matches)}** · "
         f"Kayıtlı akademisyen: **{academics_count}**"
     )
@@ -458,7 +461,18 @@ def run(hits, state, now=None, profile=None):
     now = now or datetime.now(timezone.utc)
     profile = profile or load_profile()
     academics = load_academics()
-    calls = parse_calls(hits)
+    today = now.strftime("%Y-%m-%d")
+
+    # The portal keeps some 2023-2024 topics flagged open/forthcoming long after
+    # every deadline has passed; drop those and show each call's next deadline.
+    calls, stale = [], 0
+    for call in parse_calls(hits):
+        future = [d for d in call["deadlines"] if d >= today]
+        if call["deadlines"] and not future:
+            stale += 1
+            continue
+        call["deadline"] = future[0] if future else None
+        calls.append(call)
 
     matched = []
     for call in calls:
@@ -469,7 +483,6 @@ def run(hits, state, now=None, profile=None):
 
     new_matches = [(c, m) for c, m in matched if c["identifier"] not in state["seen"]]
     horizon = (now + timedelta(days=UPCOMING_DAYS)).strftime("%Y-%m-%d")
-    today = now.strftime("%Y-%m-%d")
     upcoming = sorted(
         [(c, m) for c, m in matched if c["deadline"] and today <= c["deadline"] <= horizon],
         key=lambda cm: cm[0]["deadline"],
@@ -479,7 +492,7 @@ def run(hits, state, now=None, profile=None):
         state["seen"].setdefault(c["identifier"], {"first_seen": now.isoformat(), "title": c["title"]})
     state["last_run"] = now.isoformat()
 
-    stats = {"scanned": len(calls), "matched": len(matched)}
+    stats = {"scanned": len(calls), "matched": len(matched), "stale": stale}
     args = (new_matches, matched[:SUMMARY_BEST], upcoming, profile, len(academics), stats)
     return build_report(*args), build_report(*args, summary=True), len(new_matches)
 
