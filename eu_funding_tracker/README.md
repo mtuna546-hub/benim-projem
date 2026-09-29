@@ -19,19 +19,30 @@ olarak GitHub Issue'su açar; GitHub bunu size e-postayla bildirir.
 
 ## Rapor içeriği
 
-- **Yeni eşleşen çağrılar:** her çağrı için uygunluk puanı, eşleşen odak alanları,
-  önerilen akademisyenler (en fazla 5 kişi), rol önerisiyle birlikte ilgili ekosistem ortakları,
-  Türkiye katılım notu ve portal bağlantısı.
-- **Son başvurusu 30 gün içinde olan eşleşen çağrılar:** bu bölüm her raporda tekrar listelenir.
+Her tarama iki dosya üretir:
+
+- **Kısa özet** (`reports/ozet-YYYY-MM-DD.md`). GitHub Issue'suna bu konur. İçinde:
+  - en yüksek puanlı **25 yeni** çağrı, ayrıntılarıyla;
+  - yeni olsun olmasın **en uygun 10** açık çağrı;
+  - son başvurusu **30 gün** içinde olan çağrılar.
+- **Tam rapor** (`reports/rapor-YYYY-MM-DD.md` ve `.html`): eşleşen tüm çağrılar.
+
+Her çağrı için şunlar verilir: uygunluk puanı, eşleşen odak alanları, önerilen akademisyenler
+(en fazla 5), rolüyle birlikte ekosistem ortakları, Türkiye katılım notu ve portal bağlantısı.
 
 ### Puanlama
 
-- Bir anahtar kelime çağrının başlığında geçerse 3 puan alır. Açıklamada, etiketlerde veya
-  anahtar kelimelerde geçerse 1 puan alır.
-- Odak alanı puanlarının toplamı en az 3 ise çağrı rapora girer. Bu eşiği `MIN_AREA_SCORE`
-  ile değiştirebilirsiniz.
-- Akademisyen puanı şöyle hesaplanır: kişisel anahtar kelime puanının 2 katı, artı kişinin
-  odak alanlarından en yüksek puanlı olanın puanı.
+- **Başlık:** Bir anahtar kelime çağrı başlığında geçerse 3 puan alır.
+- **Açıklama:** Açıklamada, etiketlerde veya anahtar kelimelerde geçen her kelime 1 puan alır.
+  Bu puan her alan için en fazla 3'tür (`BODY_SCORE_CAP`). Böylece uzun ve jargon dolu
+  çağrı metinleri puanı şişirmez.
+- **Rapora girme koşulu:** Odak alanı puanlarının toplamı en az 6 olmalı (`MIN_AREA_SCORE`)
+  **ve** en az bir odak alanı kelimesi başlıkta geçmeli.
+- **Akademisyen puanı:** kişisel anahtar kelime puanının 2 katı, artı kişinin odak
+  alanlarından en yüksek puanlı olanın puanı.
+- **Anahtar kelime seçimi:** "digital", "data", "policy", "management" gibi her AB çağrısında
+  geçen genel kelimeler bilerek listede yok. Yerine "digital transformation", "data spaces"
+  gibi belirgin ifadeler kullanılıyor.
 
 ## Kurulum (bir kez)
 

@@ -45,9 +45,16 @@ PAGE_SIZE = 100
 MAX_PAGES = 40
 TOPIC_URL = "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/{}"
 
-MIN_AREA_SCORE = 3  # a call must reach this total focus-area score to be reported
+# A call is reported only if its focus-area score reaches MIN_AREA_SCORE AND at
+# least one focus-area keyword appears in its title. Description hits are capped
+# per keyword list so long, jargon-heavy call texts do not inflate the score.
+MIN_AREA_SCORE = 6
+BODY_SCORE_CAP = 3
 MAX_ACADEMICS_PER_CALL = 5
 UPCOMING_DAYS = 30
+SUMMARY_NEW = 25       # detailed new calls in the short summary (GitHub issue)
+SUMMARY_BEST = 10      # best-matching open calls, new or not
+SUMMARY_UPCOMING = 40  # deadline list length in the summary
 
 PROGRAMME_LABELS = {
     "43108390": "Horizon Europe",
@@ -62,6 +69,43 @@ PROGRAMME_LABELS = {
     "43089234": "Innovation Fund",
     "43392145": "European Maritime, Fisheries and Aquaculture Fund",
 }
+
+# Fallback when the numeric programme id is unknown: topic identifiers start
+# with the programme's abbreviation (e.g. "EDF-2026-...", "SMP-COSME-...").
+IDENTIFIER_PREFIX_LABELS = {
+    "HORIZON": "Horizon Europe",
+    "DIGITAL": "Digital Europe Programme",
+    "LIFE": "LIFE",
+    "ERASMUS": "Erasmus+",
+    "CREA": "Creative Europe",
+    "CEF": "Connecting Europe Facility",
+    "EU4H": "EU4Health",
+    "CERV": "Citizens, Equality, Rights and Values",
+    "INNOVFUND": "Innovation Fund",
+    "EMFAF": "European Maritime, Fisheries and Aquaculture Fund",
+    "EDF": "European Defence Fund",
+    "SMP": "Single Market Programme",
+    "I3": "Interregional Innovation Investments",
+    "EUAF": "Union Anti-Fraud Programme",
+    "JUST": "Justice Programme",
+    "AMIF": "Asylum, Migration and Integration Fund",
+    "ISF": "Internal Security Fund",
+    "BMVI": "Border Management and Visa Instrument",
+    "RFCS": "Research Fund for Coal and Steel",
+    "UCPM": "Union Civil Protection Mechanism",
+    "EUBA": "European Union Bodies and Agencies",
+    "PPPA": "Pilot Projects and Preparatory Actions",
+    "SOCPL": "Social Prerogative and Specific Competencies",
+    "EURATOM": "Euratom Research and Training Programme",
+    "RENEWFM": "Renewable Energy Financing Mechanism",
+}
+
+
+def programme_label(programme_id, identifier):
+    if programme_id in PROGRAMME_LABELS:
+        return PROGRAMME_LABELS[programme_id]
+    prefix = (identifier or "").split("-")[0].upper()
+    return IDENTIFIER_PREFIX_LABELS.get(prefix, programme_id)
 
 
 # --------------------------------------------------------------------------- API
@@ -148,7 +192,7 @@ def parse_calls(hits):
                 "call_title": one(meta, "callTitle"),
                 "deadline": (one(meta, "deadlineDate") or "")[:10] or None,
                 "status": STATUS_LABELS.get(one(meta, "status"), one(meta, "status")),
-                "programme": PROGRAMME_LABELS.get(programme_id, programme_id),
+                "programme": programme_label(programme_id, identifier),
                 "url": one(meta, "url") or hit.get("url") or TOPIC_URL.format(identifier.lower()),
                 "title_text": title.lower(),
                 "body_text": body.lower(),
@@ -182,23 +226,28 @@ def load_academics(path=ACADEMICS_PATH):
 
 
 def keyword_hits(call, keywords):
-    """Return (score, matched keywords). A hit in the title counts 3, elsewhere 1."""
-    score, matched = 0, []
+    """Return (score, matched keywords, title_hit).
+
+    A hit in the title counts 3; hits elsewhere count 1 each, capped at
+    BODY_SCORE_CAP for the whole keyword list.
+    """
+    title_score, body_score, matched = 0, 0, []
     for kw in keywords:
         pattern = r"\b" + re.escape(kw.lower()) + r"\b"
         if re.search(pattern, call["title_text"]):
-            score += 3
+            title_score += 3
             matched.append(kw)
         elif re.search(pattern, call["body_text"]):
-            score += 1
+            body_score += 1
             matched.append(kw)
-    return score, matched
+    return title_score + min(body_score, BODY_SCORE_CAP), matched, title_score > 0
 
 
 def match_call(call, profile, academics):
-    areas = []
+    areas, title_hit = [], False
     for area in profile["focus_areas"]:
-        score, matched = keyword_hits(call, area["keywords"])
+        score, matched, in_title = keyword_hits(call, area["keywords"])
+        title_hit = title_hit or in_title
         if score:
             areas.append({"id": area["id"], "name": area["name"], "score": score, "matched": matched})
     areas.sort(key=lambda a: -a["score"])
@@ -206,7 +255,7 @@ def match_call(call, profile, academics):
 
     people = []
     for ac in academics:
-        own, matched = keyword_hits(call, ac["keywords"])
+        own, matched, _ = keyword_hits(call, ac["keywords"])
         via_area = max((area_scores.get(a, 0) for a in ac["focus_areas"]), default=0)
         score = own * 2 + via_area
         if score:
@@ -215,7 +264,7 @@ def match_call(call, profile, academics):
 
     ecosystem = []
     for partner in profile["ecosystem"]:
-        score, matched = keyword_hits(call, partner["keywords"])
+        score, matched, _ = keyword_hits(call, partner["keywords"])
         if score:
             ecosystem.append({**partner, "score": score, "matched": matched})
     ecosystem.sort(key=lambda e: -e["score"])
@@ -223,6 +272,7 @@ def match_call(call, profile, academics):
     total = sum(a["score"] for a in areas)
     return {
         "total": total,
+        "title_hit": title_hit,
         "areas": areas[:3],
         "academics": people[:MAX_ACADEMICS_PER_CALL],
         "ecosystem": ecosystem,
@@ -236,7 +286,8 @@ def turkey_note(profile, programme):
 
 # ------------------------------------------------------------------------ report
 
-def build_report(new_matches, upcoming, profile, academics_count, stats):
+def build_report(new_matches, best, upcoming, profile, academics_count, stats, summary=False):
+    """Render the report. summary=True gives the short version used for the GitHub issue."""
     today = datetime.now(timezone.utc).strftime("%Y-%m-%d")
     title = f"AB Fon Çağrıları — {profile['institution']} Eşleştirme Raporu ({today})"
     md = [f"# {title}", ""]
@@ -268,18 +319,33 @@ def build_report(new_matches, upcoming, profile, academics_count, stats):
         out.append("")
         return out
 
+    def line_md(call, m, lead):
+        eco = ", ".join(e["name"] for e in m["ecosystem"]) or "-"
+        return f"- **{lead}** — [{call['title']}]({call['url']}) (`{call['identifier']}`, puan {m['total']}, ekosistem: {eco})"
+
+    shown_new = new_matches[:SUMMARY_NEW] if summary else new_matches
     md.append(f"## Yeni eşleşen çağrılar ({len(new_matches)})\n")
     if not new_matches:
         md.append("Bu dönemde kurum profiliyle eşleşen yeni bir çağrı bulunamadı.\n")
-    for call, m in new_matches:
+    for call, m in shown_new:
         md += call_md(call, m)
+    if len(new_matches) > len(shown_new):
+        md.append(f"_…ve {len(new_matches) - len(shown_new)} yeni çağrı daha: tam rapora bakın._\n")
 
+    if summary and best:
+        md.append(f"## En uygun açık çağrılar (ilk {len(best)}, yeni olsun olmasın)\n")
+        for call, m in best:
+            md.append(line_md(call, m, call["deadline"] or "tarih yok"))
+        md.append("")
+
+    shown_up = upcoming[:SUMMARY_UPCOMING] if summary else upcoming
     md.append(f"## Son başvurusu {UPCOMING_DAYS} gün içinde olan eşleşen çağrılar ({len(upcoming)})\n")
     if not upcoming:
         md.append("Yok.\n")
-    for call, m in upcoming:
-        eco = ", ".join(e["name"] for e in m["ecosystem"]) or "-"
-        md.append(f"- **{call['deadline']}** — [{call['title']}]({call['url']}) (`{call['identifier']}`, puan {m['total']}, ekosistem: {eco})")
+    for call, m in shown_up:
+        md.append(line_md(call, m, call["deadline"]))
+    if len(upcoming) > len(shown_up):
+        md.append(f"- _…ve {len(upcoming) - len(shown_up)} çağrı daha: tam rapora bakın._")
     md.append("")
     md.append("---\nOtomatik olarak EU Funding & Tenders Portal verisinden üretilmiştir; "
               "uygunluk ve Türkiye katılım bilgilerini çağrı metninden teyit edin.")
@@ -369,7 +435,7 @@ def run(hits, state, now=None):
     matched = []
     for call in calls:
         m = match_call(call, profile, academics)
-        if m["total"] >= MIN_AREA_SCORE:
+        if m["total"] >= MIN_AREA_SCORE and m["title_hit"]:
             matched.append((call, m))
     matched.sort(key=lambda cm: -cm[1]["total"])
 
@@ -386,7 +452,8 @@ def run(hits, state, now=None):
     state["last_run"] = now.isoformat()
 
     stats = {"scanned": len(calls), "matched": len(matched)}
-    return build_report(new_matches, upcoming, profile, len(academics), stats), len(new_matches)
+    args = (new_matches, matched[:SUMMARY_BEST], upcoming, profile, len(academics), stats)
+    return build_report(*args), build_report(*args, summary=True), len(new_matches)
 
 
 def main():
@@ -409,16 +476,17 @@ def main():
                        f"<p>Portal taraması başarısız: {html.escape(str(exc))}</p>")
         sys.exit(1)
 
-    (title, markdown, html_body), new_count = run(hits, state)
+    (title, markdown, html_body), (_, summary_md, _), new_count = run(hits, state)
 
     REPORTS_DIR.mkdir(exist_ok=True)
     stamp = datetime.now(timezone.utc).strftime("%Y-%m-%d")
     (REPORTS_DIR / f"rapor-{stamp}.md").write_text(markdown, encoding="utf-8")
     (REPORTS_DIR / f"rapor-{stamp}.html").write_text(html_body, encoding="utf-8")
+    (REPORTS_DIR / f"ozet-{stamp}.md").write_text(summary_md, encoding="utf-8")
     if not args.no_save:
         save_state(state)
 
-    print(markdown)
+    print(summary_md)
     print(f"\n---\nNEW_CALLS_COUNT={new_count}")
     if args.email:
         send_email(f"{title} — {new_count} yeni çağrı", markdown, html_body)

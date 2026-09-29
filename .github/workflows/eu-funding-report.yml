@@ -59,12 +59,13 @@ jobs:
           GH_TOKEN: ${{ github.token }}
         run: |
           report=$(ls -1 eu_funding_tracker/reports/rapor-*.md | sort | tail -n 1)
-          title=$(head -n 1 "$report" | sed 's/^# //')
+          summary=$(ls -1 eu_funding_tracker/reports/ozet-*.md | sort | tail -n 1)
+          title=$(head -n 1 "$summary" | sed 's/^# //')
           link="${{ github.server_url }}/${{ github.repository }}/blob/${{ github.ref_name }}/$report"
           {
-            echo "@${{ github.repository_owner }} haftalık AB fon taraması tamamlandı. Tam rapor: $link"
+            echo "@${{ github.repository_owner }} haftalık AB fon taraması tamamlandı. Tüm eşleşmeleri içeren tam rapor: $link"
             echo
-            head -c 60000 "$report"
+            head -c 60000 "$summary"
           } > issue_body.md
           gh issue list --state open --search "AB Fon Çağrıları in:title" --json number,author \
             -q '.[] | select(.author.login == "app/github-actions" or .author.login == "github-actions") | .number' \
