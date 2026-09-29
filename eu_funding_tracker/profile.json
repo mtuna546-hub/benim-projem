@@ -2,6 +2,9 @@
   "_aciklama": "İstanbul Ticaret Üniversitesi odak alanları ve ekosistem ortakları. Anahtar kelimeler İngilizcedir çünkü AB çağrı metinleri İngilizcedir. Alanları/kelimeleri serbestçe düzenleyebilirsiniz.",
   "institution": "İstanbul Ticaret Üniversitesi",
   "summary_new": 10,
+  "exclude_programmes": [
+    "EDF"
+  ],
   "focus_areas": [
     {
       "id": "trade_logistics",

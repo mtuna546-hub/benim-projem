@@ -97,6 +97,11 @@ python3 -m unittest discover -s tests
 
 ## Notlar
 
+- Türk kuruluşlarının katılamadığı programlar raporlara hiç alınmaz. Şu an listede yalnızca
+  Avrupa Savunma Fonu (EDF) var. Liste `profile.json` içindeki `exclude_programmes`
+  alanında tutulur; değerler çağrı kodu önekidir. Mühendislik profili de bu listeyi kullanır.
+- Portal, son başvuru tarihleri geçmiş bazı eski çağrıları hâlâ "açık" olarak döndürebiliyor.
+  Bu çağrılar otomatik olarak elenir; kaç tanesinin elendiği rapor başlığında yazar.
 - Türkiye katılım notları genel bilgi amaçlıdır. Her çağrının uygunluk koşullarını çağrı
   metninden doğrulayın.
 - Portal API'si (`api.tech.ec.europa.eu`) Claude Code bulut ortamının ağ politikasında
