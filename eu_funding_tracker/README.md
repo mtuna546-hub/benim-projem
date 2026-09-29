@@ -11,24 +11,43 @@ olarak GitHub Issue'su açar; GitHub bunu size e-postayla bildirir.
 | Dosya | Görevi |
 |---|---|
 | `track.py` | Tarama, eşleştirme, rapor ve e-posta |
-| `profile.json` | Üniversitenin odak alanları, ekosistem ortakları ve Türkiye katılım notları (anahtar kelimeler İngilizce) |
+| `profile.json` | Genel profil: üniversitenin odak alanları, ekosistem ortakları ve Türkiye katılım notları (anahtar kelimeler İngilizce) |
+| `profile_muhendislik.json` | Mühendislik Fakültesi profili: bölüm odak alanları ve program ağırlıkları |
 | `academics.csv` | Akademisyen listesi: ad, bölüm, e-posta, odak alanı id'leri, kişisel anahtar kelimeler |
-| `state.json` | Daha önce raporlanmış çağrılar; aynı çağrı iki kez "yeni" diye gelmez |
+| `state.json`, `state_muhendislik.json` | Her profilin daha önce raporladığı çağrılar; aynı çağrı iki kez "yeni" diye gelmez |
 | `tests/` | Çevrimdışı test (örnek API yanıtı ile) |
 | `../.github/workflows/eu-funding-report.yml` | Haftalık otomatik çalıştırma + rapor issue'su |
 
 ## Rapor içeriği
 
-Her tarama iki dosya üretir:
+Portal bir kez taranır ve sonuçlar iki profile göre ayrı ayrı eşleştirilir:
 
-- **Kısa özet** (`reports/ozet-YYYY-MM-DD.md`). GitHub Issue'suna bu konur. İçinde:
-  - en yüksek puanlı **25 yeni** çağrı, ayrıntılarıyla;
-  - yeni olsun olmasın **en uygun 10** açık çağrı;
-  - son başvurusu **30 gün** içinde olan çağrılar.
-- **Tam rapor** (`reports/rapor-YYYY-MM-DD.md` ve `.html`): eşleşen tüm çağrılar.
+| Profil | Dosya | Odak |
+|---|---|---|
+| **Mühendislik Fakültesi** (ana rapor) | `profile_muhendislik.json` | Elektrik-Elektronik, Enerji, Bilgisayar ve Yapay Zeka, Endüstri Mühendisliği. Chips JU, KDT, EIC Pathfinder/Transition, Horizon Cluster 4/5 ve Digital Europe'a ek puan verilir. Cluster 2 (kültür, toplum), Cluster 6 (gıda, biyoekonomi) ve New European Bauhaus'tan puan düşülür. |
+| **Genel** (tüm üniversite) | `profile.json` | Ticaret, işletme, finans, hukuk, mimarlık ve tasarım dahil 10 odak alanı |
 
-Her çağrı için şunlar verilir: uygunluk puanı, eşleşen odak alanları, önerilen akademisyenler
-(en fazla 5), rolüyle birlikte ekosistem ortakları, Türkiye katılım notu ve portal bağlantısı.
+İki profil ortak kaynakları paylaşır: ekosistem ortakları (İTO, Teknopark İstanbul, BTM), Türkiye katılım
+notları (`profile.json`) ve `academics.csv`. Her profilin kendi "görülen çağrılar" dosyası vardır:
+`state_muhendislik.json` ve `state.json`.
+
+**Haftalık GitHub Issue'su:** En üstte Mühendislik Fakültesi özeti yer alır. Genel rapor, altında
+açılır-kapanır bir bölümdedir.
+
+Her profil için `reports/` klasöründe şu dosyalar üretilir:
+
+- **Kısa özet** (`muhendislik-ozet-*.md`, `ozet-*.md`):
+  - en yüksek puanlı 25 yeni çağrı, ayrıntılarıyla;
+  - yeni olsun olmasın en uygun 10 açık çağrı;
+  - son başvurusu 30 gün içinde olan çağrılar.
+- **Tam rapor** (`muhendislik-rapor-*.md/.html`, `rapor-*.md/.html`): eşleşen tüm çağrılar.
+
+Her çağrı için şunlar verilir: uygunluk puanı (varsa program ağırlığıyla birlikte), eşleşen odak
+alanları, önerilen akademisyenler, ekosistem ortakları, Türkiye katılım notu ve portal bağlantısı.
+
+**Program ağırlıklarını değiştirmek için:** `profile_muhendislik.json` içindeki `programme_weights`
+alanını düzenleyin. Anahtar, çağrı koduna (büyük harfle) uygulanan bir düzenli ifadedir; değer
+eklenecek (+) ya da düşülecek (−) puandır.
 
 ### Puanlama
 
