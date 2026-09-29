@@ -1,0 +1,30 @@
+{
+  "results": [
+    {
+      "metadata": {
+        "identifier": ["HORIZON-CL4-2027-DIGITAL-01-01"],
+        "title": ["Trustworthy artificial intelligence for SMEs in trade and logistics"],
+        "callTitle": ["Digital, Industry and Space"],
+        "status": ["31094502"],
+        "frameworkProgramme": ["43108390"],
+        "deadlineDate": ["2026-10-15T17:00:00.000+0000"],
+        "descriptionByte": ["<p>Support SMEs and start-up ecosystems with AI and data solutions for supply chain resilience.</p>"]
+      }
+    },
+    {
+      "metadata": {
+        "identifier": ["LIFE-2027-NAT-01"],
+        "title": ["Wetland restoration of migratory bird habitats"],
+        "status": ["31094501"],
+        "frameworkProgramme": ["43252405"],
+        "deadlineDate": ["2027-03-01T17:00:00.000+0000"]
+      }
+    },
+    {
+      "metadata": {
+        "identifier": ["HORIZON-CL4-2027-DIGITAL-01-01"],
+        "title": ["duplicate row must be ignored"]
+      }
+    }
+  ]
+}
