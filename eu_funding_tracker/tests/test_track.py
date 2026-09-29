@@ -74,5 +74,37 @@ class TrackTest(unittest.TestCase):
         self.assertEqual(track.programme_label("999", "UNKNOWN-1"), "999")
 
 
+    def test_engineering_profile_weights_programmes(self):
+        eng = track.load_profile(track.HERE / "profile_muhendislik.json")
+        base = track.load_profile()
+        self.assertEqual(eng["ecosystem"], base["ecosystem"])  # inherited from profile.json
+        hits = [
+            {"metadata": {"identifier": ["HORIZON-JU-CHIPS-2026-RIA-01"],
+                          "title": ["Power electronics and sensors for next-generation chips"]}},
+            {"metadata": {"identifier": ["HORIZON-CL2-2026-HERITAGE-01"],
+                          "title": ["AI tools for cultural heritage"]}},
+        ]
+        state = {"seen": {}, "last_run": None}
+        (_, md, _), _, new_count = track.run(hits, state, profile=eng)
+        self.assertEqual(new_count, 1)
+        self.assertIn("HORIZON-JU-CHIPS-2026-RIA-01", md)
+        self.assertIn("program ağırlığı +4", md)
+        self.assertNotIn("cultural heritage", md)  # Cluster 2 penalty drops it
+
+        # The general profile still keeps the cultural-heritage call.
+        (_, md_general, _), _, _ = track.run(hits, {"seen": {}, "last_run": None}, profile=base)
+        self.assertIn("AI tools for cultural heritage", md_general)
+
+    def test_issue_body_nests_general_report(self):
+        body = track.build_issue_body([("Mühendislik", "# Müh raporu"), ("Genel", "# Genel rapor")])
+        self.assertTrue(body.startswith("# Müh raporu"))
+        self.assertIn("<details>", body)
+        self.assertIn("# Genel rapor", body)
+
+        big = track.build_issue_body([("Müh", "x" * 50000), ("Genel", "y" * 20000)])
+        self.assertLess(len(big), track.ISSUE_BODY_LIMIT)
+        self.assertIn("sığmadı", big)
+
+
 if __name__ == "__main__":
     unittest.main()

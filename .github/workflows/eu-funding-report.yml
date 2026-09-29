@@ -47,7 +47,7 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add eu_funding_tracker/state.json
+          git add eu_funding_tracker/state*.json
           git add -f eu_funding_tracker/reports/
           git diff --cached --quiet || git commit -m "Güncel AB fon raporu ve durum güncellemesi: $(date -u +%F)"
           git push
@@ -58,14 +58,14 @@ jobs:
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
-          report=$(ls -1 eu_funding_tracker/reports/rapor-*.md | sort | tail -n 1)
-          summary=$(ls -1 eu_funding_tracker/reports/ozet-*.md | sort | tail -n 1)
-          title=$(head -n 1 "$summary" | sed 's/^# //')
-          link="${{ github.server_url }}/${{ github.repository }}/blob/${{ github.ref_name }}/$report"
+          # issue-*.md: Mühendislik Fakültesi özeti, altında açılır bölümde genel rapor.
+          body=$(ls -1 eu_funding_tracker/reports/issue-*.md | sort | tail -n 1)
+          title=$(head -n 1 "$body" | sed 's/^# //')
+          base="${{ github.server_url }}/${{ github.repository }}/tree/${{ github.ref_name }}/eu_funding_tracker/reports"
           {
-            echo "@${{ github.repository_owner }} haftalık AB fon taraması tamamlandı. Tüm eşleşmeleri içeren tam rapor: $link"
+            echo "@${{ github.repository_owner }} haftalık AB fon taraması tamamlandı. Tüm eşleşmeleri içeren tam raporlar (muhendislik-rapor-*, rapor-*): $base"
             echo
-            head -c 60000 "$summary"
+            cat "$body"
           } > issue_body.md
           gh issue list --state open --search "AB Fon Çağrıları in:title" --json number,author \
             -q '.[] | select(.author.login == "app/github-actions" or .author.login == "github-actions") | .number' \

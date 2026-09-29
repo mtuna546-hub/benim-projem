@@ -1,0 +1,40 @@
+{
+  "_aciklama": "Mühendislik Fakültesi profili. Ekosistem ortakları (İTO, Teknopark İstanbul, BTM) ve Türkiye katılım notları profile.json'dan alınır. programme_weights: çağrı koduna (büyük harf) uyan düzenli ifadeye göre eklenen/çıkarılan puan.",
+  "institution": "İstanbul Ticaret Üniversitesi Mühendislik Fakültesi",
+  "file_prefix": "muhendislik-",
+  "state_file": "state_muhendislik.json",
+  "summary_new": 25,
+  "focus_areas": [
+    {
+      "id": "electrical_electronics",
+      "name": "Elektrik-Elektronik",
+      "keywords": ["power electronics", "smart grid", "smart grids", "5g", "6g", "telecommunications", "telecom", "wireless", "embedded systems", "sensor", "sensors", "signal processing", "photonics", "photonic", "semiconductor", "semiconductors", "microelectronics", "electronics", "antenna", "antennas", "radar", "internet of things", "iot", "chips", "chip"]
+    },
+    {
+      "id": "energy",
+      "name": "Enerji",
+      "keywords": ["battery", "batteries", "energy storage", "hydrogen", "renewable energy", "renewables", "photovoltaic", "photovoltaics", "solar", "wind energy", "offshore wind", "energy efficiency", "electric vehicle", "electric vehicles", "electrification", "energy systems", "heat pump", "heat pumps", "clean energy transition", "grid"]
+    },
+    {
+      "id": "computer",
+      "name": "Bilgisayar ve Yapay Zeka",
+      "keywords": ["artificial intelligence", "ai", "machine learning", "deep learning", "computer vision", "natural language processing", "large language models", "generative ai", "high performance computing", "high-performance computing", "hpc", "quantum", "edge computing", "cloud", "cybersecurity", "software", "data spaces", "big data", "digital twin", "digital twins", "human-robot interaction", "robotics", "robot", "robots", "blockchain"]
+    },
+    {
+      "id": "industrial",
+      "name": "Endüstri Mühendisliği",
+      "keywords": ["operations research", "optimisation", "optimization", "scheduling", "simulation", "decision support", "lean", "supply chain", "supply chains", "logistics", "industry 4.0", "industry 5.0", "manufacturing", "automation", "predictive maintenance", "quality control", "production planning"]
+    }
+  ],
+  "programme_weights": {
+    "CHIPS": 4,
+    "KDT": 4,
+    "^HORIZON-EIC-\\d{4}-(PATHFINDER|TRANSITION)": 3,
+    "^HORIZON-CL4-": 3,
+    "^HORIZON-CL5-": 3,
+    "^DIGITAL-": 2,
+    "^HORIZON-CL2-": -4,
+    "^HORIZON-CL6-": -3,
+    "^HORIZON-NEB-": -2
+  }
+}

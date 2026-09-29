@@ -2,13 +2,18 @@
 """EU Funding & Tenders Portal tracker with academic / ecosystem matching.
 
 Pulls every OPEN and FORTHCOMING grant topic from the portal's public SEDIA
-search API, scores each one against İstanbul Ticaret Üniversitesi's focus
-areas (profile.json), its academics (academics.csv) and ecosystem partners
-(İTO, Teknopark İstanbul, BTM), and writes a Turkish HTML + Markdown report.
-Calls already reported are remembered in state.json.
+search API once, then scores every call against each profile in PROFILES:
+the Engineering Faculty (profile_muhendislik.json) and the whole university
+(profile.json). Each profile has its own focus areas, optional programme
+weights and state file; ecosystem partners (İTO, Teknopark İstanbul, BTM),
+academics (academics.csv) and Turkey notes are shared. Writes a Turkish HTML +
+Markdown report per profile plus one combined GitHub issue body
+(reports/issue-DATE.md): the engineering summary first, the general report in
+a collapsible section below it.
 
-    python3 track.py                 # print Markdown report
-    python3 track.py --email         # also send the HTML report via SMTP
+    python3 track.py                 # all profiles
+    python3 track.py --profile profile.json   # a single profile
+    python3 track.py --email         # also send the first profile's report via SMTP
     python3 track.py --fixture f.json  # offline run against a saved API response
 
 SMTP settings come from the environment: SMTP_HOST (default smtp.gmail.com),
@@ -30,8 +35,10 @@ from pathlib import Path
 import requests
 
 HERE = Path(__file__).parent
-STATE_PATH = HERE / "state.json"
-PROFILE_PATH = HERE / "profile.json"
+PROFILE_PATH = HERE / "profile.json"  # base profile: ecosystem + Turkey notes live here
+# Order matters: the first profile leads the combined issue, the rest are collapsed below it.
+PROFILES = ["profile_muhendislik.json", "profile.json"]
+ISSUE_BODY_LIMIT = 60000  # GitHub caps issue bodies at 65536 characters
 ACADEMICS_PATH = HERE / "academics.csv"
 REPORTS_DIR = HERE / "reports"
 
@@ -203,8 +210,21 @@ def parse_calls(hits):
 
 # ---------------------------------------------------------------------- matching
 
-def load_profile():
-    return json.loads(PROFILE_PATH.read_text(encoding="utf-8"))
+def load_profile(path=PROFILE_PATH):
+    """Load a profile; missing ecosystem / Turkey notes are inherited from profile.json."""
+    profile = json.loads(Path(path).read_text(encoding="utf-8"))
+    if Path(path).resolve() != PROFILE_PATH.resolve():
+        base = json.loads(PROFILE_PATH.read_text(encoding="utf-8"))
+        for key in ("ecosystem", "turkey_participation"):
+            profile.setdefault(key, base.get(key, {}))
+    return profile
+
+
+def programme_weight(call, profile):
+    """Sum of profile["programme_weights"] whose regex matches the call identifier."""
+    ident = call["identifier"].upper()
+    return sum(w for pattern, w in profile.get("programme_weights", {}).items()
+               if re.search(pattern, ident))
 
 
 def load_academics(path=ACADEMICS_PATH):
@@ -269,9 +289,11 @@ def match_call(call, profile, academics):
             ecosystem.append({**partner, "score": score, "matched": matched})
     ecosystem.sort(key=lambda e: -e["score"])
 
-    total = sum(a["score"] for a in areas)
+    weight = programme_weight(call, profile)
+    total = sum(a["score"] for a in areas) + weight
     return {
         "total": total,
+        "weight": weight,
         "title_hit": title_hit,
         "areas": areas[:3],
         "academics": people[:MAX_ACADEMICS_PER_CALL],
@@ -306,7 +328,8 @@ def build_report(new_matches, best, upcoming, profile, academics_count, stats, s
     def call_md(call, m):
         out = [f"### {call['title']}"]
         out.append(f"- **Kod:** `{call['identifier']}` · **Program:** {call['programme'] or '-'} · **Durum:** {call['status'] or '-'}")
-        out.append(f"- **Son başvuru:** {call['deadline'] or 'Belirtilmemiş'} · **Uygunluk puanı:** {m['total']}")
+        weight = f" (program ağırlığı {m['weight']:+d})" if m.get("weight") else ""
+        out.append(f"- **Son başvuru:** {call['deadline'] or 'Belirtilmemiş'} · **Uygunluk puanı:** {m['total']}{weight}")
         out.append(f"- **Türkiye:** {turkey_note(profile, call['programme'])}")
         out.append("- **Odak alanları:** " + "; ".join(f"{a['name']} ({', '.join(a['matched'][:4])})" for a in m["areas"]))
         if m["academics"]:
@@ -323,7 +346,7 @@ def build_report(new_matches, best, upcoming, profile, academics_count, stats, s
         eco = ", ".join(e["name"] for e in m["ecosystem"]) or "-"
         return f"- **{lead}** — [{call['title']}]({call['url']}) (`{call['identifier']}`, puan {m['total']}, ekosistem: {eco})"
 
-    shown_new = new_matches[:SUMMARY_NEW] if summary else new_matches
+    shown_new = new_matches[:profile.get("summary_new", SUMMARY_NEW)] if summary else new_matches
     md.append(f"## Yeni eşleşen çağrılar ({len(new_matches)})\n")
     if not new_matches:
         md.append("Bu dönemde kurum profiliyle eşleşen yeni bir çağrı bulunamadı.\n")
@@ -414,21 +437,26 @@ def send_email(subject, markdown, html_body):
 
 # -------------------------------------------------------------------------- main
 
-def load_state():
-    if STATE_PATH.exists():
-        return json.loads(STATE_PATH.read_text(encoding="utf-8"))
+def state_path(profile):
+    return HERE / profile.get("state_file", "state.json")
+
+
+def load_state(profile):
+    path = state_path(profile)
+    if path.exists():
+        return json.loads(path.read_text(encoding="utf-8"))
     return {"seen": {}, "last_run": None}
 
 
-def save_state(state):
-    STATE_PATH.write_text(
+def save_state(profile, state):
+    state_path(profile).write_text(
         json.dumps(state, ensure_ascii=False, indent=2, sort_keys=True) + "\n", encoding="utf-8"
     )
 
 
-def run(hits, state, now=None):
+def run(hits, state, now=None, profile=None):
     now = now or datetime.now(timezone.utc)
-    profile = load_profile()
+    profile = profile or load_profile()
     academics = load_academics()
     calls = parse_calls(hits)
 
@@ -456,14 +484,33 @@ def run(hits, state, now=None):
     return build_report(*args), build_report(*args, summary=True), len(new_matches)
 
 
+def build_issue_body(summaries):
+    """First profile's summary in full, the others in collapsible sections, within the size limit."""
+    lead, rest = summaries[0], summaries[1:]
+    parts = []
+    for title, summary in rest:
+        parts.append(f"\n\n<details>\n<summary><b>{html.escape(title)}</b> (açmak için tıklayın)</summary>\n\n"
+                     f"{summary}\n\n</details>")
+    budget = ISSUE_BODY_LIMIT - len(lead[1]) - 200
+    tail = ""
+    for part in parts:
+        if len(part) <= budget:
+            tail += part
+            budget -= len(part)
+        else:
+            tail += "\n\n_Genel rapor bu issue'ya sığmadı; tam rapor repodaki `reports/` klasöründe._"
+            break
+    return lead[1] + tail
+
+
 def main():
     parser = argparse.ArgumentParser()
-    parser.add_argument("--email", action="store_true", help="raporu SMTP ile e-postala")
+    parser.add_argument("--profile", action="append", help="yalnızca bu profil(ler)i çalıştır")
+    parser.add_argument("--email", action="store_true", help="ilk profilin raporunu SMTP ile e-postala")
     parser.add_argument("--fixture", type=Path, help="API yerine kaydedilmiş JSON yanıtını kullan")
-    parser.add_argument("--no-save", action="store_true", help="state.json'u güncelleme")
+    parser.add_argument("--no-save", action="store_true", help="state dosyalarını güncelleme")
     args = parser.parse_args()
 
-    state = load_state()
     try:
         if args.fixture:
             hits = json.loads(args.fixture.read_text(encoding="utf-8")).get("results", [])
@@ -476,19 +523,28 @@ def main():
                        f"<p>Portal taraması başarısız: {html.escape(str(exc))}</p>")
         sys.exit(1)
 
-    (title, markdown, html_body), (_, summary_md, _), new_count = run(hits, state)
-
     REPORTS_DIR.mkdir(exist_ok=True)
     stamp = datetime.now(timezone.utc).strftime("%Y-%m-%d")
-    (REPORTS_DIR / f"rapor-{stamp}.md").write_text(markdown, encoding="utf-8")
-    (REPORTS_DIR / f"rapor-{stamp}.html").write_text(html_body, encoding="utf-8")
-    (REPORTS_DIR / f"ozet-{stamp}.md").write_text(summary_md, encoding="utf-8")
-    if not args.no_save:
-        save_state(state)
+    summaries, first = [], None
+    for name in args.profile or PROFILES:
+        profile = load_profile(HERE / name)
+        prefix = profile.get("file_prefix", "")
+        state = load_state(profile)
+        (title, markdown, html_body), (_, summary_md, _), new_count = run(hits, state, profile=profile)
 
-    print(summary_md)
-    print(f"\n---\nNEW_CALLS_COUNT={new_count}")
+        (REPORTS_DIR / f"{prefix}rapor-{stamp}.md").write_text(markdown, encoding="utf-8")
+        (REPORTS_DIR / f"{prefix}rapor-{stamp}.html").write_text(html_body, encoding="utf-8")
+        (REPORTS_DIR / f"{prefix}ozet-{stamp}.md").write_text(summary_md, encoding="utf-8")
+        if not args.no_save:
+            save_state(profile, state)
+        summaries.append((title, summary_md))
+        first = first or (title, markdown, html_body, new_count)
+        print(f"{name}: NEW_CALLS_COUNT={new_count}")
+
+    (REPORTS_DIR / f"issue-{stamp}.md").write_text(build_issue_body(summaries), encoding="utf-8")
+    print(summaries[0][1])
     if args.email:
+        title, markdown, html_body, new_count = first
         send_email(f"{title} — {new_count} yeni çağrı", markdown, html_body)
         print("E-posta gönderildi.")
 
