@@ -38,7 +38,7 @@ jobs:
           SMTP_USER: ${{ secrets.SMTP_USER }}
           SMTP_PASSWORD: ${{ secrets.SMTP_PASSWORD }}
           REPORT_TO: ${{ secrets.REPORT_TO || 'mtuna546@gmail.com' }}
-        run: python track.py --email
+        run: python track.py 
 
       - name: Raporu sakla
         if: always()
@@ -51,6 +51,14 @@ jobs:
       - name: state.json'u kaydet
         run: |
           git config user.name "github-actions[bot]"
+
+          - name: Raporu Kaydet
+        run: |
+          git config --global user.name 'github-actions[bot]'
+          git config --global user.email 'github-actions[bot]@users.noreply.github.com'
+          git add .
+          git commit -m "Güncel AB Fon Raporu" || exit 0
+          git push
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add eu_funding_tracker/state.json
           git diff --cached --quiet || git commit -m "AB fon taraması: $(date -u +%F) state güncellemesi"
