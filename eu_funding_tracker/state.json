@@ -1,9 +1,13 @@
 {
-  "last_run": "2026-09-29T13:16:38.997378+00:00",
+  "last_run": "2026-09-30T06:07:48.502345+00:00",
   "seen": {
     "CEF-T-2026-SUSTMOBGEN-EMS-WORKS": {
       "first_seen": "2026-09-29T13:16:38.997378+00:00",
       "title": "European Maritime Space and Inland ports (AFIF) - works"
+    },
+    "CREA-MEDIA-2027-INNOVBUSMOD": {
+      "first_seen": "2026-09-30T06:07:48.502345+00:00",
+      "title": "Innovative tools and business models"
     },
     "DIGITAL-2026-AI-PILOTING-10-SCREENING": {
       "first_seen": "2026-09-29T13:16:38.997378+00:00",
@@ -28,6 +32,26 @@
     "DIGITAL-JU-CHIPS-2026-SG-JAPAN": {
       "first_seen": "2026-09-29T13:16:38.997378+00:00",
       "title": "International collaboration EU and Japan on semiconductors"
+    },
+    "HORIZON-BRIDGING-2027-01-09": {
+      "first_seen": "2026-09-30T06:07:48.502345+00:00",
+      "title": "EU AI Media Platform – modular multilingual public-interest infrastructure for European news and audiovisual media (IA) - Apply AI"
+    },
+    "HORIZON-BRIDGING-2027-01-10": {
+      "first_seen": "2026-09-30T06:07:48.502345+00:00",
+      "title": "Autonomous Drive Ambition Cities (IA) - Apply AI"
+    },
+    "HORIZON-BRIDGING-2027-01-12": {
+      "first_seen": "2026-09-30T06:07:48.502345+00:00",
+      "title": "Large-Scale piloting of next-generation AI-driven digital platforms for a more affordable, secure and sustainable European energy system (IA) - Apply AI"
+    },
+    "HORIZON-BRIDGING-2027-01-13": {
+      "first_seen": "2026-09-30T06:07:48.502345+00:00",
+      "title": "EU Frontier AI Initiative: Advanced Scaling Frameworks for High-Performance AI Models (RIA) - Apply AI"
+    },
+    "HORIZON-BRIDGING-2027-05-01": {
+      "first_seen": "2026-09-30T06:07:48.502345+00:00",
+      "title": "Skills for innovative SMEs"
     },
     "HORIZON-CID-2027-01-01": {
       "first_seen": "2026-09-29T13:16:38.997378+00:00",

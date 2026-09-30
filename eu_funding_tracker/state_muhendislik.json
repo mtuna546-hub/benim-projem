@@ -1,5 +1,5 @@
 {
-  "last_run": "2026-09-29T13:16:33.898930+00:00",
+  "last_run": "2026-09-30T06:07:42.791662+00:00",
   "seen": {
     "CEF-E-2026-PCI-PMI-STUDIES": {
       "first_seen": "2026-09-29T13:16:33.898930+00:00",
@@ -60,6 +60,18 @@
     "EDF-2026-RA-SIMTRAIN-MSAI": {
       "first_seen": "2026-09-29T13:16:33.898930+00:00",
       "title": "Modelling & simulation supported AI framework for military decision-making and training"
+    },
+    "HORIZON-BRIDGING-2027-01-10": {
+      "first_seen": "2026-09-30T06:07:42.791662+00:00",
+      "title": "Autonomous Drive Ambition Cities (IA) - Apply AI"
+    },
+    "HORIZON-BRIDGING-2027-01-12": {
+      "first_seen": "2026-09-30T06:07:42.791662+00:00",
+      "title": "Large-Scale piloting of next-generation AI-driven digital platforms for a more affordable, secure and sustainable European energy system (IA) - Apply AI"
+    },
+    "HORIZON-BRIDGING-2027-01-13": {
+      "first_seen": "2026-09-30T06:07:42.791662+00:00",
+      "title": "EU Frontier AI Initiative: Advanced Scaling Frameworks for High-Performance AI Models (RIA) - Apply AI"
     },
     "HORIZON-CL3-2027-01-DRS-03": {
       "first_seen": "2026-09-29T13:16:33.898930+00:00",
