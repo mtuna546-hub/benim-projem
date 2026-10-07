@@ -1,9 +1,17 @@
 {
-  "last_run": "2026-09-30T06:07:48.502345+00:00",
+  "last_run": "2026-10-07T06:07:19.482669+00:00",
   "seen": {
     "CEF-T-2026-SUSTMOBGEN-EMS-WORKS": {
       "first_seen": "2026-09-29T13:16:38.997378+00:00",
       "title": "European Maritime Space and Inland ports (AFIF) - works"
+    },
+    "CERV-2026-CITIZENS-REM-HISTMIGRATION": {
+      "first_seen": "2026-10-07T06:07:19.482669+00:00",
+      "title": "Fostering remembrance of the legacy of colonialism, slavery, and migration, and their impact on contemporary multicultural European societies."
+    },
+    "CERV-2026-CITIZENS-REM-TRANSITION": {
+      "first_seen": "2026-10-07T06:07:19.482669+00:00",
+      "title": "Remembering democratic transitions, the (re-)building of democratic institutions, and strengthening society based on the rule of law, democracy, and fundamental rights."
     },
     "CREA-MEDIA-2027-INNOVBUSMOD": {
       "first_seen": "2026-09-30T06:07:48.502345+00:00",
@@ -261,9 +269,21 @@
       "first_seen": "2026-09-29T13:16:38.997378+00:00",
       "title": "Startup Europe"
     },
+    "HORIZON-EIE-2027-01-CONNECT-01-CANCELLED": {
+      "first_seen": "2026-10-07T06:07:19.482669+00:00",
+      "title": "Startup Europe - CANCELLED"
+    },
+    "HORIZON-EIE-2027-02-CONNECT-01": {
+      "first_seen": "2026-10-07T06:07:19.482669+00:00",
+      "title": "European Startup and Scaleup Hubs pilot"
+    },
     "HORIZON-HLTH-2027-02-TOOL-01-two-stage": {
       "first_seen": "2026-09-29T13:16:38.997378+00:00",
       "title": "Development of predictive biomarkers of disease progression and treatment response by using AI methodologies for chronic non-communicable diseases"
+    },
+    "HORIZON-HLTH-2027-03-TOOL-08": {
+      "first_seen": "2026-10-07T06:07:19.482669+00:00",
+      "title": "Towards the next generation of frontier Artificial Intelligence models for healthcare"
     },
     "HORIZON-JU-EUROHPC-2026-QML-07-01": {
       "first_seen": "2026-09-29T13:16:38.997378+00:00",
