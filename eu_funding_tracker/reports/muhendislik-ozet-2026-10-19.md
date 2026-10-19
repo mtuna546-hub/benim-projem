@@ -1,12 +1,24 @@
 # AB Fon Çağrıları — İstanbul Ticaret Üniversitesi Mühendislik Fakültesi Eşleştirme Raporu (2026-10-19)
 
-Taranan açık/yakında açılacak çağrı: **451** (süresi geçtiği hâlde portalda açık görünen 587 çağrı elendi) · Kurumla eşleşen: **53** · Yeni: **0** · Kayıtlı akademisyen: **0**
+Taranan açık/yakında açılacak çağrı: **453** (süresi geçtiği hâlde portalda açık görünen 591 çağrı elendi) · Kurumla eşleşen: **53** · Yeni: **0** · Kayıtlı akademisyen: **0**
 
 > Not: `academics.csv` henüz boş; eşleştirmeler şimdilik odak alanı düzeyinde. Akademisyen eklendiğinde kişi bazlı öneriler de görünecek.
 
 ## Yeni eşleşen çağrılar (0)
 
 Bu dönemde kurum profiliyle eşleşen yeni bir çağrı bulunamadı.
+
+## Ortak arama ilanı örneği (bu haftanın en uygun çağrısı)
+
+İngilizce metni kopyalayıp portalda çağrının *Partner search* bölümüne yapıştırın ve köşeli parantezli alanı doldurun. Daha önce örneği verilen çağrılar tekrar edilmez.
+
+### Factory processes and automation for de- and re-manufacturing (RIA) (Made in Europe partnership)
+- `HORIZON-CL4-2027-01-MAT-PROD-03` · RIA·LS · son başvuru 2027-02-02 · puan 20 · Araştırma ve İnovasyon (RIA) · AB oranı %100 · Lump Sum · proje başı 5–6.5 M€ · ~6 proje
+- **Portalda:** [çağrı sayfası](https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-CL4-2027-01-MAT-PROD-03) → *Partner search* → ilan oluştur (EU Login ve kurum PIC numarası gerekir). Metin 497/500 karakter; diğer ilanlar için örnek olarak uyarlayın.
+
+```text
+Istanbul Ticaret University, Faculty of Engineering (TR, Horizon Europe associated) seeks a consortium for HORIZON-CL4-2027-01-MAT-PROD-03. We offer: research & WP lead on operations research, optimisation and simulation. With our ecosystem (Türkiye's leading technology park, a leading start-up incubation centre and the chamber of commerce with the widest business network) we add SME access, pilots and exploitation. Seeking: coordinator, research & industrial partners. Contact: [name, e-mail]
+```
 
 ## Lump sum öncelikli çağrılar (ilk 15: önce RIA/CSA, sonra IA)
 
