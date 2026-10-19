@@ -14,6 +14,7 @@ olarak GitHub Issue'su açar; GitHub bunu size e-postayla bildirir.
 | `profile.json` | Genel profil: üniversitenin odak alanları, ekosistem ortakları ve Türkiye katılım notları (anahtar kelimeler İngilizce) |
 | `profile_muhendislik.json` | Mühendislik Fakültesi profili: bölüm odak alanları ve program ağırlıkları |
 | `academics.csv` | Akademisyen listesi: ad, bölüm, e-posta, odak alanı id'leri, kişisel anahtar kelimeler |
+| `topic_cache.json` | Her çağrının aksiyon türü, MGA türü ve bütçe bilgisi (14 günde bir yenilenir) |
 | `state.json`, `state_muhendislik.json` | Her profilin daha önce raporladığı çağrılar; aynı çağrı iki kez "yeni" diye gelmez |
 | `tests/` | Çevrimdışı test (örnek API yanıtı ile) |
 | `../.github/workflows/eu-funding-report.yml` | Haftalık otomatik çalıştırma + rapor issue'su |
@@ -48,6 +49,25 @@ alanları, önerilen akademisyenler, ekosistem ortakları, Türkiye katılım no
 **Program ağırlıklarını değiştirmek için:** `profile_muhendislik.json` içindeki `programme_weights`
 alanını düzenleyin. Anahtar, çağrı koduna (büyük harfle) uygulanan bir düzenli ifadedir; değer
 eklenecek (+) ya da düşülecek (−) puandır.
+
+### Aksiyon türü ve MGA önceliği
+
+Eşleşen her çağrı için portalın `topicDetails` verisinden şu bilgiler çekilir: aksiyon türü (RIA, IA, CSA...),
+MGA türü (Lump Sum / Budget-Based), proje başı AB katkısı ve beklenen proje sayısı. Raporlar bu bilgiye göre
+üç grupta sıralanır:
+
+1. **Lump sum + RIA/CSA** (EIC hibeleri de bu grupta; %100 fonlu, idari yükü hafif)
+2. **Lump sum + IA** (%70; kâr amacı gütmeyen kurumlar için %100)
+3. **Diğer:** budget-based, COFUND, PCP, kaskad (FSTP) çağrılar ve bilgisi alınamayanlar
+
+`profile.json` içindeki ayarlar:
+
+- `action_weights`: aksiyon türüne göre eklenen puan (varsayılan RIA/CSA +3, EIC +2, IA +1)
+- `mga_weights`: sözleşme türüne göre eklenen puan (varsayılan `HORIZON-AG-LS` +3)
+- `only_lump_sum`: `true` yapılırsa raporda yalnızca 1. ve 2. gruptaki çağrılar kalır
+
+Kısa özette "Lump sum öncelikli çağrılar" bölümü ilk 15 çağrıyı gösterir. Tam raporda ise eşleşen tüm
+çağrılar bu üç gruba ayrılmış olarak listelenir. İptal edilmiş (`CANCELLED`) çağrılar rapora alınmaz.
 
 ### Puanlama
 
@@ -92,6 +112,7 @@ pip install -r requirements.txt
 python3 track.py                                   # raporu ekrana basar, reports/ içine yazar
 python3 track.py --email                           # ayrıca e-postalar (SMTP_* ortam değişkenleri gerekir)
 python3 track.py --fixture tests/sample_response.json --no-save   # çevrimdışı deneme
+python3 track.py --no-details                      # aksiyon/MGA bilgisini çekmeden hızlı tarama
 python3 -m unittest discover -s tests
 ```
 

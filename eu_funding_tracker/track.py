@@ -51,6 +51,32 @@ STATUS_LABELS = {STATUS_OPEN: "Açık", STATUS_FORTHCOMING: "Yakında açılacak
 PAGE_SIZE = 100
 MAX_PAGES = 40
 TOPIC_URL = "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/{}"
+# Per-topic JSON with type of action, type of MGA and the budget table.
+TOPIC_DETAILS_URL = "https://ec.europa.eu/info/funding-tenders/opportunities/data/topicDetails/{}.json"
+DETAILS_CACHE_PATH = HERE / "topic_cache.json"
+DETAILS_CACHE_DAYS = 14  # refetch a topic's details after this many days
+
+# Short action code -> (Turkish label, EU funding rate). Rate depends on the
+# type of action, not on the MGA (lump sum vs budget-based).
+ACTION_INFO = {
+    "RIA": ("Araştırma ve İnovasyon (RIA)", "%100"),
+    "IA": ("İnovasyon (IA)", "%70 (kâr amacı gütmeyen kurumlar %100)"),
+    "CSA": ("Koordinasyon ve Destek (CSA)", "%100"),
+    "JU-RIA": ("JU Araştırma ve İnovasyon", "%100"),
+    "JU-IA": ("JU İnovasyon", "%70 (kâr amacı gütmeyen kurumlar %100)"),
+    "JU-CSA": ("JU Koordinasyon ve Destek", "%100"),
+    "EIC": ("EIC hibesi", "%100"),
+    "COFUND": ("Ortak fonlama (COFUND)", "çağrıda belirtilen oran"),
+    "PCP": ("Ticari öncesi alım (PCP)", "çağrıda belirtilen oran"),
+    "PPI": ("Yenilikçi çözüm alımı (PPI)", "çağrıda belirtilen oran"),
+    "MSCA": ("Marie Skłodowska-Curie", "birim maliyet"),
+    "ERC": ("ERC", "%100"),
+}
+MGA_LABELS = {
+    "HORIZON-AG-LS": "Lump Sum",
+    "HORIZON-AG": "Budget-Based",
+    "HORIZON-AG-UN": "Birim maliyet",
+}
 
 # A call is reported only if its focus-area score reaches MIN_AREA_SCORE AND at
 # least one focus-area keyword appears in its title. Description hits are capped
@@ -62,6 +88,7 @@ UPCOMING_DAYS = 30
 SUMMARY_NEW = 25       # detailed new calls in the short summary (GitHub issue)
 SUMMARY_BEST = 10      # best-matching open calls, new or not
 SUMMARY_UPCOMING = 40  # deadline list length in the summary
+SUMMARY_LUMP_SUM = 15  # lump-sum calls (RIA/CSA first, then IA) in the summary
 
 PROGRAMME_LABELS = {
     "43108390": "Horizon Europe",
@@ -205,9 +232,123 @@ def parse_calls(hits):
                 "url": one(meta, "url") or hit.get("url") or TOPIC_URL.format(identifier.lower()),
                 "title_text": title.lower(),
                 "body_text": body.lower(),
+                # Cascade-funding (FSTP) calls run by EU projects, not regular portal topics.
+                "cascade": "competitive-calls-cs" in (one(meta, "url") or hit.get("url") or ""),
+                "details": {},
             }
         )
     return calls
+
+
+# ------------------------------------------------- type of action / type of MGA
+
+def short_action(type_of_action, title=""):
+    """'HORIZON-RIA HORIZON Research and ...' -> 'RIA'; falls back to '(RIA)' in the title."""
+    if type_of_action:
+        code = type_of_action.split()[0].upper()
+        for prefix in ("HORIZON-", "DIGITAL-", "EU4H-", "LIFE-"):
+            if code.startswith(prefix):
+                return code[len(prefix):]
+        return code
+    m = re.search(r"\((RIA|IA|CSA)\)", title or "")
+    return m.group(1) if m else None
+
+
+def parse_topic_details(identifier, data):
+    """Pull type of action, MGA and this topic's budget row out of a topicDetails JSON."""
+    td = (data or {}).get("TopicDetails") or data or {}
+    out = {"action_full": None, "mga": None, "min": None, "max": None, "grants": None, "budget": None}
+    for action in td.get("actions") or []:
+        for t in action.get("types") or []:
+            out["action_full"] = out["action_full"] or t.get("typeOfAction")
+            mgas = t.get("typeOfMGA") or []
+            mgas = mgas if isinstance(mgas, list) else [mgas]
+            for m in mgas:
+                abbr = m.get("abbreviation") if isinstance(m, dict) else m
+                out["mga"] = out["mga"] or abbr
+    if not out["mga"]:
+        for m in td.get("topicMGAs") or []:
+            out["mga"] = out["mga"] or (m.get("abbreviation") if isinstance(m, dict) else m)
+    rows = ((td.get("budgetOverviewJSONItem") or {}).get("budgetTopicActionMap") or {}).values()
+    for row in (r for rs in rows for r in rs):
+        if str(row.get("action", "")).upper().startswith(identifier.upper()):
+            to_int = lambda v: int(float(v)) if v not in (None, "") else None
+            out["min"], out["max"] = to_int(row.get("minContribution")), to_int(row.get("maxContribution"))
+            out["grants"] = to_int(row.get("expectedGrants"))
+            out["budget"] = sum(to_int(v) or 0 for v in (row.get("budgetYearMap") or {}).values()) or None
+            break
+    return out
+
+
+def fetch_topic_details(identifier):
+    resp = requests.get(TOPIC_DETAILS_URL.format(identifier.lower()), timeout=30,
+                        headers={"Accept": "application/json"})
+    resp.raise_for_status()
+    return parse_topic_details(identifier, resp.json())
+
+
+def load_details_cache():
+    if DETAILS_CACHE_PATH.exists():
+        return json.loads(DETAILS_CACHE_PATH.read_text(encoding="utf-8"))
+    return {}
+
+
+def save_details_cache(cache):
+    DETAILS_CACHE_PATH.write_text(json.dumps(cache, ensure_ascii=False, indent=1, sort_keys=True) + "\n",
+                                  encoding="utf-8")
+
+
+def enrich_calls(calls, cache, fetcher, now):
+    """Attach action / MGA / budget details to each call, using a cache refreshed every DETAILS_CACHE_DAYS."""
+    limit = (now - timedelta(days=DETAILS_CACHE_DAYS)).isoformat()
+    for call in calls:
+        ident = call["identifier"]
+        cached = cache.get(ident)
+        if fetcher and not call["cascade"] and (not cached or cached.get("fetched", "") < limit):
+            try:
+                cached = {**fetcher(ident), "fetched": now.isoformat()}
+                cache[ident] = cached
+            except Exception as exc:  # noqa: BLE001 - one bad topic must not stop the scan
+                print(f"Ayrıntı alınamadı: {ident}: {exc}")
+        details = dict(cached or {})
+        details["action"] = "FSTP" if call["cascade"] else short_action(details.get("action_full"), call["title"])
+        call["details"] = details
+
+
+def priority_group(call):
+    """1: lump sum + RIA/CSA, 2: lump sum + IA, 3: everything else."""
+    d = call.get("details") or {}
+    if d.get("mga") != "HORIZON-AG-LS":
+        return 3
+    action = (d.get("action") or "").replace("JU-", "")
+    if action in ("RIA", "CSA", "EIC"):
+        return 1
+    return 2 if action == "IA" else 3
+
+
+def details_text(call):
+    d = call.get("details") or {}
+    if d.get("action") == "FSTP":
+        return "Kaskad fonlama (FSTP) — bir AB projesinin açtığı alt çağrı"
+    parts = []
+    action = d.get("action")
+    if action:
+        label, rate = ACTION_INFO.get(action, (action, None))
+        parts.append(label + (f" · AB oranı {rate}" if rate else ""))
+    if d.get("mga"):
+        parts.append(MGA_LABELS.get(d["mga"], d["mga"]))
+    if d.get("min") or d.get("max"):
+        lo, hi = (d.get("min") or d["max"]) / 1e6, (d.get("max") or d["min"]) / 1e6
+        parts.append(f"proje başı {lo:g} M€" if lo == hi else f"proje başı {lo:g}–{hi:g} M€")
+    if d.get("grants"):
+        parts.append(f"~{d['grants']} proje")
+    return " · ".join(parts) or "Aksiyon/MGA bilgisi alınamadı"
+
+
+def short_tag(call):
+    d = call.get("details") or {}
+    mga = {"HORIZON-AG-LS": "LS", "HORIZON-AG": "BB"}.get(d.get("mga"), "?")
+    return f"{d.get('action') or '?'}·{mga}"
 
 
 # ---------------------------------------------------------------------- matching
@@ -217,7 +358,7 @@ def load_profile(path=PROFILE_PATH):
     profile = json.loads(Path(path).read_text(encoding="utf-8"))
     if Path(path).resolve() != PROFILE_PATH.resolve():
         base = json.loads(PROFILE_PATH.read_text(encoding="utf-8"))
-        for key in ("ecosystem", "turkey_participation", "exclude_programmes"):
+        for key in ("ecosystem", "turkey_participation", "exclude_programmes", "action_weights", "mga_weights"):
             profile.setdefault(key, base.get(key, {}))
     return profile
 
@@ -310,7 +451,7 @@ def turkey_note(profile, programme):
 
 # ------------------------------------------------------------------------ report
 
-def build_report(new_matches, best, upcoming, profile, academics_count, stats, summary=False):
+def build_report(new_matches, best, upcoming, profile, academics_count, stats, summary=False, all_matches=()):
     """Render the report. summary=True gives the short version used for the GitHub issue."""
     today = datetime.now(timezone.utc).strftime("%Y-%m-%d")
     title = f"AB Fon Çağrıları — {profile['institution']} Eşleştirme Raporu ({today})"
@@ -332,7 +473,10 @@ def build_report(new_matches, best, upcoming, profile, academics_count, stats, s
         out = [f"### {call['title']}"]
         out.append(f"- **Kod:** `{call['identifier']}` · **Program:** {call['programme'] or '-'} · **Durum:** {call['status'] or '-'}")
         weight = f" (program ağırlığı {m['weight']:+d})" if m.get("weight") else ""
+        if m.get("type_weight"):
+            weight += f" (aksiyon/MGA ağırlığı {m['type_weight']:+d})"
         out.append(f"- **Son başvuru:** {call['deadline'] or 'Belirtilmemiş'} · **Uygunluk puanı:** {m['total']}{weight}")
+        out.append(f"- **Aksiyon / MGA:** {details_text(call)}")
         out.append(f"- **Türkiye:** {turkey_note(profile, call['programme'])}")
         out.append("- **Odak alanları:** " + "; ".join(f"{a['name']} ({', '.join(a['matched'][:4])})" for a in m["areas"]))
         if m["academics"]:
@@ -347,7 +491,8 @@ def build_report(new_matches, best, upcoming, profile, academics_count, stats, s
 
     def line_md(call, m, lead):
         eco = ", ".join(e["name"] for e in m["ecosystem"]) or "-"
-        return f"- **{lead}** — [{call['title']}]({call['url']}) (`{call['identifier']}`, puan {m['total']}, ekosistem: {eco})"
+        return (f"- **{lead}** — [{call['title']}]({call['url']}) (`{call['identifier']}`, {short_tag(call)}, "
+                f"puan {m['total']}, ekosistem: {eco})")
 
     shown_new = new_matches[:profile.get("summary_new", SUMMARY_NEW)] if summary else new_matches
     md.append(f"## Yeni eşleşen çağrılar ({len(new_matches)})\n")
@@ -358,11 +503,35 @@ def build_report(new_matches, best, upcoming, profile, academics_count, stats, s
     if len(new_matches) > len(shown_new):
         md.append(f"_…ve {len(new_matches) - len(shown_new)} yeni çağrı daha: tam rapora bakın._\n")
 
+    groups = [
+        (1, "Lump sum + RIA/CSA"),
+        (2, "Lump sum + IA"),
+        (3, "Diğer (budget-based, COFUND, kaskad veya bilgisi alınamayan)"),
+    ]
+    if summary:
+        lump = [cm for cm in all_matches if priority_group(cm[0]) < 3][:SUMMARY_LUMP_SUM]
+        if lump:
+            md.append(f"## Lump sum öncelikli çağrılar (ilk {len(lump)}: önce RIA/CSA, sonra IA)\n")
+            md.append("Kısaltmalar: LS = Lump Sum, BB = Budget-Based.\n")
+            for call, m in lump:
+                md.append(line_md(call, m, call["deadline"] or "tarih yok"))
+            md.append("")
+
     if summary and best:
         md.append(f"## En uygun açık çağrılar (ilk {len(best)}, yeni olsun olmasın)\n")
         for call, m in best:
             md.append(line_md(call, m, call["deadline"] or "tarih yok"))
         md.append("")
+
+    if not summary and all_matches:
+        md.append(f"## Tüm eşleşen çağrılar ({len(all_matches)})\n")
+        for group, label in groups:
+            rows = [cm for cm in all_matches if priority_group(cm[0]) == group]
+            if rows:
+                md.append(f"### {label} ({len(rows)})\n")
+                for call, m in rows:
+                    md.append(line_md(call, m, call["deadline"] or "tarih yok"))
+                md.append("")
 
     shown_up = upcoming[:SUMMARY_UPCOMING] if summary else upcoming
     md.append(f"## Son başvurusu {UPCOMING_DAYS} gün içinde olan eşleşen çağrılar ({len(upcoming)})\n")
@@ -457,11 +626,13 @@ def save_state(profile, state):
     )
 
 
-def run(hits, state, now=None, profile=None):
+def run(hits, state, now=None, profile=None, details_fetcher=None, details_cache=None):
+    """Match, enrich and render. details_fetcher(identifier) -> dict, or None to skip portal lookups."""
     now = now or datetime.now(timezone.utc)
     profile = profile or load_profile()
     academics = load_academics()
     today = now.strftime("%Y-%m-%d")
+    details_cache = {} if details_cache is None else details_cache
 
     # The portal keeps some 2023-2024 topics flagged open/forthcoming long after
     # every deadline has passed; drop those and show each call's next deadline.
@@ -469,7 +640,8 @@ def run(hits, state, now=None, profile=None):
     excluded = tuple(p.upper() + "-" for p in profile.get("exclude_programmes", []))
     calls, stale = [], 0
     for call in parse_calls(hits):
-        if call["identifier"].upper().startswith(excluded):
+        ident = call["identifier"].upper()
+        if ident.startswith(excluded) or "CANCELLED" in ident:
             continue
         future = [d for d in call["deadlines"] if d >= today]
         if call["deadlines"] and not future:
@@ -483,7 +655,17 @@ def run(hits, state, now=None, profile=None):
         m = match_call(call, profile, academics)
         if m["total"] >= MIN_AREA_SCORE and m["title_hit"]:
             matched.append((call, m))
-    matched.sort(key=lambda cm: -cm[1]["total"])
+
+    # Type of action / MGA only for matched calls: one small request each, cached.
+    enrich_calls([c for c, _ in matched], details_cache, details_fetcher, now)
+    action_w, mga_w = profile.get("action_weights", {}), profile.get("mga_weights", {})
+    for call, m in matched:
+        d = call["details"]
+        m["type_weight"] = action_w.get(d.get("action") or "", 0) + mga_w.get(d.get("mga") or "", 0)
+        m["total"] += m["type_weight"]
+    if profile.get("only_lump_sum"):
+        matched = [(c, m) for c, m in matched if priority_group(c) < 3]
+    matched.sort(key=lambda cm: (priority_group(cm[0]), -cm[1]["total"]))
 
     new_matches = [(c, m) for c, m in matched if c["identifier"] not in state["seen"]]
     horizon = (now + timedelta(days=UPCOMING_DAYS)).strftime("%Y-%m-%d")
@@ -491,14 +673,16 @@ def run(hits, state, now=None, profile=None):
         [(c, m) for c, m in matched if c["deadline"] and today <= c["deadline"] <= horizon],
         key=lambda cm: cm[0]["deadline"],
     )
+    best = sorted(matched, key=lambda cm: -cm[1]["total"])[:SUMMARY_BEST]
 
     for c, _ in matched:
         state["seen"].setdefault(c["identifier"], {"first_seen": now.isoformat(), "title": c["title"]})
     state["last_run"] = now.isoformat()
 
     stats = {"scanned": len(calls), "matched": len(matched), "stale": stale}
-    args = (new_matches, matched[:SUMMARY_BEST], upcoming, profile, len(academics), stats)
-    return build_report(*args), build_report(*args, summary=True), len(new_matches)
+    args = (new_matches, best, upcoming, profile, len(academics), stats)
+    return (build_report(*args, all_matches=matched),
+            build_report(*args, summary=True, all_matches=matched), len(new_matches))
 
 
 def build_issue_body(summaries):
@@ -526,6 +710,8 @@ def main():
     parser.add_argument("--email", action="store_true", help="ilk profilin raporunu SMTP ile e-postala")
     parser.add_argument("--fixture", type=Path, help="API yerine kaydedilmiş JSON yanıtını kullan")
     parser.add_argument("--no-save", action="store_true", help="state dosyalarını güncelleme")
+    parser.add_argument("--no-details", action="store_true",
+                        help="aksiyon türü / MGA bilgisini portaldan çekme (hızlı deneme)")
     args = parser.parse_args()
 
     try:
@@ -541,13 +727,16 @@ def main():
         sys.exit(1)
 
     REPORTS_DIR.mkdir(exist_ok=True)
+    details_cache = load_details_cache()
+    fetcher = None if (args.fixture or args.no_details) else fetch_topic_details
     stamp = datetime.now(timezone.utc).strftime("%Y-%m-%d")
     summaries, first = [], None
     for name in args.profile or PROFILES:
         profile = load_profile(HERE / name)
         prefix = profile.get("file_prefix", "")
         state = load_state(profile)
-        (title, markdown, html_body), (_, summary_md, _), new_count = run(hits, state, profile=profile)
+        (title, markdown, html_body), (_, summary_md, _), new_count = run(hits, state, profile=profile,
+                                                                     details_fetcher=fetcher, details_cache=details_cache)
 
         (REPORTS_DIR / f"{prefix}rapor-{stamp}.md").write_text(markdown, encoding="utf-8")
         (REPORTS_DIR / f"{prefix}rapor-{stamp}.html").write_text(html_body, encoding="utf-8")
@@ -558,6 +747,8 @@ def main():
         first = first or (title, markdown, html_body, new_count)
         print(f"{name}: NEW_CALLS_COUNT={new_count}")
 
+    if not args.no_save:
+        save_details_cache(details_cache)
     (REPORTS_DIR / f"issue-{stamp}.md").write_text(build_issue_body(summaries), encoding="utf-8")
     print(summaries[0][1])
     if args.email:

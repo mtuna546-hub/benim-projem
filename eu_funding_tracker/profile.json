@@ -5,6 +5,20 @@
   "exclude_programmes": [
     "EDF"
   ],
+  "_aciklama_oncelik": "action_weights: aksiyon türüne (RIA, CSA, IA...) göre eklenen puan. mga_weights: sözleşme türüne göre eklenen puan (HORIZON-AG-LS = lump sum). only_lump_sum: true yapılırsa raporda yalnızca lump sum RIA/CSA/IA çağrıları kalır. Mühendislik profili bu ağırlıkları buradan alır.",
+  "action_weights": {
+    "RIA": 3,
+    "CSA": 3,
+    "EIC": 2,
+    "JU-RIA": 2,
+    "JU-CSA": 2,
+    "IA": 1,
+    "JU-IA": 1
+  },
+  "mga_weights": {
+    "HORIZON-AG-LS": 3
+  },
+  "only_lump_sum": false,
   "focus_areas": [
     {
       "id": "trade_logistics",

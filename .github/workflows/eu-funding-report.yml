@@ -47,7 +47,7 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add eu_funding_tracker/state*.json
+          git add eu_funding_tracker/state*.json eu_funding_tracker/topic_cache.json 2>/dev/null || git add eu_funding_tracker/state*.json
           git add -f eu_funding_tracker/reports/
           git diff --cached --quiet || git commit -m "Güncel AB fon raporu ve durum güncellemesi: $(date -u +%F)"
           git push

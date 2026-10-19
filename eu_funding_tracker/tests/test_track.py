@@ -131,6 +131,67 @@ class TrackTest(unittest.TestCase):
             _, _, new_count = track.run(hits, {"seen": {}, "last_run": None}, profile=profile)
             self.assertEqual(new_count, 0, name)
 
+    def test_parse_topic_details(self):
+        data = {"TopicDetails": {
+            "actions": [{"types": [{"typeOfAction": "HORIZON-RIA HORIZON Research and Innovation Actions",
+                                    "typeOfMGA": [{"abbreviation": "HORIZON-AG-LS"}]}]}],
+            "budgetOverviewJSONItem": {"budgetTopicActionMap": {"1": [
+                {"action": "HORIZON-OTHER-01 - HORIZON-IA", "minContribution": 1, "maxContribution": 1},
+                {"action": "HORIZON-CL4-2027-01-X-01 - HORIZON-RIA HORIZON Research and Innovation Actions",
+                 "budgetYearMap": {"2027": "30000000"}, "minContribution": 4000000,
+                 "maxContribution": 6000000, "expectedGrants": 5}]}}}}
+        d = track.parse_topic_details("HORIZON-CL4-2027-01-X-01", data)
+        self.assertEqual(d["mga"], "HORIZON-AG-LS")
+        self.assertEqual(track.short_action(d["action_full"]), "RIA")
+        self.assertEqual((d["min"], d["max"], d["grants"], d["budget"]), (4000000, 6000000, 5, 30000000))
+        self.assertEqual(track.short_action(None, "Robots for industry (IA)"), "IA")
+        self.assertEqual(track.short_action("HORIZON-JU-RIA HORIZON JU Research"), "JU-RIA")
+
+    def test_lump_sum_ria_csa_ranked_first_then_ia(self):
+        hits = [
+            {"metadata": {"identifier": [f"HORIZON-CL4-2027-0{i}"],
+                          "title": [f"Artificial intelligence for supply chain logistics {i}"]}}
+            for i in range(1, 5)
+        ]
+        details = {
+            "HORIZON-CL4-2027-01": {"action_full": "HORIZON-IA x", "mga": "HORIZON-AG"},
+            "HORIZON-CL4-2027-02": {"action_full": "HORIZON-IA x", "mga": "HORIZON-AG-LS"},
+            "HORIZON-CL4-2027-03": {"action_full": "HORIZON-CSA x", "mga": "HORIZON-AG-LS"},
+            "HORIZON-CL4-2027-04": {"action_full": "HORIZON-RIA x", "mga": "HORIZON-AG-LS", "min": 3000000,
+                                    "max": 5000000, "grants": 4},
+        }
+        cache = {}
+        (_, md, _), (_, summary, _), _ = track.run(
+            hits, {"seen": {}, "last_run": None}, details_fetcher=lambda i: details[i], details_cache=cache)
+        pos = {i: md.index(f"HORIZON-CL4-2027-0{i}`") for i in (1, 2, 3, 4)}
+        # RIA/CSA lump sum, then IA lump sum, then budget-based
+        self.assertLess(max(pos[3], pos[4]), pos[2])
+        self.assertLess(pos[2], pos[1])
+        self.assertIn("Lump sum öncelikli çağrılar", summary)
+        self.assertIn("RIA·LS", summary)
+        self.assertIn("proje başı 3–5 M€", md)
+        self.assertIn("Tüm eşleşen çağrılar (4)", md)
+        self.assertIn("HORIZON-CL4-2027-04", cache)
+
+        profile = dict(track.load_profile(), only_lump_sum=True)
+        (_, md_ls, _), _, _ = track.run(hits, {"seen": {}, "last_run": None}, profile=profile,
+                                        details_fetcher=lambda i: details[i])
+        self.assertNotIn("HORIZON-CL4-2027-01`", md_ls)
+
+    def test_cancelled_and_cascade_calls(self):
+        hits = [
+            {"metadata": {"identifier": ["HORIZON-EIE-2027-01-CONNECT-01-CANCELLED"],
+                          "title": ["Startup Europe for entrepreneurship"]}},
+            {"metadata": {"identifier": ["HORIZON-CL4-2023-DIGITAL-EMERGING-01-02"],
+                          "title": ["Artificial intelligence and robotics for logistics"],
+                          "url": ["https://ec.europa.eu/.../competitive-calls-cs/45634882"]}},
+        ]
+        (_, md, _), _, new_count = track.run(hits, {"seen": {}, "last_run": None},
+                                             details_fetcher=lambda i: self.fail("no fetch for cascade"))
+        self.assertEqual(new_count, 1)
+        self.assertNotIn("CANCELLED", md)
+        self.assertIn("Kaskad fonlama (FSTP)", md)
+
 
 if __name__ == "__main__":
     unittest.main()
