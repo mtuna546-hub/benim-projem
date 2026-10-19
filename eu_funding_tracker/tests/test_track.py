@@ -201,10 +201,10 @@ class TrackTest(unittest.TestCase):
                           "title": ["Artificial intelligence and robotics for smart manufacturing"],
                           "deadlineDate": ["2027-02-02T17:00:00.000+0000"]}},
             {"metadata": {"identifier": ["HORIZON-CL5-2027-01-SOON"],
-                          "title": ["Battery energy storage and smart grid integration"],
-                          "deadlineDate": ["2026-11-01T17:00:00.000+0000"]}},  # < 30 days: no draft
+                          "title": ["Battery energy storage and smart grid integration with AI"],
+                          "deadlineDate": ["2026-11-01T17:00:00.000+0000"]}},  # < 30 days: never drafted
             {"metadata": {"identifier": ["HORIZON-CL5-2027-02-IA"],
-                          "title": ["Hydrogen and battery energy storage pilots for SMEs and start-ups"],
+                          "title": ["Hydrogen and battery energy storage pilots"],
                           "deadlineDate": ["2027-04-14T17:00:00.000+0000"]}},
         ]
         details = {
@@ -213,20 +213,34 @@ class TrackTest(unittest.TestCase):
             "HORIZON-CL5-2027-02-IA": {"action_full": "HORIZON-IA x", "mga": "HORIZON-AG-LS"},
         }
         state = {"seen": {}, "last_run": None}
-        _, (_, summary, _), _ = track.run(hits, state, now=now, profile=eng,
-                                          details_fetcher=lambda i: details[i])
-        drafts = summary.split("## Ortak arama ilanı taslakları")[1].split("\n## ")[0]
-        self.assertIn("partner offer for HORIZON-CL4-2027-01-LS-RIA", drafts)
-        self.assertIn("partner offer for HORIZON-CL5-2027-02-IA", drafts)
-        self.assertNotIn("HORIZON-CL5-2027-01-SOON", drafts)
-        self.assertIn("Role we offer: research partner", drafts)
-        self.assertIn("Role we offer: partner for piloting and demonstration", drafts)
-        for name in ("Istanbul Chamber of Commerce (İTO)", "Teknopark İstanbul", "Knowledge Commercialisation Centre (BTM)"):
-            self.assertIn(name, drafts)
-        self.assertIn("Türkiye is associated to Horizon Europe", drafts)
-        self.assertIn("```text", drafts)
-        self.assertEqual(set(state["drafted"]), {"HORIZON-CL4-2027-01-LS-RIA", "HORIZON-CL5-2027-02-IA"})
 
+        def draft_section():
+            _, (_, summary, _), _ = track.run(hits, state, now=now, profile=eng,
+                                              details_fetcher=lambda i: details[i])
+            return summary.split("## Ortak arama ilanı örneği")[1].split("\n## ")[0]
+
+        first = draft_section()
+        text = first.split("```text\n")[1].split("\n```")[0]
+        self.assertLessEqual(len(text), track.DRAFT_MAX_CHARS)
+        self.assertIn("HORIZON-CL4-2027-01-LS-RIA", text)
+        self.assertIn("We offer: research & WP lead", text)
+        self.assertIn("Türkiye's leading technology park", text)
+        self.assertIn("Horizon Europe associated", text)
+        for name in ("İTO", "Teknopark İstanbul", "BTM", "Istanbul Chamber"):
+            self.assertNotIn(name, text)
+        self.assertEqual(first.count("```text"), 1)  # one example per report
+
+        second = draft_section()  # next week: a different call, never the < 30-day one
+        self.assertIn("HORIZON-CL5-2027-02-IA", second)
+        self.assertIn("We offer: piloting & demonstration", second)
+        self.assertNotIn("HORIZON-CL5-2027-01-SOON", first + second)
+
+    def test_partner_search_text_fits_limit_with_long_input(self):
+        eng = track.load_profile(track.HERE / "profile_muhendislik.json")
+        call = {"identifier": "HORIZON-CL4-2027-05-DIGITAL-EMERGING-52-two-stage-VERY-LONG-IDENTIFIER",
+                "programme": "Horizon Europe", "details": {"action": "IA"}}
+        m = {"areas": [{"id": a["id"], "name": a["name"]} for a in eng["focus_areas"]]}
+        self.assertLessEqual(len(track.partner_search_text(call, m, eng)), track.DRAFT_MAX_CHARS)
 
 if __name__ == "__main__":
     unittest.main()

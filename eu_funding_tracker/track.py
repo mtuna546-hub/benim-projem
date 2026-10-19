@@ -454,18 +454,17 @@ def turkey_note(profile, programme):
 
 # ------------------------------------------------------- partner-search drafts
 
-# What we offer and whom we look for, by type of action.
+DRAFT_MAX_CHARS = 500  # portal limit for a partner-search announcement
+# Ecosystem partners are described, not named, so the TTO can post before partners confirm.
+DRAFT_ECOSYSTEM = ("With our ecosystem (Türkiye's leading technology park, a leading start-up incubation "
+                   "centre and the chamber of commerce with the widest business network) we add SME access, "
+                   "pilots and exploitation.")
+# Type of action -> (what we offer, whom we seek). "{x}" is our main expertise.
 DRAFT_ROLES = {
-    "RIA": ("research partner leading or contributing to a work package on {areas}, "
-            "including method development, experimentation and validation",
-            "an experienced coordinator, research organisations and at least one industrial partner"),
-    "CSA": ("partner for stakeholder engagement, training, dissemination and market/policy analysis on {areas}",
-            "a coordinator and partners with complementary networks across EU Member States"),
-    "IA": ("partner for piloting and demonstration on {areas}, bringing industrial end-users "
-           "through our regional innovation ecosystem",
-           "a coordinator, technology providers and industrial / end-user partners in EU Member States"),
-    "EIC": ("research partner contributing breakthrough research on {areas}",
-            "a visionary coordinator and high-risk/high-gain research partners"),
+    "RIA": ("research & WP lead on {x}", "coordinator, research & industrial partners"),
+    "CSA": ("stakeholder engagement & dissemination on {x}", "coordinator & network partners"),
+    "IA": ("piloting & demonstration on {x}", "coordinator, technology providers & end-users"),
+    "EIC": ("breakthrough research on {x}", "coordinator & high-risk/high-gain research partners"),
 }
 
 
@@ -485,55 +484,47 @@ def select_draft_calls(matched, state, profile, today):
     return picked
 
 
-def partner_search_draft(call, m, profile):
-    """Ready-to-paste English partner-search text plus Turkish guidance for the TTO."""
+def partner_search_text(call, m, profile):
+    """English partner-search announcement, shortened step by step until it fits DRAFT_MAX_CHARS."""
     action = ((call.get("details") or {}).get("action") or "").replace("JU-", "")
     offer, wanted = DRAFT_ROLES.get(action, DRAFT_ROLES["RIA"])
     by_id = {a["id"]: a for a in profile["focus_areas"]}
-    areas = [by_id[a["id"]].get("expertise_en") or a["name"] for a in m["areas"] if a["id"] in by_id]
-    areas_txt = "; ".join(areas[:2]) or "the topic's core challenges"
-    matched_eco = {e["id"] for e in m["ecosystem"]}
-    eco = sorted(profile.get("ecosystem", []), key=lambda e: e["id"] not in matched_eco)
-    horizon = (call.get("programme") or "").startswith("Horizon")
+    expertise = [by_id[a["id"]].get("expertise_en") or a["name"] for a in m["areas"] if a["id"] in by_id]
+    full = expertise[0] if expertise else "the topic's core challenges"
+    parts = [x.strip() for x in full.replace(" and ", ", ").split(",") if x.strip()]
+    who = profile.get("institution_en", profile["institution"])
+    where = "TR, Horizon Europe associated" if (call.get("programme") or "").startswith("Horizon") else "Istanbul, TR"
+    contact = "Contact: [name, e-mail]"
 
-    lines = [
-        f"{profile.get('institution_en', profile['institution'])} – partner offer for {call['identifier']}",
-        "",
-        f"Topic: {call['title']}",
-        f"Deadline: {call['deadline'] or 'see topic page'}",
-        "",
-        f"Who we are: {profile.get('institution_en', profile['institution'])} (Istanbul, Türkiye)."
-        + (" Türkiye is associated to Horizon Europe, so we participate and receive funding on the same terms"
-           " as organisations from EU Member States." if horizon else ""),
-        "",
-        f"Our expertise: {areas_txt}.",
-        "",
-        f"Role we offer: {offer.format(areas=areas[0] if areas else areas_txt)}.",
-        "",
-        "Ecosystem partners who can join the consortium with us (subject to their confirmation):",
-    ]
-    lines += [f"- {e.get('name_en', e['name'])}: {e.get('role_en', e['role'])}" for e in eco]
-    lines += [
-        "",
-        f"We are looking for: {wanted}.",
-        "",
-        "Contact: [Ad Soyad, unvan] – [e-posta] – Istanbul Commerce University Technology Transfer Office",
-    ]
-    tag = short_tag(call)
-    eco_tr = ", ".join(e["name"] for e in m["ecosystem"]) or "doğrudan eşleşme yok; üçü de genel destek olarak eklendi"
-    out = [
+    def join(items):
+        return items[0] if len(items) == 1 else ", ".join(items[:-1]) + " and " + items[-1]
+
+    # Prefer the full ecosystem sentence; drop expertise items before shortening it.
+    for eco in (DRAFT_ECOSYSTEM, "With Türkiye's leading technology park, a leading start-up incubator and "
+                                 "the widest-network chamber of commerce, we add SME access & pilots."):
+        for n in range(min(3, len(parts)), 0, -1):
+            text = (f"{who} ({where}) seeks a consortium for {call['identifier']}. "
+                    f"We offer: {offer.format(x=join(parts[:n]))}. {eco} Seeking: {wanted}. {contact}")
+            if len(text) <= DRAFT_MAX_CHARS:
+                return text
+    return text[:DRAFT_MAX_CHARS]
+
+
+def partner_search_draft(call, m, profile):
+    """Report block: Turkish guidance plus the ready-to-paste English text."""
+    text = partner_search_text(call, m, profile)
+    return [
         f"### {call['title']}",
-        f"- `{call['identifier']}` · {tag} · son başvuru {call['deadline'] or '-'} · puan {m['total']} · {details_text(call)}",
-        f"- Eşleşen ekosistem ortakları: {eco_tr}",
-        f"- **Portalda:** [çağrı sayfası]({call['url']}) → *Partner search* sekmesi → ilan oluştur "
-        "(EU Login ve kurum PIC numarası gerekir). İTO / BTM / Teknopark adını kullanmadan önce bu kurumlarla teyitleşin.",
+        f"- `{call['identifier']}` · {short_tag(call)} · son başvuru {call['deadline'] or '-'} · puan {m['total']} · "
+        f"{details_text(call)}",
+        f"- **Portalda:** [çağrı sayfası]({call['url']}) → *Partner search* → ilan oluştur (EU Login ve kurum PIC "
+        f"numarası gerekir). Metin {len(text)}/{DRAFT_MAX_CHARS} karakter; diğer ilanlar için örnek olarak uyarlayın.",
         "",
         "```text",
-        *lines,
+        text,
         "```",
         "",
     ]
-    return out
 
 
 def build_report(new_matches, best, upcoming, profile, academics_count, stats, summary=False, all_matches=(),
@@ -590,9 +581,9 @@ def build_report(new_matches, best, upcoming, profile, academics_count, stats, s
         md.append(f"_…ve {len(new_matches) - len(shown_new)} yeni çağrı daha: tam rapora bakın._\n")
 
     if drafts:
-        md.append(f"## Ortak arama ilanı taslakları (en uygun {len(drafts)} çağrı)\n")
-        md.append("İngilizce metni kopyalayıp portalda ilgili çağrının *Partner search* bölümüne yapıştırın; "
-                  "köşeli parantezli alanları doldurun. Daha önce taslağı verilen çağrılar tekrar edilmez.\n")
+        md.append("## Ortak arama ilanı örneği (bu haftanın en uygun çağrısı)\n")
+        md.append("İngilizce metni kopyalayıp portalda çağrının *Partner search* bölümüne yapıştırın ve köşeli "
+                  "parantezli alanı doldurun. Daha önce örneği verilen çağrılar tekrar edilmez.\n")
         for call, m in drafts:
             md += partner_search_draft(call, m, profile)
 

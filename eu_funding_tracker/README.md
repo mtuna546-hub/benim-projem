@@ -69,25 +69,28 @@ MGA türü (Lump Sum / Budget-Based), proje başı AB katkısı ve beklenen proj
 Kısa özette "Lump sum öncelikli çağrılar" bölümü ilk 15 çağrıyı gösterir. Tam raporda ise eşleşen tüm
 çağrılar bu üç gruba ayrılmış olarak listelenir. İptal edilmiş (`CANCELLED`) çağrılar rapora alınmaz.
 
-### Ortak arama ilanı taslakları
+### Ortak arama ilanı örneği
 
-Her raporun kısa özetinde, en uygun çağrılar için portalın **Partner search** bölümüne yapıştırılmaya
-hazır İngilizce ilan taslakları yer alır: mühendislik raporunda 3, genel raporda 2 taslak. Sayıyı
-profildeki `partner_search_drafts` alanından değiştirebilirsiniz.
+Mühendislik raporunun kısa özetinde her hafta **bir** örnek ilan yer alır. Örnek, en uygun çağrı için
+portalın **Partner search** bölümüne yapıştırılmaya hazır İngilizce metindir; diğer ilanları bu örneğe
+göre uyarlayabilirsiniz. Örnek sayısını profildeki `partner_search_drafts` alanından değiştirebilirsiniz
+(mühendislik 1, genel 0).
 
+- **Uzunluk:** Metin en fazla **500 karakterdir** (`DRAFT_MAX_CHARS`). Sınırı aşarsa önce uzmanlık
+  listesi kısaltılır, sonra ekosistem cümlesi.
+- **Ekosistem cümlesi:** Paydaşların adı yazılmaz. Yerine "Türkiye's leading technology park,
+  a leading start-up incubation centre and the chamber of commerce with the widest business network"
+  ifadesi kullanılır (`DRAFT_ECOSYSTEM`).
+- **Aksiyon türüne göre metin:**
+  - RIA: research & WP lead
+  - IA: piloting & demonstration
+  - CSA: stakeholder engagement & dissemination
 - **Çağrı seçimi:**
-  - Önce lump sum çağrılar alınır (RIA/CSA, sonra IA).
+  - Önce lump sum çağrılar alınır.
   - Son başvurusuna en az 30 gün kalmış olmalıdır (`DRAFT_MIN_DAYS`).
-  - Daha önce taslağı verilmiş çağrılar tekrar seçilmez; bu bilgi state dosyasındaki `drafted` alanında tutulur.
-- **Metin aksiyon türüne göre değişir:**
-  - RIA'da araştırma ortağı / iş paketi rolü,
-  - IA'da pilot ve gösterim rolü,
-  - CSA'da paydaş katılımı ve yaygınlaştırma rolü.
-- **Ekosistem:** İTO, Teknopark İstanbul ve BTM, "konsorsiyuma bizimle katılabilecek ortaklar" olarak
-  eklenir; çağrıyla eşleşenler önce gelir. İngilizce tanıtımları profildeki `name_en` / `role_en`
-  alanlarındadır. İlanda bu kurumların adını kullanmadan önce onlarla teyitleşin.
-- **Doldurulacak alan:** İletişim satırı köşeli parantezle bırakılır: `[Ad Soyad, unvan] – [e-posta]`.
-  İlanı EU Login ve kurumun PIC numarasıyla siz yayımlarsınız.
+  - Daha önce örneği verilmiş çağrı tekrar seçilmez; bu bilgi state dosyasındaki `drafted` alanında tutulur.
+- **Doldurulacak alan:** İletişim kısmı `[name, e-mail]` olarak bırakılır. İlanı EU Login ve kurumun
+  PIC numarasıyla siz yayımlarsınız.
 
 ### Puanlama
 

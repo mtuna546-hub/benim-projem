@@ -227,9 +227,7 @@
         "clusters",
         "business associations",
         "trade"
-      ],
-      "name_en": "Istanbul Chamber of Commerce (İTO)",
-      "role_en": "one of Türkiye's largest business associations, giving direct access to SMEs for requirements gathering, piloting and dissemination"
+      ]
     },
     {
       "id": "teknopark_istanbul",
@@ -257,9 +255,7 @@
         "innovation ecosystems",
         "science park",
         "science parks"
-      ],
-      "name_en": "Teknopark İstanbul",
-      "role_en": "a technology development zone hosting R&D companies and start-ups, offering testing and piloting environments and start-up engagement"
+      ]
     },
     {
       "id": "btm",
@@ -286,9 +282,7 @@
         "acceleration",
         "technology licensing",
         "university-industry"
-      ],
-      "name_en": "Knowledge Commercialisation Centre (BTM)",
-      "role_en": "a commercialisation centre supporting start-ups and spin-offs with mentoring and investor networks, strengthening exploitation of project results"
+      ]
     }
   ],
   "turkey_participation": {
@@ -299,6 +293,6 @@
     "_default": "Türkiye'nin uygunluğunu çağrı metninden kontrol edin",
     "European Defence Fund": "Türkiye uygun değil (yalnızca AB/EEA)"
   },
-  "partner_search_drafts": 2,
+  "partner_search_drafts": 0,
   "institution_en": "Istanbul Commerce University"
 }
