@@ -1,0 +1,920 @@
+{
+ "CERV-2026-CITIZENS-REM-HISTMIGRATION": {
+  "action_full": "CERV-LS CERV Lump Sum Grants",
+  "budget": 28000000,
+  "fetched": "2026-10-19T12:35:58.240069+00:00",
+  "grants": 0,
+  "max": 0,
+  "mga": "CERV-AG-LS",
+  "min": 0
+ },
+ "CERV-2026-CITIZENS-REM-TRANSITION": {
+  "action_full": "CERV-LS CERV Lump Sum Grants",
+  "budget": 28000000,
+  "fetched": "2026-10-19T12:35:58.240069+00:00",
+  "grants": 0,
+  "max": 0,
+  "mga": "CERV-AG-LS",
+  "min": 0
+ },
+ "CREA-MEDIA-2027-INNOVBUSMOD": {
+  "action_full": "CREA-PJG CREA Project Grants",
+  "budget": 14000000,
+  "fetched": "2026-10-19T12:35:58.240069+00:00",
+  "grants": 0,
+  "max": 0,
+  "mga": "CREA-AG",
+  "min": 0
+ },
+ "DIGITAL-ECCC-2027-DEPLOY-CYBER-11-AI4SME": {
+  "action_full": "DIGITAL-JU-SME DIGITAL JU SME Support Actions",
+  "budget": 20000000,
+  "fetched": "2026-10-19T12:35:29.600020+00:00",
+  "grants": 5,
+  "max": 5000000,
+  "mga": "DIGITAL-AG",
+  "min": 3000000
+ },
+ "DIGITAL-ECCC-2027-DEPLOY-CYBER-11-CYBERAI": {
+  "action_full": "DIGITAL-JU-SIMPLE DIGITAL JU Simple Grants",
+  "budget": 15000000,
+  "fetched": "2026-10-19T12:35:29.600020+00:00",
+  "grants": 4,
+  "max": 5000000,
+  "mga": "DIGITAL-AG",
+  "min": 3000000
+ },
+ "DIGITAL-ECCC-2027-DEPLOY-CYBER-11-EULEG": {
+  "action_full": "DIGITAL-JU-SIMPLE DIGITAL JU Simple Grants",
+  "budget": 20000000,
+  "fetched": "2026-10-19T12:35:29.600020+00:00",
+  "grants": 5,
+  "max": 5000000,
+  "mga": "DIGITAL-AG",
+  "min": 3000000
+ },
+ "DIGITAL-JU-CHIPS-2026-AI-GFP": {
+  "action_full": "DIGITAL-JU-GP DIGITAL JU Grants for Procurement",
+  "budget": 70000000,
+  "fetched": "2026-10-19T12:35:29.600020+00:00",
+  "grants": 1,
+  "max": 70000000,
+  "mga": "DIGITAL-AG",
+  "min": 50000000
+ },
+ "DIGITAL-JU-CHIPS-2026-AI1-SG": {
+  "action_full": "DIGITAL-JU-SIMPLE DIGITAL JU Simple Grants",
+  "budget": 10000000,
+  "fetched": "2026-10-19T12:35:29.600020+00:00",
+  "grants": 10,
+  "max": 1000000,
+  "mga": "DIGITAL-AG",
+  "min": 500000
+ },
+ "DIGITAL-JU-CHIPS-2026-SG-JAPAN": {
+  "action_full": "DIGITAL-JU-SIMPLE DIGITAL JU Simple Grants",
+  "budget": 5000000,
+  "fetched": "2026-10-19T12:35:29.600020+00:00",
+  "grants": 2,
+  "max": 5000000,
+  "mga": "DIGITAL-AG",
+  "min": 3000000
+ },
+ "HORIZON-BRIDGING-2027-01-09": {
+  "action_full": "HORIZON-IA HORIZON Innovation Actions",
+  "budget": 10000000,
+  "fetched": "2026-10-19T12:35:58.240069+00:00",
+  "grants": 1,
+  "max": 10000000,
+  "mga": "HORIZON-AG",
+  "min": 10000000
+ },
+ "HORIZON-BRIDGING-2027-01-10": {
+  "action_full": "HORIZON-IA HORIZON Innovation Actions",
+  "budget": 15000000,
+  "fetched": "2026-10-19T12:35:29.600020+00:00",
+  "grants": 1,
+  "max": 15000000,
+  "mga": "HORIZON-AG",
+  "min": 15000000
+ },
+ "HORIZON-BRIDGING-2027-01-12": {
+  "action_full": "HORIZON-IA HORIZON Innovation Actions",
+  "budget": 15000000,
+  "fetched": "2026-10-19T12:35:29.600020+00:00",
+  "grants": 1,
+  "max": 15000000,
+  "mga": "HORIZON-AG",
+  "min": 15000000
+ },
+ "HORIZON-BRIDGING-2027-01-13": {
+  "action_full": "HORIZON-RIA HORIZON  Research and Innovation Actions",
+  "budget": 15000000,
+  "fetched": "2026-10-19T12:35:29.600020+00:00",
+  "grants": 1,
+  "max": 15000000,
+  "mga": "HORIZON-AG",
+  "min": 15000000
+ },
+ "HORIZON-BRIDGING-2027-05-01": {
+  "action_full": "HORIZON-CSA HORIZON Coordination and Support Actions",
+  "budget": 30000000,
+  "fetched": "2026-10-19T12:35:58.240069+00:00",
+  "grants": 1,
+  "max": 30000000,
+  "mga": "HORIZON-AG-LS",
+  "min": 30000000
+ },
+ "HORIZON-CID-2027-01-01": {
+  "action_full": "HORIZON-IA HORIZON Innovation Actions",
+  "budget": 125000000,
+  "fetched": "2026-10-19T12:35:58.240069+00:00",
+  "grants": 8,
+  "max": 25000000,
+  "mga": "HORIZON-AG",
+  "min": 15000000
+ },
+ "HORIZON-CL2-2027-01-DEMOCRACY-04": {
+  "action_full": "HORIZON-RIA HORIZON  Research and Innovation Actions",
+  "budget": 20000000,
+  "fetched": "2026-10-19T12:35:58.240069+00:00",
+  "grants": 5,
+  "max": 4000000,
+  "mga": "HORIZON-AG-LS",
+  "min": 3500000
+ },
+ "HORIZON-CL2-2027-01-DEMOCRACY-06": {
+  "action_full": "HORIZON-RIA HORIZON  Research and Innovation Actions",
+  "budget": 12000000,
+  "fetched": "2026-10-19T12:35:58.240069+00:00",
+  "grants": 3,
+  "max": 4000000,
+  "mga": "HORIZON-AG-LS",
+  "min": 3500000
+ },
+ "HORIZON-CL2-2027-01-HERITAGE-02": {
+  "action_full": "HORIZON-CSA HORIZON Coordination and Support Actions",
+  "budget": 5000000,
+  "fetched": "2026-10-19T12:35:58.240069+00:00",
+  "grants": 1,
+  "max": 5000000,
+  "mga": "HORIZON-AG-LS",
+  "min": 4500000
+ },
+ "HORIZON-CL2-2027-01-HERITAGE-03": {
+  "action_full": "HORIZON-RIA HORIZON  Research and Innovation Actions",
+  "budget": 10500000,
+  "fetched": "2026-10-19T12:35:58.240069+00:00",
+  "grants": 3,
+  "max": 3500000,
+  "mga": "HORIZON-AG-LS",
+  "min": 3000000
+ },
+ "HORIZON-CL2-2027-01-HERITAGE-04": {
+  "action_full": "HORIZON-RIA HORIZON  Research and Innovation Actions",
+  "budget": 16000000,
+  "fetched": "2026-10-19T12:35:58.240069+00:00",
+  "grants": 4,
+  "max": 4000000,
+  "mga": "HORIZON-AG-LS",
+  "min": 3000000
+ },
+ "HORIZON-CL2-2027-01-HERITAGE-05": {
+  "action_full": "HORIZON-RIA HORIZON  Research and Innovation Actions",
+  "budget": 10500000,
+  "fetched": "2026-10-19T12:35:58.240069+00:00",
+  "grants": 3,
+  "max": 3500000,
+  "mga": "HORIZON-AG-LS",
+  "min": 3000000
+ },
+ "HORIZON-CL2-2027-01-HERITAGE-07": {
+  "action_full": "HORIZON-RIA HORIZON  Research and Innovation Actions",
+  "budget": 15000000,
+  "fetched": "2026-10-19T12:35:58.240069+00:00",
+  "grants": 5,
+  "max": 3000000,
+  "mga": "HORIZON-AG-LS",
+  "min": 2500000
+ },
+ "HORIZON-CL2-2027-01-HERITAGE-08": {
+  "action_full": "HORIZON-RIA HORIZON  Research and Innovation Actions",
+  "budget": 12000000,
+  "fetched": "2026-10-19T12:35:58.240069+00:00",
+  "grants": 3,
+  "max": 4000000,
+  "mga": "HORIZON-AG-LS",
+  "min": 3000000
+ },
+ "HORIZON-CL2-2027-01-TRANSFO-01": {
+  "action_full": "HORIZON-RIA HORIZON  Research and Innovation Actions",
+  "budget": 12000000,
+  "fetched": "2026-10-19T12:35:58.240069+00:00",
+  "grants": 3,
+  "max": 4000000,
+  "mga": "HORIZON-AG-LS",
+  "min": 3000000
+ },
+ "HORIZON-CL2-2027-01-TRANSFO-03": {
+  "action_full": "HORIZON-RIA HORIZON  Research and Innovation Actions",
+  "budget": 12000000,
+  "fetched": "2026-10-19T12:35:58.240069+00:00",
+  "grants": 3,
+  "max": 4000000,
+  "mga": "HORIZON-AG-LS",
+  "min": 3000000
+ },
+ "HORIZON-CL2-2027-01-TRANSFO-05": {
+  "action_full": "HORIZON-RIA HORIZON  Research and Innovation Actions",
+  "budget": 12000000,
+  "fetched": "2026-10-19T12:35:58.240069+00:00",
+  "grants": 3,
+  "max": 4000000,
+  "mga": "HORIZON-AG-LS",
+  "min": 3000000
+ },
+ "HORIZON-CL2-2027-02-HERITAGE-09-two-stage": {
+  "action_full": "HORIZON-RIA HORIZON  Research and Innovation Actions",
+  "budget": 20000000,
+  "fetched": "2026-10-19T12:35:58.240069+00:00",
+  "grants": 5,
+  "max": 4000000,
+  "mga": "HORIZON-AG-LS",
+  "min": 2000000
+ },
+ "HORIZON-CL3-2026-01-INFRA-02": {
+  "action_full": "HORIZON-RIA HORIZON  Research and Innovation Actions",
+  "budget": 4000000,
+  "fetched": "2026-10-19T12:35:58.240069+00:00",
+  "grants": 1,
+  "max": 4000000,
+  "mga": "HORIZON-AG-LS",
+  "min": 4000000
+ },
+ "HORIZON-CL3-2027-01-DRS-03": {
+  "action_full": "HORIZON-IA HORIZON Innovation Actions",
+  "budget": 9000000,
+  "fetched": "2026-10-19T12:35:29.600020+00:00",
+  "grants": 3,
+  "max": 3000000,
+  "mga": "HORIZON-AG-LS",
+  "min": 3000000
+ },
+ "HORIZON-CL3-2027-01-SSRI-01": {
+  "action_full": "HORIZON-IA HORIZON Innovation Actions",
+  "budget": 4500000,
+  "fetched": "2026-10-19T12:35:58.240069+00:00",
+  "grants": 3,
+  "max": 1500000,
+  "mga": "HORIZON-AG-LS",
+  "min": 1500000
+ },
+ "HORIZON-CL3-2027-02-CS-ECCC-01": {
+  "action_full": "HORIZON-RIA HORIZON  Research and Innovation Actions",
+  "budget": 24800000,
+  "fetched": "2026-10-19T12:35:29.600020+00:00",
+  "grants": 5,
+  "max": 5000000,
+  "mga": "HORIZON-AG-LS",
+  "min": 4000000
+ },
+ "HORIZON-CL3-2027-02-CS-ECCC-02": {
+  "action_full": "HORIZON-IA HORIZON Innovation Actions",
+  "budget": 24000000,
+  "fetched": "2026-10-19T12:35:29.600020+00:00",
+  "grants": 5,
+  "max": 4000000,
+  "mga": "HORIZON-AG-LS",
+  "min": 3000000
+ },
+ "HORIZON-CL4-2027-01-MAT-PROD-02": {
+  "action_full": "HORIZON-IA HORIZON Innovation Actions",
+  "budget": 36000000,
+  "fetched": "2026-10-19T12:35:29.600020+00:00",
+  "grants": 6,
+  "max": 8000000,
+  "mga": "HORIZON-AG",
+  "min": 6000000
+ },
+ "HORIZON-CL4-2027-01-MAT-PROD-03": {
+  "action_full": "HORIZON-RIA HORIZON  Research and Innovation Actions",
+  "budget": 36000000,
+  "fetched": "2026-10-19T12:35:29.600020+00:00",
+  "grants": 6,
+  "max": 6500000,
+  "mga": "HORIZON-AG-LS",
+  "min": 5000000
+ },
+ "HORIZON-CL4-2027-01-MAT-PROD-08": {
+  "action_full": "HORIZON-IA HORIZON Innovation Actions",
+  "budget": 16000000,
+  "fetched": "2026-10-19T12:35:29.600020+00:00",
+  "grants": 3,
+  "max": 6000000,
+  "mga": "HORIZON-AG-LS",
+  "min": 4000000
+ },
+ "HORIZON-CL4-2027-01-MAT-PROD-42": {
+  "action_full": "HORIZON-CSA HORIZON Coordination and Support Actions",
+  "budget": 2000000,
+  "fetched": "2026-10-19T12:35:58.240069+00:00",
+  "grants": 2,
+  "max": 1000000,
+  "mga": "HORIZON-AG-LS",
+  "min": 1000000
+ },
+ "HORIZON-CL4-2027-01-MAT-PROD-47": {
+  "action_full": "HORIZON-CSA HORIZON Coordination and Support Actions",
+  "budget": 5000000,
+  "fetched": "2026-10-19T12:35:58.240069+00:00",
+  "grants": 2,
+  "max": 2500000,
+  "mga": "HORIZON-AG-LS",
+  "min": 1500000
+ },
+ "HORIZON-CL4-2027-02-DIGITAL-EMERGING-52-two-stage": {
+  "action_full": "HORIZON-RIA HORIZON  Research and Innovation Actions",
+  "budget": 30000000,
+  "fetched": "2026-10-19T12:35:29.600020+00:00",
+  "grants": 5,
+  "max": 6000000,
+  "mga": "HORIZON-AG-LS",
+  "min": 4000000
+ },
+ "HORIZON-CL4-2027-04-DATA-03": {
+  "action_full": "HORIZON-RIA HORIZON  Research and Innovation Actions",
+  "budget": 35000000,
+  "fetched": "2026-10-19T12:35:29.600020+00:00",
+  "grants": 2,
+  "max": 17500000,
+  "mga": "HORIZON-AG",
+  "min": 17500000
+ },
+ "HORIZON-CL4-2027-04-DATA-08": {
+  "action_full": "HORIZON-IA HORIZON Innovation Actions",
+  "budget": 38000000,
+  "fetched": "2026-10-19T12:35:29.600020+00:00",
+  "grants": 2,
+  "max": 19000000,
+  "mga": "HORIZON-AG",
+  "min": 19000000
+ },
+ "HORIZON-CL4-2027-04-DATA-09": {
+  "action_full": "HORIZON-IA HORIZON Innovation Actions",
+  "budget": 39000000,
+  "fetched": "2026-10-19T12:35:29.600020+00:00",
+  "grants": 4,
+  "max": 10000000,
+  "mga": "HORIZON-AG",
+  "min": 9000000
+ },
+ "HORIZON-CL4-2027-04-DIGITAL-EMERGING-04": {
+  "action_full": "HORIZON-RIA HORIZON  Research and Innovation Actions",
+  "budget": 42000000,
+  "fetched": "2026-10-19T12:35:29.600020+00:00",
+  "grants": 3,
+  "max": 14000000,
+  "mga": "HORIZON-AG",
+  "min": 14000000
+ },
+ "HORIZON-CL4-2027-04-DIGITAL-EMERGING-05": {
+  "action_full": "HORIZON-IA HORIZON Innovation Actions",
+  "budget": 18000000,
+  "fetched": "2026-10-19T12:35:29.600020+00:00",
+  "grants": 1,
+  "max": 18000000,
+  "mga": "HORIZON-AG",
+  "min": 18000000
+ },
+ "HORIZON-CL4-2027-04-DIGITAL-EMERGING-06": {
+  "action_full": "HORIZON-IA HORIZON Innovation Actions",
+  "budget": 3000000,
+  "fetched": "2026-10-19T12:35:29.600020+00:00",
+  "grants": 2,
+  "max": 1500000,
+  "mga": "HORIZON-AG-LS",
+  "min": 1500000
+ },
+ "HORIZON-CL4-2027-04-DIGITAL-EMERGING-11": {
+  "action_full": "HORIZON-RIA HORIZON  Research and Innovation Actions",
+  "budget": 44000000,
+  "fetched": "2026-10-19T12:35:29.600020+00:00",
+  "grants": 1,
+  "max": 44000000,
+  "mga": "HORIZON-AG",
+  "min": 44000000
+ },
+ "HORIZON-CL4-2027-05-DIGITAL-EMERGING-03": {
+  "action_full": "HORIZON-RIA HORIZON  Research and Innovation Actions",
+  "budget": 25000000,
+  "fetched": "2026-10-19T12:35:29.600020+00:00",
+  "grants": 6,
+  "max": 5000000,
+  "mga": "HORIZON-AG-LS",
+  "min": 3000000
+ },
+ "HORIZON-CL4-2027-SPACE-03-12": {
+  "action_full": "HORIZON-IA HORIZON Innovation Actions",
+  "budget": 5000000,
+  "fetched": "2026-10-19T12:35:29.600020+00:00",
+  "grants": 2,
+  "max": 3000000,
+  "mga": "HORIZON-AG-LS",
+  "min": 2000000
+ },
+ "HORIZON-CL4-2027-SPACE-03-33": {
+  "action_full": "HORIZON-RIA HORIZON  Research and Innovation Actions",
+  "budget": 4000000,
+  "fetched": "2026-10-19T12:35:29.600020+00:00",
+  "grants": 2,
+  "max": 3000000,
+  "mga": "HORIZON-AG-LS",
+  "min": 1500000
+ },
+ "HORIZON-CL4-2027-SPACE-03-71": {
+  "action_full": "HORIZON-RIA HORIZON  Research and Innovation Actions",
+  "budget": 29200000,
+  "fetched": "2026-10-19T12:35:29.600020+00:00",
+  "grants": 2,
+  "max": 15000000,
+  "mga": "HORIZON-AG",
+  "min": 14000000
+ },
+ "HORIZON-CL5-2026-11-D3-23": {
+  "action_full": "HORIZON-IA HORIZON Innovation Actions",
+  "budget": 30000000,
+  "fetched": "2026-10-19T12:35:29.600020+00:00",
+  "grants": 3,
+  "max": 10000000,
+  "mga": "HORIZON-AG",
+  "min": 10000000
+ },
+ "HORIZON-CL5-2027-02-D2-06": {
+  "action_full": "HORIZON-IA HORIZON Innovation Actions",
+  "budget": 37800000,
+  "fetched": "2026-10-19T12:35:29.600020+00:00",
+  "grants": 2,
+  "max": 18900000,
+  "mga": "HORIZON-AG",
+  "min": 18900000
+ },
+ "HORIZON-CL5-2027-02-D3-07": {
+  "action_full": "HORIZON-IA HORIZON Innovation Actions",
+  "budget": 12000000,
+  "fetched": "2026-10-19T12:35:29.600020+00:00",
+  "grants": 2,
+  "max": 6000000,
+  "mga": "HORIZON-AG-LS",
+  "min": 6000000
+ },
+ "HORIZON-CL5-2027-02-D3-09": {
+  "action_full": "HORIZON-IA HORIZON Innovation Actions",
+  "budget": 43000000,
+  "fetched": "2026-10-19T12:35:29.600020+00:00",
+  "grants": 1,
+  "max": 43000000,
+  "mga": "HORIZON-AG",
+  "min": 43000000
+ },
+ "HORIZON-CL5-2027-02-D3-10": {
+  "action_full": "HORIZON-IA HORIZON Innovation Actions",
+  "budget": 9000000,
+  "fetched": "2026-10-19T12:35:29.600020+00:00",
+  "grants": 2,
+  "max": 4500000,
+  "mga": "HORIZON-AG",
+  "min": 4500000
+ },
+ "HORIZON-CL5-2027-02-D3-15": {
+  "action_full": "HORIZON-IA HORIZON Innovation Actions",
+  "budget": 36000000,
+  "fetched": "2026-10-19T12:35:29.600020+00:00",
+  "grants": 3,
+  "max": 12000000,
+  "mga": "HORIZON-AG",
+  "min": 12000000
+ },
+ "HORIZON-CL5-2027-02-D3-24": {
+  "action_full": "HORIZON-IA HORIZON Innovation Actions",
+  "budget": 20000000,
+  "fetched": "2026-10-19T12:35:29.600020+00:00",
+  "grants": 2,
+  "max": 10000000,
+  "mga": "HORIZON-AG",
+  "min": 10000000
+ },
+ "HORIZON-CL5-2027-03-D5-03": {
+  "action_full": "HORIZON-IA HORIZON Innovation Actions",
+  "budget": 24000000,
+  "fetched": "2026-10-19T12:35:58.240069+00:00",
+  "grants": 4,
+  "max": 7000000,
+  "mga": "HORIZON-AG-LS",
+  "min": 5000000
+ },
+ "HORIZON-CL5-2027-03-D5-08": {
+  "action_full": "HORIZON-RIA HORIZON  Research and Innovation Actions",
+  "budget": 5000000,
+  "fetched": "2026-10-19T12:35:29.600020+00:00",
+  "grants": 2,
+  "max": 2500000,
+  "mga": "HORIZON-AG-LS",
+  "min": 2500000
+ },
+ "HORIZON-CL5-2027-03-D5-14": {
+  "action_full": "HORIZON-IA HORIZON Innovation Actions",
+  "budget": 6500000,
+  "fetched": "2026-10-19T12:35:29.600020+00:00",
+  "grants": 1,
+  "max": 6500000,
+  "mga": "HORIZON-AG-LS",
+  "min": 6500000
+ },
+ "HORIZON-CL5-2027-03-D5-18": {
+  "action_full": "HORIZON-IA HORIZON Innovation Actions",
+  "budget": 20000000,
+  "fetched": "2026-10-19T12:35:29.600020+00:00",
+  "grants": 2,
+  "max": 10000000,
+  "mga": "HORIZON-AG",
+  "min": 10000000
+ },
+ "HORIZON-CL5-2027-04-Two-Stage-D2-07": {
+  "action_full": "HORIZON-RIA HORIZON  Research and Innovation Actions",
+  "budget": 48000000,
+  "fetched": "2026-10-19T12:35:29.600020+00:00",
+  "grants": 10,
+  "max": 4800000,
+  "mga": "HORIZON-AG-LS",
+  "min": 4800000
+ },
+ "HORIZON-CL5-2027-05-D2-08": {
+  "action_full": "HORIZON-IA HORIZON Innovation Actions",
+  "budget": 18800000,
+  "fetched": "2026-10-19T12:35:29.600020+00:00",
+  "grants": 2,
+  "max": 9400000,
+  "mga": "HORIZON-AG",
+  "min": 9400000
+ },
+ "HORIZON-CL5-2027-05-D4-06": {
+  "action_full": "HORIZON-IA HORIZON Innovation Actions",
+  "budget": 15750000,
+  "fetched": "2026-10-19T12:35:29.600020+00:00",
+  "grants": 3,
+  "max": 5250000,
+  "mga": "HORIZON-AG-LS",
+  "min": 5250000
+ },
+ "HORIZON-CL5-2027-07-D3-17": {
+  "action_full": "HORIZON-IA HORIZON Innovation Actions",
+  "budget": 18000000,
+  "fetched": "2026-10-19T12:35:29.600020+00:00",
+  "grants": 3,
+  "max": 6000000,
+  "mga": "HORIZON-AG-LS",
+  "min": 6000000
+ },
+ "HORIZON-CL5-2027-07-D3-25": {
+  "action_full": "HORIZON-IA HORIZON Innovation Actions",
+  "budget": 28500000,
+  "fetched": "2026-10-19T12:35:29.600020+00:00",
+  "grants": 3,
+  "max": 9500000,
+  "mga": "HORIZON-AG",
+  "min": 9500000
+ },
+ "HORIZON-CL5-2027-07-D3-27": {
+  "action_full": "HORIZON-IA HORIZON Innovation Actions",
+  "budget": 22500000,
+  "fetched": "2026-10-19T12:35:29.600020+00:00",
+  "grants": 3,
+  "max": 7500000,
+  "mga": "HORIZON-AG-LS",
+  "min": 7500000
+ },
+ "HORIZON-CL6-2027-01-CIRCBIO-01": {
+  "action_full": "HORIZON-IA HORIZON Innovation Actions",
+  "budget": 10000000,
+  "fetched": "2026-10-19T12:35:58.240069+00:00",
+  "grants": 2,
+  "max": 5000000,
+  "mga": "HORIZON-AG-LS",
+  "min": 5000000
+ },
+ "HORIZON-CL6-2027-01-CIRCBIO-01-two-stage": {
+  "action_full": "HORIZON-IA HORIZON Innovation Actions",
+  "budget": 10000000,
+  "fetched": "2026-10-19T12:35:58.240069+00:00",
+  "grants": 2,
+  "max": 5000000,
+  "mga": "HORIZON-AG-LS",
+  "min": 5000000
+ },
+ "HORIZON-CL6-2027-01-CIRCBIO-02": {
+  "action_full": "HORIZON-IA HORIZON Innovation Actions",
+  "budget": 10000000,
+  "fetched": "2026-10-19T12:35:58.240069+00:00",
+  "grants": 2,
+  "max": 5000000,
+  "mga": "HORIZON-AG-LS",
+  "min": 5000000
+ },
+ "HORIZON-CL6-2027-01-CIRCBIO-02-two-stage": {
+  "action_full": "HORIZON-IA HORIZON Innovation Actions",
+  "budget": 18000000,
+  "fetched": "2026-10-19T12:35:58.240069+00:00",
+  "grants": 3,
+  "max": 6000000,
+  "mga": "HORIZON-AG",
+  "min": 6000000
+ },
+ "HORIZON-CL6-2027-01-CIRCBIO-09": {
+  "action_full": "HORIZON-IA HORIZON Innovation Actions",
+  "budget": 12000000,
+  "fetched": "2026-10-19T12:35:58.240069+00:00",
+  "grants": 2,
+  "max": 6000000,
+  "mga": "HORIZON-AG-LS",
+  "min": 6000000
+ },
+ "HORIZON-CL6-2027-02-CLIMATE-02": {
+  "action_full": "HORIZON-RIA HORIZON  Research and Innovation Actions",
+  "budget": 12000000,
+  "fetched": "2026-10-19T12:35:58.240069+00:00",
+  "grants": 2,
+  "max": 6000000,
+  "mga": "HORIZON-AG-LS",
+  "min": 6000000
+ },
+ "HORIZON-CL6-2027-02-CLIMATE-03": {
+  "action_full": "HORIZON-RIA HORIZON  Research and Innovation Actions",
+  "budget": 12000000,
+  "fetched": "2026-10-19T12:35:58.240069+00:00",
+  "grants": 2,
+  "max": 6000000,
+  "mga": "HORIZON-AG-LS",
+  "min": 6000000
+ },
+ "HORIZON-CL6-2027-02-FARM2FORK-08": {
+  "action_full": "HORIZON-IA HORIZON Innovation Actions",
+  "budget": 7800000,
+  "fetched": "2026-10-19T12:35:58.240069+00:00",
+  "grants": 1,
+  "max": 7800000,
+  "mga": "HORIZON-AG",
+  "min": 7800000
+ },
+ "HORIZON-CL6-2027-03-GOVERNANCE-02": {
+  "action_full": "HORIZON-RIA HORIZON  Research and Innovation Actions",
+  "budget": 6000000,
+  "fetched": "2026-10-19T12:35:58.240069+00:00",
+  "grants": 1,
+  "max": 6000000,
+  "mga": "HORIZON-AG-LS",
+  "min": 6000000
+ },
+ "HORIZON-CL6-2027-03-GOVERNANCE-04": {
+  "action_full": "HORIZON-IA HORIZON Innovation Actions",
+  "budget": 11800000,
+  "fetched": "2026-10-19T12:35:58.240069+00:00",
+  "grants": 2,
+  "max": 6000000,
+  "mga": "HORIZON-AG-LS",
+  "min": 5000000
+ },
+ "HORIZON-EIC-2026-PATHFINDERCHALLENGES-01-03": {
+  "action_full": "HORIZON-EIC HORIZON EIC Grants",
+  "budget": 96000000,
+  "fetched": "2026-10-19T12:35:29.600020+00:00",
+  "grants": 8,
+  "max": 4000000,
+  "mga": "HORIZON-AG-LS",
+  "min": 500000
+ },
+ "HORIZON-EIE-2027-02-CONNECT-01": {
+  "action_full": "HORIZON-COFUND HORIZON Programme Cofund Actions",
+  "budget": 40000000,
+  "fetched": "2026-10-19T12:35:58.240069+00:00",
+  "grants": 2,
+  "max": 20000000,
+  "mga": "HORIZON-AG",
+  "min": 20000000
+ },
+ "HORIZON-HLTH-2027-02-TOOL-01-two-stage": {
+  "action_full": "HORIZON-RIA HORIZON  Research and Innovation Actions",
+  "budget": 44200000,
+  "fetched": "2026-10-19T12:35:29.600020+00:00",
+  "grants": 6,
+  "max": 8000000,
+  "mga": "HORIZON-AG",
+  "min": 6000000
+ },
+ "HORIZON-HLTH-2027-03-TOOL-04": {
+  "action_full": "HORIZON-RIA HORIZON  Research and Innovation Actions",
+  "budget": 39300000,
+  "fetched": "2026-10-19T12:35:29.600020+00:00",
+  "grants": 4,
+  "max": 12000000,
+  "mga": "HORIZON-AG",
+  "min": 10000000
+ },
+ "HORIZON-HLTH-2027-03-TOOL-08": {
+  "action_full": "HORIZON-CSA HORIZON Coordination and Support Actions",
+  "budget": 2900000,
+  "fetched": "2026-10-19T12:35:29.600020+00:00",
+  "grants": 1,
+  "max": 2900000,
+  "mga": "HORIZON-AG-LS",
+  "min": 2900000
+ },
+ "HORIZON-JU-EUROHPC-2026-QEXP-14-01": {
+  "action_full": "HORIZON-JU-RIA HORIZON JU Research and Innovation Actions",
+  "budget": 15000000,
+  "fetched": "2026-10-19T12:35:29.600020+00:00",
+  "grants": 1,
+  "max": 15000000,
+  "mga": "HORIZON-AG",
+  "min": 14000000
+ },
+ "HORIZON-JU-EUROHPC-2026-QML-07-01": {
+  "action_full": "HORIZON-JU-RIA HORIZON JU Research and Innovation Actions",
+  "budget": 6000000,
+  "fetched": "2026-10-19T12:35:29.600020+00:00",
+  "grants": 2,
+  "max": 3000000,
+  "mga": "HORIZON-AG",
+  "min": 2000000
+ },
+ "HORIZON-JU-EUROHPC-2026-QTI-13-01": {
+  "action_full": "HORIZON-JU-RIA HORIZON JU Research and Innovation Actions",
+  "budget": 20000000,
+  "fetched": "2026-10-19T12:35:29.600020+00:00",
+  "grants": 1,
+  "max": 20000000,
+  "mga": "HORIZON-AG",
+  "min": 19000000
+ },
+ "HORIZON-MISS-2027-01-CLIMA-02": {
+  "action_full": "HORIZON-RIA HORIZON  Research and Innovation Actions",
+  "budget": 12000000,
+  "fetched": "2026-10-19T12:35:29.600020+00:00",
+  "grants": 4,
+  "max": 3000000,
+  "mga": "HORIZON-AG-LS",
+  "min": 3000000
+ },
+ "HORIZON-MISS-2027-02-CANCER-04": {
+  "action_full": "HORIZON-RIA HORIZON  Research and Innovation Actions",
+  "budget": 10000000,
+  "fetched": "2026-10-19T12:35:58.240069+00:00",
+  "grants": 3,
+  "max": 7000000,
+  "mga": "HORIZON-AG-LS",
+  "min": 5000000
+ },
+ "HORIZON-MISS-2027-03-OCEAN-02": {
+  "action_full": "HORIZON-IA HORIZON Innovation Actions",
+  "budget": 30900000,
+  "fetched": "2026-10-19T12:35:58.240069+00:00",
+  "grants": 4,
+  "max": 7725000,
+  "mga": "HORIZON-AG",
+  "min": 7200000
+ },
+ "HORIZON-MISS-2027-03-OCEAN-04": {
+  "action_full": "HORIZON-IA HORIZON Innovation Actions",
+  "budget": 6000000,
+  "fetched": "2026-10-19T12:35:58.240069+00:00",
+  "grants": 4,
+  "max": 1500000,
+  "mga": "HORIZON-AG",
+  "min": 1000000
+ },
+ "HORIZON-MISS-2027-04-CIT-01": {
+  "action_full": "HORIZON-IA HORIZON Innovation Actions",
+  "budget": 20000000,
+  "fetched": "2026-10-19T12:35:58.240069+00:00",
+  "grants": 3,
+  "max": 7000000,
+  "mga": "HORIZON-AG-LS",
+  "min": 7000000
+ },
+ "HORIZON-MISS-2027-04-CIT-02": {
+  "action_full": "HORIZON-CSA HORIZON Coordination and Support Actions",
+  "budget": 5000000,
+  "fetched": "2026-10-19T12:35:58.240069+00:00",
+  "grants": 1,
+  "max": 5000000,
+  "mga": "HORIZON-AG-LS",
+  "min": 5000000
+ },
+ "HORIZON-MISS-2027-04-CIT-05": {
+  "action_full": "HORIZON-PCP HORIZON Pre-commercial Procurement",
+  "budget": 26823812,
+  "fetched": "2026-10-19T12:35:58.240069+00:00",
+  "grants": 3,
+  "max": 12000000,
+  "mga": "HORIZON-AG",
+  "min": 7000000
+ },
+ "HORIZON-MISS-2027-04-CIT-CCRI-04": {
+  "action_full": "HORIZON-IA HORIZON Innovation Actions",
+  "budget": 22500000,
+  "fetched": "2026-10-19T12:35:29.600020+00:00",
+  "grants": 3,
+  "max": 7500000,
+  "mga": "HORIZON-AG-LS",
+  "min": 7500000
+ },
+ "HORIZON-MISS-2027-05-SOIL-05-two-stage": {
+  "action_full": "HORIZON-IA HORIZON Innovation Actions",
+  "budget": 12800000,
+  "fetched": "2026-10-19T12:35:58.240069+00:00",
+  "grants": 2,
+  "max": 6400000,
+  "mga": "HORIZON-AG-LS",
+  "min": 6400000
+ },
+ "HORIZON-MISS-2027-07-CLIMA-CIT-CCRI-02": {
+  "action_full": "HORIZON-IA HORIZON Innovation Actions",
+  "budget": 28500000,
+  "fetched": "2026-10-19T12:35:58.240069+00:00",
+  "grants": 3,
+  "max": 9500000,
+  "mga": "HORIZON-AG",
+  "min": 9500000
+ },
+ "HORIZON-MISS-2027-07-CLIMA-CIT-NEB-01": {
+  "action_full": "HORIZON-IA HORIZON Innovation Actions",
+  "budget": 40000000,
+  "fetched": "2026-10-19T12:35:58.240069+00:00",
+  "grants": 4,
+  "max": 10000000,
+  "mga": "HORIZON-AG",
+  "min": 10000000
+ },
+ "HORIZON-NEB-2026-01-PARTICIPATION-01": {
+  "action_full": "HORIZON-IA HORIZON Innovation Actions",
+  "budget": 12600000,
+  "fetched": "2026-10-19T12:35:58.240069+00:00",
+  "grants": 2,
+  "max": 6300000,
+  "mga": "HORIZON-AG-LS",
+  "min": 6300000
+ },
+ "HORIZON-NEB-2027-01-BUSINESS-01": {
+  "action_full": "HORIZON-IA HORIZON Innovation Actions",
+  "budget": 10000000,
+  "fetched": "2026-10-19T12:35:58.240069+00:00",
+  "grants": 2,
+  "max": 5000000,
+  "mga": "HORIZON-AG-LS",
+  "min": 5000000
+ },
+ "HORIZON-NEB-2027-01-BUSINESS-03": {
+  "action_full": "HORIZON-RIA HORIZON  Research and Innovation Actions",
+  "budget": 7000000,
+  "fetched": "2026-10-19T12:35:58.240069+00:00",
+  "grants": 2,
+  "max": 3500000,
+  "mga": "HORIZON-AG-LS",
+  "min": 3500000
+ },
+ "HORIZON-NEB-2027-01-PARTICIPATION-01": {
+  "action_full": "HORIZON-IA HORIZON Innovation Actions",
+  "budget": 10760000,
+  "fetched": "2026-10-19T12:35:58.240069+00:00",
+  "grants": 2,
+  "max": 5380000,
+  "mga": "HORIZON-AG",
+  "min": 5380000
+ },
+ "HORIZON-NEB-2027-01-PARTICIPATION-02": {
+  "action_full": "HORIZON-IA HORIZON Innovation Actions",
+  "budget": 10500000,
+  "fetched": "2026-10-19T12:35:58.240069+00:00",
+  "grants": 2,
+  "max": 5250000,
+  "mga": "HORIZON-AG-LS",
+  "min": 5250000
+ },
+ "HORIZON-NEB-2027-01-PARTICIPATION-03": {
+  "action_full": "HORIZON-RIA HORIZON  Research and Innovation Actions",
+  "budget": 14000000,
+  "fetched": "2026-10-19T12:35:58.240069+00:00",
+  "grants": 4,
+  "max": 3500000,
+  "mga": "HORIZON-AG-LS",
+  "min": 3500000
+ },
+ "HORIZON-NEB-2027-02-NEB-SOIL-01": {
+  "action_full": "HORIZON-IA HORIZON Innovation Actions",
+  "budget": 15000000,
+  "fetched": "2026-10-19T12:35:58.240069+00:00",
+  "grants": 2,
+  "max": 7500000,
+  "mga": "HORIZON-AG",
+  "min": 7500000
+ }
+}
