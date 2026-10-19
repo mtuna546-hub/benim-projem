@@ -1,1 +1,130 @@
-{}
+{
+ "HORIZON-CL2-2027-01-DEMOCRACY-04": {
+  "date": "2026-10-19",
+  "text": "YZ, deepfake ve siber şiddetin eşitlik, demokrasi ve toplumsal uyum üzerindeki etkisi. AI Act ile uyumlu yönetişim çerçeveleri, medya okuryazarlığı ve zararları tespit eden araçlar bekleniyor. Akademinin hesaplama altyapısı ve veriye erişimi ile sanayi iş birliğinin güçlendirilmesi de hedefler arasında."
+ },
+ "HORIZON-CL2-2027-01-HERITAGE-02": {
+  "date": "2026-10-19",
+  "text": "Kültür ve yaratıcı sektörler için Avrupa çapında sanal bir YZ destek platformu. Ortak hizmetler, eğitim, araçlar ve etik/telif uyumlu YZ çözümleri sağlayacak bir CSA. Horizon projelerinin çıktılarını bir araya getirecek kalıcı bir referans noktası kurulması amaçlanıyor."
+ },
+ "HORIZON-CL2-2027-01-HERITAGE-03": {
+  "date": "2026-10-19",
+  "text": "Döngüsel ekonominin kültürel boyutu. El sanatları ve yerel mirastan esinlenen 'tutumlu inovasyon' ile imalat, tekstil, turizm ve inşaat gibi sektörler için iş modelleri, pratik bir araç seti, politika önerileri ve eğitim modülleri geliştirilecek."
+ },
+ "HORIZON-CL2-2027-01-HERITAGE-05": {
+  "date": "2026-10-19",
+  "text": "Kültür-yaratıcı sektörlerle sosyal ekonominin kesişimi. Kârlılıkla sosyal sorumluluğu dengeleyen hibrit iş modelleri, etki ölçüm göstergeleri ve yaratıcı sektörlerdeki güvencesiz istihdama yönelik işgücü stratejileri geliştirilecek."
+ },
+ "HORIZON-CL2-2027-01-TRANSFO-01": {
+  "date": "2026-10-19",
+  "text": "Kentte ve kent çeperinde nitelikli yeşil ve mavi alanlara erişimin sosyal uyum ve eşitsizlik üzerindeki etkisi. Bireysel sağlık yerine toplumsal düzeydeki etkilere bakılıyor. Mekânsal planlamaya piyasa dışı değerleri katan çözümler ve politika için kanıt bekleniyor."
+ },
+ "HORIZON-CL2-2027-01-TRANSFO-03": {
+  "date": "2026-10-19",
+  "text": "Sosyal ekonominin AB'nin sürdürülebilir rekabetçiliğine katkısı. Rekabetçilik, maliyetten çok beceri, inovasyon ve uyum üzerinden tanımlanıyor. Sosyal girişimler, firmalar ve yatırımcılar için bilgi üretilecek; politika ve mevzuat önerileri ile pratik çözümler bekleniyor."
+ },
+ "HORIZON-CL2-2027-02-HERITAGE-09-two-stage": {
+  "date": "2026-10-19",
+  "text": "Kültürel miras, sanat ve yaratıcı endüstriler için açık konulu çağrı. Odak tamamen başvurana bırakılmış; tek şart, betimleyici çalışmaların ötesine geçen, dönüştürücü ve uygulanabilir bilgi üreten etki odaklı bir araştırma olması. İki aşamalı başvuru."
+ },
+ "HORIZON-CL3-2026-01-INFRA-02": {
+  "date": "2026-10-19",
+  "text": "Yeşil dönüşüm teknolojilerinin kentlerde yarattığı yeni güvenlik riskleri: güneş panelleri, şarj istasyonları, enerji depolama, akıllı sensörler. Batarya yangınları, toksik sızıntılar ve siber zafiyetler gibi riskler incelenecek. Yetkililer ve kritik altyapı operatörleri için değerlendirme yöntemleri bekleniyor."
+ },
+ "HORIZON-CL3-2027-02-CS-ECCC-01": {
+  "date": "2026-10-19",
+  "text": "Gerçek zamanlı tehdit tespiti ve kendini uyarlayan siber savunma için YZ. Asıl fark: YZ'nin kendisinin de saldırıya açık olduğunu kabul edip, düşmanca saldırılara (adversarial) dayanıklı ve AI Act ile uyumlu, güvenilir çözümler istemesi. Üretken YZ de kapsamda."
+ },
+ "HORIZON-CL3-2027-02-CS-ECCC-02": {
+  "date": "2026-10-19",
+  "text": "IoT'den edge'e, buluttan veri alanlarına uzanan hesaplama sürekliliğinin uçtan uca güvenliği. Zero-trust mimariler, hafif ve kuantum sonrası kriptografi, katmanlar ve sağlayıcılar arası birlikte çalışabilirlik öne çıkıyor. Gizlilik (GDPR) çekirdek gereklilik; iyileşmeler ölçülebilir olmalı."
+ },
+ "HORIZON-CL4-2027-01-MAT-PROD-03": {
+  "date": "2026-10-19",
+  "text": "Fabrika düzeyinde söküm (de-manufacturing) ve yeniden üretim teknolojileri. Listedeki beş alandan en az üçü ele alınmalı: YZ ve sensörle parça durumu analizi ve kestirimci bakım, robotik söküm, dijital ikiz/CAD tabanlı süreçler, yerinde onarım, operasyon sıralama. İş modeli ve ticarileştirme stratejisi zorunlu."
+ },
+ "HORIZON-CL4-2027-01-MAT-PROD-42": {
+  "date": "2026-10-19",
+  "text": "Üniversitelerdeki atıl patentleri ve fikri varlıkları sanayi, KOBİ ve start-up'lara kazandırma. Öğrenci ve araştırmacıların katıldığı hackathon ve 'summer camp' pilotları ile yenilikçi lisanslama modelleri test edilecek. TTO'lar için birebir uygun bir CSA."
+ },
+ "HORIZON-CL4-2027-02-DIGITAL-EMERGING-52-two-stage": {
+  "date": "2026-10-19",
+  "text": "Fabrikalarda insan-YZ iş birliği. Çalışanın dağınık bilgisini YZ ile kayıt altına almak, işe alıştırma süresini kısaltmak, makineyi çalışanın yeteneğine ve kültürüne uyarlamak hedefleniyor. Kapsayıcılık, beceri geliştirme ve iyi oluş ön planda. İki aşamalı başvuru."
+ },
+ "HORIZON-CL4-2027-04-DATA-08": {
+  "date": "2026-10-19",
+  "text": "Telekom-edge-bulut (3C) altyapısında talep tarafı pilotları. Biri akıllı mobilite ve otomotiv alanında olmak üzere sektöre özgü pilotlarla açık orkestrasyon platformları doğrulanacak. KOBİ ve start-up'lar için bir ekosistem ile ticarileştirme yolu da isteniyor; 6G ve ISAC kapsamda."
+ },
+ "HORIZON-CL4-2027-04-DATA-09": {
+  "date": "2026-10-19",
+  "text": "YZ yüklerinde veri merkezlerinin enerji verimliliği. Doğrudan çip üzeri soğutma, minimum soğutmalı yedek güç (ör. grafen katkılı bataryalar), karbona duyarlı iş planlama, atık ısının değerlendirilmesi ve yenilenebilir enerji entegrasyonu öne çıkıyor. Gösterim sahaları ve pilotlar bekleniyor."
+ },
+ "HORIZON-CL4-2027-04-DIGITAL-EMERGING-04": {
+  "date": "2026-10-19",
+  "text": "Apply AI Innovation Booster. Proje, sağlık, ileri imalat (YZ destekli robotik dahil) ya da otonom sürüş sektörlerinden yalnızca birinde çok aşamalı bir yarışma tasarlayıp düzenleyecek. Klasik bir Ar-Ge projesinden farklı olarak bir yarışma ve ekosistem işi; en az bir proje otonom sürüş alanında olacak."
+ },
+ "HORIZON-CL4-2027-05-DIGITAL-EMERGING-03": {
+  "date": "2026-10-19",
+  "text": "Daha yüksek performanslı ve ultra düşük güç tüketen entegre fotonik cihaz ve devreler. İnce film LiNbO3, grafen, SiC gibi yeni malzemeler; çipletler ve elektronik-fotonik entegrasyonu öne çıkıyor. Listedeki dört yönden en az ikisi ele alınmalı ve sonuçlar gerçek bir uygulama konfigürasyonunda gösterilmeli."
+ },
+ "HORIZON-CL4-2027-SPACE-03-33": {
+  "date": "2026-10-19",
+  "text": "Yer gözlemi (EO) ve uydu haberleşmesinin (SatCom) ortak dijital yapı taşları. 5G/6G uyumlu uçtan uca SatCom, yörüngede yeniden yapılandırma, uyduda ve yerde akıllı hesaplama öne çıkıyor. Düşük-orta TRL; mevcut AB teknolojilerinin kullanılması ve sanayi-akademi iş birliği bekleniyor."
+ },
+ "HORIZON-CL5-2027-02-D3-07": {
+  "date": "2026-10-19",
+  "text": "150–400°C aralığındaki sanayi ısısı için yoğunlaştırılmış güneş termal sistemleri ve depolama. Yıllık en az %50 güneş payı, en az 6 ay sürekli gösterim ve ekonomik olarak uygulanabilir bir iş modeli şart. Odak güneş termal sistemde olmalı, sanayi sürecinde değil."
+ },
+ "HORIZON-CL5-2027-03-D5-08": {
+  "date": "2026-10-19",
+  "text": "Uçak ve motor parçaları için metal, yüksek performanslı polimer ve kompozit eklemeli imalat ile döngüsel tasarım. Kalıntı gerilim, kusur ve tekrarlanabilirlik sorunları çözülmeli. Tasarımdan sertifikasyona tüm süreç ve gerçek endüstriyel kullanım senaryoları isteniyor; onarım, gerçek zamanlı durum izleme ve geri dönüşüm de kapsamda."
+ },
+ "HORIZON-CL5-2027-03-D5-14": {
+  "date": "2026-10-19",
+  "text": "Gemilerde yenilenebilir enerji ve enerji tasarrufu çözümlerini birleştirerek 2008'e göre en az %55 sera gazı ve enerji azaltımı. Tam ölçekli gösterim, standart doğrulama çerçevesi, deniz testi prosedürleri ve mevcut gemilere 2030'a kadar uyarlama isteniyor. Veri odaklı optimizasyon için standart arayüzler de kapsamda."
+ },
+ "HORIZON-CL5-2027-04-Two-Stage-D2-07": {
+  "date": "2026-10-19",
+  "text": "Yeni nesil batarya kavramları, üç alandan biri seçilecek. A: kWh başına 35 €'nun altında ana bileşen maliyetiyle elektrikli araç ve sabit depolama. B: 500 Wh/kg üzeri havacılık ve denizcilik. C: sistem maliyeti 50 €/kWh'in altında şebeke ve endüstri depolaması. Hedefler sayısal ve iddialı; iki aşamalı başvuru."
+ },
+ "HORIZON-CL5-2027-05-D4-06": {
+  "date": "2026-10-19",
+  "text": "Binalardaki BT odaları ve küçük edge veri merkezlerinde ısı yönetimi ve atık ısının geri kazanımı. Farkı: büyük veri merkezleri yerine, düzenlemelerin dışında kalan küçük ölçekli tesisleri hedeflemesi. Yeni tasarımlar ve performans verilerinin açık paylaşımı bekleniyor."
+ },
+ "HORIZON-CL5-2027-07-D3-17": {
+  "date": "2026-10-19",
+  "text": "PV ile sanayinin elektrifikasyonu. İki kapsamdan en az biri ele alınacak: 1) 3 kV üzeri yüksek gerilim DC PV sistemleri ve sanayi tesisleri için DC şebekeler; 2) sıfır ya da negatif fiyat sorununa karşı PV'nin dengeleme ve yan hizmet piyasalarına katılımı. İş modeli ve finansman gösterimi isteniyor."
+ },
+ "HORIZON-CL6-2027-01-CIRCBIO-01": {
+  "date": "2026-10-19",
+  "text": "Tüketici elektroniğinde ekotasarım: dayanıklılık, onarılabilirlik, kolay söküm ve geri dönüştürülebilirlik. Kritik ham maddelerin e-atıktan geri kazanımı stratejik öncelik. Yeni tasarımların test edilip gösterilmesi bekleniyor."
+ },
+ "HORIZON-CL6-2027-01-CIRCBIO-01-two-stage": {
+  "date": "2026-10-19",
+  "text": "Şehir ve bölgelerde yaşayan laboratuvarlar (living lab) üzerinden döngüsel sistemik çözümlerin yaygınlaştırılması. Odak, gösterimden ölçeklendirmeye geçiş. Hedef kitle yerel ve bölgesel yönetimler; vatandaş, sanayi, KOBİ ve akademi birlikte çözüm üretecek. İki aşamalı başvuru."
+ },
+ "HORIZON-CL6-2027-03-GOVERNANCE-02": {
+  "date": "2026-10-19",
+  "text": "Tarımsal rekabetçiliğin belirleyicilerini ve bunların sürdürülebilirlikle ilişkisini analiz edecek veri ve araçlar. Hedef kitle çiftçiler, tarım-gıda zinciri ve politika yapıcılar. Kanıta dayalı tarım politikası için analitik boşlukların kapatılması bekleniyor."
+ },
+ "HORIZON-EIC-2026-PATHFINDERCHALLENGES-01-03": {
+  "date": "2026-10-19",
+  "text": "Bugünkü üretken YZ'nin zayıf kaldığı mantık, soyutlama ve uzun vadeli planlama yeteneklerini aşan bilişsel YZ mimarileri. Sınırlı hesaplama kaynağıyla çalışmalı, güvenilirliği kanıtlanabilir olmalı. TRL4 düzeyinde gerçek bir görevde gösterim ve yeni değerlendirme metrikleri bekleniyor. EIC portföy yaklaşımı uygulanıyor."
+ },
+ "HORIZON-HLTH-2027-03-TOOL-08": {
+  "date": "2026-10-19",
+  "text": "Sağlık için yeni nesil öncü YZ modelleri. Bir araştırma projesi değil, CSA: AI Factories'in ve mevcut temel modellerin çok ölçekli, çok modlu sağlık verisiyle nasıl kullanılacağını ortaya koyup paydaşlarla ortak bir yol haritası çıkaracak. EHDS ve AI Act çerçevesinde."
+ },
+ "HORIZON-MISS-2027-01-CLIMA-02": {
+  "date": "2026-10-19",
+  "text": "Bölge ve yerel yönetimlerin iklime uyumu için YZ. İki hedeften biri seçilecek: iklim verisini erişilebilir kılıp karar süreçlerine katmak ya da belirli bir sektörü YZ ile dayanıklı hâle getirmek. Başvuru belirli bir boşluğu tanımlamalı ve mevcut araçlardan neden daha iyi olduğunu kanıtlamalı."
+ },
+ "HORIZON-MISS-2027-04-CIT-02": {
+  "date": "2026-10-19",
+  "text": "Hidrojen vadilerinin, karbonsuzlaşmak isteyen şehirlerle mentor-mentee eşleşmesiyle (twinning) bir araya getirilmesi. Hedef, zor dönüşen sektörler: sanayi, ağır taşımacılık, havacılık ve denizcilik; ısınma kapsam dışı. Proje, eşleşecek çiftleri açık çağrıyla kendisi seçecek."
+ },
+ "HORIZON-MISS-2027-04-CIT-CCRI-04": {
+  "date": "2026-10-19",
+  "text": "Kentsel lojistikte döngüsellik: modüler ve yeniden kullanılabilir ambalaj ve yükleme birimleri, tersine lojistik, kaynak optimizasyonu. Önerilen eylemlerin tamamı ele alınmalı. AB Ambalaj ve Ambalaj Atıkları Tüzüğü'ne (PPWR) uyum ve e-ticaret kaynaklı atıkların azaltılması öne çıkıyor."
+ }
+}
