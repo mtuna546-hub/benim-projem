@@ -89,6 +89,7 @@ SUMMARY_NEW = 25       # detailed new calls in the short summary (GitHub issue)
 SUMMARY_BEST = 10      # best-matching open calls, new or not
 SUMMARY_UPCOMING = 40  # deadline list length in the summary
 SUMMARY_LUMP_SUM = 15  # lump-sum calls (RIA/CSA first, then IA) in the summary
+DRAFT_MIN_DAYS = 30    # partner-search drafts only for calls closing at least this far ahead
 
 PROGRAMME_LABELS = {
     "43108390": "Horizon Europe",
@@ -451,7 +452,92 @@ def turkey_note(profile, programme):
 
 # ------------------------------------------------------------------------ report
 
-def build_report(new_matches, best, upcoming, profile, academics_count, stats, summary=False, all_matches=()):
+# ------------------------------------------------------- partner-search drafts
+
+# What we offer and whom we look for, by type of action.
+DRAFT_ROLES = {
+    "RIA": ("research partner leading or contributing to a work package on {areas}, "
+            "including method development, experimentation and validation",
+            "an experienced coordinator, research organisations and at least one industrial partner"),
+    "CSA": ("partner for stakeholder engagement, training, dissemination and market/policy analysis on {areas}",
+            "a coordinator and partners with complementary networks across EU Member States"),
+    "IA": ("partner for piloting and demonstration on {areas}, bringing industrial end-users "
+           "through our regional innovation ecosystem",
+           "a coordinator, technology providers and industrial / end-user partners in EU Member States"),
+    "EIC": ("research partner contributing breakthrough research on {areas}",
+            "a visionary coordinator and high-risk/high-gain research partners"),
+}
+
+
+def select_draft_calls(matched, state, profile, today):
+    """Best calls for a partner-search post: lump sum first, enough time left, not drafted before."""
+    n = profile.get("partner_search_drafts", 0)
+    if not n:
+        return []
+    cutoff = (datetime.strptime(today, "%Y-%m-%d") + timedelta(days=DRAFT_MIN_DAYS)).strftime("%Y-%m-%d")
+    drafted = state.setdefault("drafted", {})
+    eligible = [(c, m) for c, m in matched
+                if not c["cascade"] and (not c["deadline"] or c["deadline"] >= cutoff)]
+    fresh = [cm for cm in eligible if cm[0]["identifier"] not in drafted]
+    picked = (fresh + [cm for cm in eligible if cm not in fresh])[:n]
+    for c, _ in picked:
+        drafted.setdefault(c["identifier"], today)
+    return picked
+
+
+def partner_search_draft(call, m, profile):
+    """Ready-to-paste English partner-search text plus Turkish guidance for the TTO."""
+    action = ((call.get("details") or {}).get("action") or "").replace("JU-", "")
+    offer, wanted = DRAFT_ROLES.get(action, DRAFT_ROLES["RIA"])
+    by_id = {a["id"]: a for a in profile["focus_areas"]}
+    areas = [by_id[a["id"]].get("expertise_en") or a["name"] for a in m["areas"] if a["id"] in by_id]
+    areas_txt = "; ".join(areas[:2]) or "the topic's core challenges"
+    matched_eco = {e["id"] for e in m["ecosystem"]}
+    eco = sorted(profile.get("ecosystem", []), key=lambda e: e["id"] not in matched_eco)
+    horizon = (call.get("programme") or "").startswith("Horizon")
+
+    lines = [
+        f"{profile.get('institution_en', profile['institution'])} – partner offer for {call['identifier']}",
+        "",
+        f"Topic: {call['title']}",
+        f"Deadline: {call['deadline'] or 'see topic page'}",
+        "",
+        f"Who we are: {profile.get('institution_en', profile['institution'])} (Istanbul, Türkiye)."
+        + (" Türkiye is associated to Horizon Europe, so we participate and receive funding on the same terms"
+           " as organisations from EU Member States." if horizon else ""),
+        "",
+        f"Our expertise: {areas_txt}.",
+        "",
+        f"Role we offer: {offer.format(areas=areas[0] if areas else areas_txt)}.",
+        "",
+        "Ecosystem partners who can join the consortium with us (subject to their confirmation):",
+    ]
+    lines += [f"- {e.get('name_en', e['name'])}: {e.get('role_en', e['role'])}" for e in eco]
+    lines += [
+        "",
+        f"We are looking for: {wanted}.",
+        "",
+        "Contact: [Ad Soyad, unvan] – [e-posta] – Istanbul Commerce University Technology Transfer Office",
+    ]
+    tag = short_tag(call)
+    eco_tr = ", ".join(e["name"] for e in m["ecosystem"]) or "doğrudan eşleşme yok; üçü de genel destek olarak eklendi"
+    out = [
+        f"### {call['title']}",
+        f"- `{call['identifier']}` · {tag} · son başvuru {call['deadline'] or '-'} · puan {m['total']} · {details_text(call)}",
+        f"- Eşleşen ekosistem ortakları: {eco_tr}",
+        f"- **Portalda:** [çağrı sayfası]({call['url']}) → *Partner search* sekmesi → ilan oluştur "
+        "(EU Login ve kurum PIC numarası gerekir). İTO / BTM / Teknopark adını kullanmadan önce bu kurumlarla teyitleşin.",
+        "",
+        "```text",
+        *lines,
+        "```",
+        "",
+    ]
+    return out
+
+
+def build_report(new_matches, best, upcoming, profile, academics_count, stats, summary=False, all_matches=(),
+                 drafts=()):
     """Render the report. summary=True gives the short version used for the GitHub issue."""
     today = datetime.now(timezone.utc).strftime("%Y-%m-%d")
     title = f"AB Fon Çağrıları — {profile['institution']} Eşleştirme Raporu ({today})"
@@ -502,6 +588,13 @@ def build_report(new_matches, best, upcoming, profile, academics_count, stats, s
         md += call_md(call, m)
     if len(new_matches) > len(shown_new):
         md.append(f"_…ve {len(new_matches) - len(shown_new)} yeni çağrı daha: tam rapora bakın._\n")
+
+    if drafts:
+        md.append(f"## Ortak arama ilanı taslakları (en uygun {len(drafts)} çağrı)\n")
+        md.append("İngilizce metni kopyalayıp portalda ilgili çağrının *Partner search* bölümüne yapıştırın; "
+                  "köşeli parantezli alanları doldurun. Daha önce taslağı verilen çağrılar tekrar edilmez.\n")
+        for call, m in drafts:
+            md += partner_search_draft(call, m, profile)
 
     groups = [
         (1, "Lump sum + RIA/CSA"),
@@ -674,6 +767,7 @@ def run(hits, state, now=None, profile=None, details_fetcher=None, details_cache
         key=lambda cm: cm[0]["deadline"],
     )
     best = sorted(matched, key=lambda cm: -cm[1]["total"])[:SUMMARY_BEST]
+    drafts = select_draft_calls(matched, state, profile, today)
 
     for c, _ in matched:
         state["seen"].setdefault(c["identifier"], {"first_seen": now.isoformat(), "title": c["title"]})
@@ -681,8 +775,8 @@ def run(hits, state, now=None, profile=None, details_fetcher=None, details_cache
 
     stats = {"scanned": len(calls), "matched": len(matched), "stale": stale}
     args = (new_matches, best, upcoming, profile, len(academics), stats)
-    return (build_report(*args, all_matches=matched),
-            build_report(*args, summary=True, all_matches=matched), len(new_matches))
+    return (build_report(*args, all_matches=matched, drafts=drafts),
+            build_report(*args, summary=True, all_matches=matched, drafts=drafts), len(new_matches))
 
 
 def build_issue_body(summaries):

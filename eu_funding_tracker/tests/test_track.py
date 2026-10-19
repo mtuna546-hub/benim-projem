@@ -193,5 +193,40 @@ class TrackTest(unittest.TestCase):
         self.assertIn("Kaskad fonlama (FSTP)", md)
 
 
+    def test_partner_search_drafts(self):
+        eng = track.load_profile(track.HERE / "profile_muhendislik.json")
+        now = datetime(2026, 10, 21, tzinfo=timezone.utc)
+        hits = [
+            {"metadata": {"identifier": ["HORIZON-CL4-2027-01-LS-RIA"],
+                          "title": ["Artificial intelligence and robotics for smart manufacturing"],
+                          "deadlineDate": ["2027-02-02T17:00:00.000+0000"]}},
+            {"metadata": {"identifier": ["HORIZON-CL5-2027-01-SOON"],
+                          "title": ["Battery energy storage and smart grid integration"],
+                          "deadlineDate": ["2026-11-01T17:00:00.000+0000"]}},  # < 30 days: no draft
+            {"metadata": {"identifier": ["HORIZON-CL5-2027-02-IA"],
+                          "title": ["Hydrogen and battery energy storage pilots for SMEs and start-ups"],
+                          "deadlineDate": ["2027-04-14T17:00:00.000+0000"]}},
+        ]
+        details = {
+            "HORIZON-CL4-2027-01-LS-RIA": {"action_full": "HORIZON-RIA x", "mga": "HORIZON-AG-LS"},
+            "HORIZON-CL5-2027-01-SOON": {"action_full": "HORIZON-RIA x", "mga": "HORIZON-AG-LS"},
+            "HORIZON-CL5-2027-02-IA": {"action_full": "HORIZON-IA x", "mga": "HORIZON-AG-LS"},
+        }
+        state = {"seen": {}, "last_run": None}
+        _, (_, summary, _), _ = track.run(hits, state, now=now, profile=eng,
+                                          details_fetcher=lambda i: details[i])
+        drafts = summary.split("## Ortak arama ilanı taslakları")[1].split("\n## ")[0]
+        self.assertIn("partner offer for HORIZON-CL4-2027-01-LS-RIA", drafts)
+        self.assertIn("partner offer for HORIZON-CL5-2027-02-IA", drafts)
+        self.assertNotIn("HORIZON-CL5-2027-01-SOON", drafts)
+        self.assertIn("Role we offer: research partner", drafts)
+        self.assertIn("Role we offer: partner for piloting and demonstration", drafts)
+        for name in ("Istanbul Chamber of Commerce (İTO)", "Teknopark İstanbul", "Knowledge Commercialisation Centre (BTM)"):
+            self.assertIn(name, drafts)
+        self.assertIn("Türkiye is associated to Horizon Europe", drafts)
+        self.assertIn("```text", drafts)
+        self.assertEqual(set(state["drafted"]), {"HORIZON-CL4-2027-01-LS-RIA", "HORIZON-CL5-2027-02-IA"})
+
+
 if __name__ == "__main__":
     unittest.main()
