@@ -242,5 +242,40 @@ class TrackTest(unittest.TestCase):
         m = {"areas": [{"id": a["id"], "name": a["name"]} for a in eng["focus_areas"]]}
         self.assertLessEqual(len(track.partner_search_text(call, m, eng)), track.DRAFT_MAX_CHARS)
 
+    def test_split_sections(self):
+        text = ("Expected Outcome: Projects are expected to deliver open AI tools for SMEs. "
+                "Scope: Proposals should pilot the tools in three Member States.")
+        exp, scope = track.split_sections(text)
+        self.assertEqual(exp, "Projects are expected to deliver open AI tools for SMEs.")
+        self.assertEqual(scope, "Proposals should pilot the tools in three Member States.")
+        self.assertEqual(track.split_sections("No markers here"), ("", ""))
+
+    def test_topics_for_essences_and_essence_in_report(self):
+        hits = [{"metadata": {
+            "identifier": ["HORIZON-CL4-2027-01-AI"],
+            "title": ["Artificial intelligence for supply chain logistics"],
+            "descriptionByte": ["<p>Expected Outcome: Resilient AI-driven logistics.</p><p>Scope: Pilot with SMEs.</p>"],
+        }}]
+        details = {"HORIZON-CL4-2027-01-AI": {"action_full": "HORIZON-RIA x", "mga": "HORIZON-AG-LS"}}
+        state = {"seen": {}, "last_run": None}
+        track.run(hits, state, details_fetcher=lambda i: details[i])
+        topic = state["_topics"]["HORIZON-CL4-2027-01-AI"]
+        self.assertEqual(topic["expected_outcome"], "Resilient AI-driven logistics.")
+        self.assertEqual(topic["scope"], "Pilot with SMEs.")
+
+        orig = track.ESSENCES_PATH
+        track.ESSENCES_PATH = Path(self.tmp.name) / "essences.json"
+        try:
+            track.ESSENCES_PATH.write_text(
+                '{"HORIZON-CL4-2027-01-AI": {"text": "KOBİ lojistiğinde YZ pilotu.", "date": "2026-10-21"}}',
+                encoding="utf-8")
+            state = {"seen": {}, "last_run": None}
+            _, (_, summary, _), _ = track.run(hits, state, details_fetcher=lambda i: details[i])
+            self.assertIn("💡 **Özü:** KOBİ lojistiğinde YZ pilotu.", summary)
+            self.assertEqual(state["_topics"], {})  # nothing left to write
+        finally:
+            track.ESSENCES_PATH = orig
+
+
 if __name__ == "__main__":
     unittest.main()
