@@ -69,6 +69,23 @@ MGA türü (Lump Sum / Budget-Based), proje başı AB katkısı ve beklenen proj
 Kısa özette "Lump sum öncelikli çağrılar" bölümü ilk 15 çağrıyı gösterir. Tam raporda ise eşleşen tüm
 çağrılar bu üç gruba ayrılmış olarak listelenir. İptal edilmiş (`CANCELLED`) çağrılar rapora alınmaz.
 
+### Çağrıların özü
+
+Raporun kısa özetinde, her çağrının altında **💡 Özü** satırı yer alır. Bu satır, çağrının portaldaki
+*Expected Outcome* ve *Scope* metinlerinden çıkarılmış iki-üç cümlelik Türkçe bir açıklamadır. Amacı,
+çağrıyı benzerlerinden ayıran noktayı göstermek ve okuyanı ayrıntılar için çağrı sayfasına yönlendirmektir.
+
+İşleyiş:
+
+1. **Çarşamba 09:00, tarama:** Rapordaki çağrıların *Expected Outcome* ve *Scope* metinleri
+   `reports/muhendislik-topics-TARİH.json` ve `reports/topics-TARİH.json` dosyalarına yazılır.
+   Bu dosyalara yalnızca henüz özü olmayan çağrılar girer.
+2. **Çarşamba 09:35, Claude:** Claude bu metinleri okuyup Türkçe özleri yazar. Özler
+   `essences.json` dosyasına kaydedilir ve haftalık issue'da ilgili çağrıların altına eklenir.
+3. **Sonraki raporlar:** Aynı çağrı yeniden listelendiğinde özü otomatik olarak gelir.
+
+Bir özü düzeltmek için `essences.json` dosyasındaki `text` alanını düzenlemeniz yeterlidir.
+
 ### Ortak arama ilanı örneği
 
 Mühendislik raporunun kısa özetinde her hafta **bir** örnek ilan yer alır. Örnek, en uygun çağrı için

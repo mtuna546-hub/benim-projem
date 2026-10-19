@@ -55,6 +55,10 @@ TOPIC_URL = "https://ec.europa.eu/info/funding-tenders/opportunities/portal/scre
 TOPIC_DETAILS_URL = "https://ec.europa.eu/info/funding-tenders/opportunities/data/topicDetails/{}.json"
 DETAILS_CACHE_PATH = HERE / "topic_cache.json"
 DETAILS_CACHE_DAYS = 14  # refetch a topic's details after this many days
+# Turkish one-paragraph "essence" per call, written from its Expected Outcome / Scope
+# text (reports/*topics-DATE.json) and shown under the call in every later report.
+ESSENCES_PATH = HERE / "essences.json"
+SECTION_CHARS = 3000  # keep this much of each Expected Outcome / Scope section
 
 # Short action code -> (Turkish label, EU funding rate). Rate depends on the
 # type of action, not on the MGA (lump sum vs budget-based).
@@ -236,6 +240,7 @@ def parse_calls(hits):
                 # Cascade-funding (FSTP) calls run by EU projects, not regular portal topics.
                 "cascade": "competitive-calls-cs" in (one(meta, "url") or hit.get("url") or ""),
                 "details": {},
+                "description": strip_html(one(meta, "descriptionByte")),
             }
         )
     return calls
@@ -258,7 +263,8 @@ def short_action(type_of_action, title=""):
 def parse_topic_details(identifier, data):
     """Pull type of action, MGA and this topic's budget row out of a topicDetails JSON."""
     td = (data or {}).get("TopicDetails") or data or {}
-    out = {"action_full": None, "mga": None, "min": None, "max": None, "grants": None, "budget": None}
+    out = {"action_full": None, "mga": None, "min": None, "max": None, "grants": None, "budget": None,
+           "description": strip_html(td.get("description"))[:3 * SECTION_CHARS]}
     for action in td.get("actions") or []:
         for t in action.get("types") or []:
             out["action_full"] = out["action_full"] or t.get("typeOfAction")
@@ -305,7 +311,8 @@ def enrich_calls(calls, cache, fetcher, now):
     for call in calls:
         ident = call["identifier"]
         cached = cache.get(ident)
-        if fetcher and not call["cascade"] and (not cached or cached.get("fetched", "") < limit):
+        stale = not cached or cached.get("fetched", "") < limit or "description" not in cached
+        if fetcher and not call["cascade"] and stale:
             try:
                 cached = {**fetcher(ident), "fetched": now.isoformat()}
                 cache[ident] = cached
@@ -314,6 +321,29 @@ def enrich_calls(calls, cache, fetcher, now):
         details = dict(cached or {})
         details["action"] = "FSTP" if call["cascade"] else short_action(details.get("action_full"), call["title"])
         call["details"] = details
+
+
+def split_sections(text):
+    """Return (expected_outcome, scope) from a topic description; empty strings when not found."""
+    text = text or ""
+    exp = re.search(r"expected outcomes?\s*:?", text, re.I)
+    start = exp.end() if exp else 0
+    tail = text[start:]
+    scope = re.search(r"\bscope\s*:", tail, re.I) or (re.search(r"\bscope\b", tail, re.I) if exp else None)
+    expected = (tail[:scope.start()] if scope else tail) if exp else ""
+    scope_txt = tail[scope.end():] if scope else ""
+    return expected.strip()[:SECTION_CHARS], scope_txt.strip()[:SECTION_CHARS]
+
+
+def load_essences():
+    if ESSENCES_PATH.exists():
+        return json.loads(ESSENCES_PATH.read_text(encoding="utf-8"))
+    return {}
+
+
+def essence_of(call):
+    entry = load_essences().get(call["identifier"])
+    return (entry or {}).get("text") if isinstance(entry, dict) else entry
 
 
 def priority_group(call):
@@ -563,13 +593,16 @@ def build_report(new_matches, best, upcoming, profile, academics_count, stats, s
         if m["ecosystem"]:
             out.append("- **Ekosistem ortakları:** " + "; ".join(f"{e['name']}: {e['role']}" for e in m["ecosystem"]))
         out.append(f"- **Bağlantı:** {call['url']}")
+        if essence_of(call):
+            out.append(f"- 💡 **Özü:** {essence_of(call)}")
         out.append("")
         return out
 
     def line_md(call, m, lead):
         eco = ", ".join(e["name"] for e in m["ecosystem"]) or "-"
-        return (f"- **{lead}** — [{call['title']}]({call['url']}) (`{call['identifier']}`, {short_tag(call)}, "
-                f"puan {m['total']}, ekosistem: {eco})")
+        row = (f"- **{lead}** — [{call['title']}]({call['url']}) (`{call['identifier']}`, {short_tag(call)}, "
+               f"puan {m['total']}, ekosistem: {eco})")
+        return row + (f"\n  - 💡 **Özü:** {essence_of(call)}" if summary and essence_of(call) else "")
 
     shown_new = new_matches[:profile.get("summary_new", SUMMARY_NEW)] if summary else new_matches
     md.append(f"## Yeni eşleşen çağrılar ({len(new_matches)})\n")
@@ -764,7 +797,20 @@ def run(hits, state, now=None, profile=None, details_fetcher=None, details_cache
         state["seen"].setdefault(c["identifier"], {"first_seen": now.isoformat(), "title": c["title"]})
     state["last_run"] = now.isoformat()
 
-    stats = {"scanned": len(calls), "matched": len(matched), "stale": stale}
+    shown = (new_matches[:profile.get("summary_new", SUMMARY_NEW)]
+             + [cm for cm in matched if priority_group(cm[0]) < 3][:SUMMARY_LUMP_SUM] + best + drafts)
+    topics, essences = {}, load_essences()
+    for c, _ in shown:
+        if c["identifier"] in topics or c["identifier"] in essences or c["cascade"]:
+            continue
+        text = c["description"] or (c["details"] or {}).get("description", "")
+        expected, scope = split_sections(text)
+        topics[c["identifier"]] = {"title": c["title"], "url": c["url"], "deadline": c["deadline"],
+                                   "action": short_tag(c), "expected_outcome": expected or text[:SECTION_CHARS],
+                                   "scope": scope}
+
+    stats = {"scanned": len(calls), "matched": len(matched), "stale": stale, "topics": topics}
+    state["_topics"] = topics
     args = (new_matches, best, upcoming, profile, len(academics), stats)
     return (build_report(*args, all_matches=matched, drafts=drafts),
             build_report(*args, summary=True, all_matches=matched, drafts=drafts), len(new_matches))
@@ -826,6 +872,9 @@ def main():
         (REPORTS_DIR / f"{prefix}rapor-{stamp}.md").write_text(markdown, encoding="utf-8")
         (REPORTS_DIR / f"{prefix}rapor-{stamp}.html").write_text(html_body, encoding="utf-8")
         (REPORTS_DIR / f"{prefix}ozet-{stamp}.md").write_text(summary_md, encoding="utf-8")
+        topics = state.pop("_topics", {})
+        (REPORTS_DIR / f"{prefix}topics-{stamp}.json").write_text(
+            json.dumps(topics, ensure_ascii=False, indent=1) + "\n", encoding="utf-8")
         if not args.no_save:
             save_state(profile, state)
         summaries.append((title, summary_md))
