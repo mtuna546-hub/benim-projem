@@ -8,22 +8,117 @@
     {
       "id": "electrical_electronics",
       "name": "Elektrik-Elektronik",
-      "keywords": ["power electronics", "smart grid", "smart grids", "5g", "6g", "telecommunications", "telecom", "wireless", "embedded systems", "sensor", "sensors", "signal processing", "photonics", "photonic", "semiconductor", "semiconductors", "microelectronics", "electronics", "antenna", "antennas", "radar", "internet of things", "iot", "chips", "chip"]
+      "keywords": [
+        "power electronics",
+        "smart grid",
+        "smart grids",
+        "5g",
+        "6g",
+        "telecommunications",
+        "telecom",
+        "wireless",
+        "embedded systems",
+        "sensor",
+        "sensors",
+        "signal processing",
+        "photonics",
+        "photonic",
+        "semiconductor",
+        "semiconductors",
+        "microelectronics",
+        "electronics",
+        "antenna",
+        "antennas",
+        "radar",
+        "internet of things",
+        "iot",
+        "chips",
+        "chip"
+      ],
+      "expertise_en": "power electronics, embedded and sensor systems, signal processing and wireless/5G-6G communications"
     },
     {
       "id": "energy",
       "name": "Enerji",
-      "keywords": ["battery", "batteries", "energy storage", "hydrogen", "renewable energy", "renewables", "photovoltaic", "photovoltaics", "solar", "wind energy", "offshore wind", "energy efficiency", "electric vehicle", "electric vehicles", "electrification", "energy systems", "heat pump", "heat pumps", "clean energy transition", "grid"]
+      "keywords": [
+        "battery",
+        "batteries",
+        "energy storage",
+        "hydrogen",
+        "renewable energy",
+        "renewables",
+        "photovoltaic",
+        "photovoltaics",
+        "solar",
+        "wind energy",
+        "offshore wind",
+        "energy efficiency",
+        "electric vehicle",
+        "electric vehicles",
+        "electrification",
+        "energy systems",
+        "heat pump",
+        "heat pumps",
+        "clean energy transition",
+        "grid"
+      ],
+      "expertise_en": "energy storage and batteries, renewable energy and smart-grid integration, energy efficiency"
     },
     {
       "id": "computer",
       "name": "Bilgisayar ve Yapay Zeka",
-      "keywords": ["artificial intelligence", "ai", "machine learning", "deep learning", "computer vision", "natural language processing", "large language models", "generative ai", "high performance computing", "high-performance computing", "hpc", "quantum", "edge computing", "cloud", "cybersecurity", "software", "data spaces", "big data", "digital twin", "digital twins", "human-robot interaction", "robotics", "robot", "robots", "blockchain"]
+      "keywords": [
+        "artificial intelligence",
+        "ai",
+        "machine learning",
+        "deep learning",
+        "computer vision",
+        "natural language processing",
+        "large language models",
+        "generative ai",
+        "high performance computing",
+        "high-performance computing",
+        "hpc",
+        "quantum",
+        "edge computing",
+        "cloud",
+        "cybersecurity",
+        "software",
+        "data spaces",
+        "big data",
+        "digital twin",
+        "digital twins",
+        "human-robot interaction",
+        "robotics",
+        "robot",
+        "robots",
+        "blockchain"
+      ],
+      "expertise_en": "artificial intelligence and machine learning, edge/cloud computing, cybersecurity and digital twins"
     },
     {
       "id": "industrial",
       "name": "Endüstri Mühendisliği",
-      "keywords": ["operations research", "optimisation", "optimization", "scheduling", "simulation", "decision support", "lean", "supply chain", "supply chains", "logistics", "industry 4.0", "industry 5.0", "manufacturing", "automation", "predictive maintenance", "quality control", "production planning"]
+      "keywords": [
+        "operations research",
+        "optimisation",
+        "optimization",
+        "scheduling",
+        "simulation",
+        "decision support",
+        "lean",
+        "supply chain",
+        "supply chains",
+        "logistics",
+        "industry 4.0",
+        "industry 5.0",
+        "manufacturing",
+        "automation",
+        "predictive maintenance",
+        "quality control",
+        "production planning"
+      ],
+      "expertise_en": "operations research and optimisation, simulation, decision-support systems, logistics and smart manufacturing"
     }
   ],
   "programme_weights": {
@@ -36,5 +131,7 @@
     "^HORIZON-CL2-": -4,
     "^HORIZON-CL6-": -3,
     "^HORIZON-NEB-": -2
-  }
+  },
+  "partner_search_drafts": 1,
+  "institution_en": "Istanbul Commerce University, Faculty of Engineering"
 }

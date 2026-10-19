@@ -37,7 +37,8 @@
         "freight",
         "port",
         "ports"
-      ]
+      ],
+      "expertise_en": "international trade, logistics and supply-chain management"
     },
     {
       "id": "finance_fintech",
@@ -56,7 +57,8 @@
         "financial literacy",
         "sustainable finance",
         "capital markets"
-      ]
+      ],
+      "expertise_en": "finance, fintech and digital payments"
     },
     {
       "id": "business_sme",
@@ -78,7 +80,8 @@
         "scale-ups",
         "marketing",
         "corporate governance"
-      ]
+      ],
+      "expertise_en": "SME management, entrepreneurship and business-model innovation"
     },
     {
       "id": "economics_policy",
@@ -95,7 +98,8 @@
         "economic growth",
         "taxation",
         "public procurement"
-      ]
+      ],
+      "expertise_en": "applied economics, competitiveness and public policy analysis"
     },
     {
       "id": "digital_ai",
@@ -119,7 +123,8 @@
         "iot",
         "generative ai",
         "large language models"
-      ]
+      ],
+      "expertise_en": "digital transformation, AI and data analytics"
     },
     {
       "id": "engineering_industry",
@@ -135,7 +140,8 @@
         "electronics",
         "semiconductor",
         "semiconductors"
-      ]
+      ],
+      "expertise_en": "industrial engineering, automation and Industry 4.0"
     },
     {
       "id": "green_sustainability",
@@ -149,7 +155,8 @@
         "decarbonisation",
         "esg",
         "green deal"
-      ]
+      ],
+      "expertise_en": "circular economy and green transition of businesses"
     },
     {
       "id": "law_governance",
@@ -164,7 +171,8 @@
         "regulatory sandboxes",
         "competition law",
         "justice"
-      ]
+      ],
+      "expertise_en": "EU and commercial law, regulation and data protection"
     },
     {
       "id": "design_architecture",
@@ -179,7 +187,8 @@
         "cultural heritage",
         "design thinking",
         "product design"
-      ]
+      ],
+      "expertise_en": "architecture, industrial design and urban studies"
     },
     {
       "id": "communication_social",
@@ -195,7 +204,8 @@
         "youth",
         "social innovation",
         "social economy"
-      ]
+      ],
+      "expertise_en": "media, communication and social innovation"
     }
   ],
   "ecosystem": [
@@ -282,5 +292,7 @@
     "Digital Europe Programme": "Katılım koşullarını çağrı metninden kontrol edin",
     "_default": "Türkiye'nin uygunluğunu çağrı metninden kontrol edin",
     "European Defence Fund": "Türkiye uygun değil (yalnızca AB/EEA)"
-  }
+  },
+  "partner_search_drafts": 0,
+  "institution_en": "Istanbul Commerce University"
 }
