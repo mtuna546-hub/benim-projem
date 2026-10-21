@@ -1,8 +1,9 @@
 {
   "drafted": {
-    "HORIZON-CL4-2027-01-MAT-PROD-03": "2026-10-19"
+    "HORIZON-CL4-2027-01-MAT-PROD-03": "2026-10-19",
+    "HORIZON-CL4-2027-05-DIGITAL-EMERGING-03": "2026-10-21"
   },
-  "last_run": "2026-10-19T18:34:17.246914+00:00",
+  "last_run": "2026-10-21T06:22:43.884734+00:00",
   "seen": {
     "CEF-E-2026-PCI-PMI-STUDIES": {
       "first_seen": "2026-09-29T13:16:33.898930+00:00",
