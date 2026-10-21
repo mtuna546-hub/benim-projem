@@ -127,6 +127,14 @@
   "date": "2026-10-19",
   "text": "Sağlık için yeni nesil öncü YZ modelleri. Bir araştırma projesi değil, CSA: AI Factories'in ve mevcut temel modellerin çok ölçekli, çok modlu sağlık verisiyle nasıl kullanılacağını ortaya koyup paydaşlarla ortak bir yol haritası çıkaracak. EHDS ve AI Act çerçevesinde."
  },
+ "HORIZON-JU-EUROHPC-2026-QEXP-14-01": {
+  "date": "2026-10-21",
+  "text": "Kuantum donanımı için deneysel pilot üretim hatları (Qu-Pilot): kuantum işlemciler, NV merkezli sensörler, kriyojenik paketleme; TRL 4–6. Akademik araştırma ile Chips JU pilot hatları arasında köprü kurulması ve KOBİ/start-up'lara ortak maliyetle üretim erişimi bekleniyor. Qu-Pilot çerçeve ortaklık anlaşmasının (FPA) uygulama eylemi; katılım koşullarını kontrol edin."
+ },
+ "HORIZON-JU-EUROHPC-2026-QTI-13-01": {
+  "date": "2026-10-21",
+  "text": "Kuantum bileşen ve sistemleri için Avrupa çapında açık erişimli test, ölçüm ve sertifikasyon altyapısı (Qu-Test); TRL 4–7. Uzaktan test için dijital platform, standart test protokolleri ve KOBİ/start-up'ların ürünlerini doğrulatabilmesi öne çıkıyor. Qu-Test çerçeve ortaklık anlaşmasının (FPA) uygulama eylemi; katılım koşullarını kontrol edin."
+ },
  "HORIZON-MISS-2027-01-CLIMA-02": {
   "date": "2026-10-19",
   "text": "Bölge ve yerel yönetimlerin iklime uyumu için YZ. İki hedeften biri seçilecek: iklim verisini erişilebilir kılıp karar süreçlerine katmak ya da belirli bir sektörü YZ ile dayanıklı hâle getirmek. Başvuru belirli bir boşluğu tanımlamalı ve mevcut araçlardan neden daha iyi olduğunu kanıtlamalı."
