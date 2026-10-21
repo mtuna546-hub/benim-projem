@@ -49,7 +49,7 @@ class TrackTest(unittest.TestCase):
         self.assertIn("BTM", md)
         self.assertNotIn("BİM", md)
         self.assertIn("Türkiye ilişkili", md)
-        self.assertIn("2026-10-15", md)  # within 30-day deadline window
+        self.assertIn("15.10.2026", md)  # within 30-day deadline window
         self.assertIn("<h1", html_body)
         self.assertIn("En uygun açık çağrılar", summary)
 
@@ -88,7 +88,7 @@ class TrackTest(unittest.TestCase):
         (_, md, _), _, new_count = track.run(hits, state, profile=eng)
         self.assertEqual(new_count, 1)
         self.assertIn("HORIZON-JU-CHIPS-2026-RIA-01", md)
-        self.assertIn("program ağırlığı +4", md)
+        self.assertIn("(program +4)", md)
         self.assertNotIn("cultural heritage", md)  # Cluster 2 penalty drops it
 
         # The general profile still keeps the cultural-heritage call.
@@ -119,7 +119,7 @@ class TrackTest(unittest.TestCase):
         (_, md, _), _, new_count = track.run(hits, {"seen": {}, "last_run": None}, now=now)
         self.assertEqual(new_count, 1)
         self.assertNotIn("HORIZON-CL4-2024-DIGITAL-01", md)
-        self.assertIn("**Son başvuru:** 2027-02-01", md)
+        self.assertIn("**Son başvuru:** 01.02.2027", md)
         self.assertIn("1 çağrı elendi", md)
 
 
@@ -168,7 +168,7 @@ class TrackTest(unittest.TestCase):
         self.assertLess(max(pos[3], pos[4]), pos[2])
         self.assertLess(pos[2], pos[1])
         self.assertIn("Lump sum öncelikli çağrılar", summary)
-        self.assertIn("RIA·LS", summary)
+        self.assertIn("`HORIZON-CL4-2027-04`** · RIA · Lump Sum", summary)
         self.assertIn("proje başı 3–5 M€", md)
         self.assertIn("Tüm eşleşen çağrılar (4)", md)
         self.assertIn("HORIZON-CL4-2027-04", cache)
@@ -287,6 +287,35 @@ class TrackTest(unittest.TestCase):
         self.assertIn("research & WP lead on photonics, semiconductors and electronics", text)
         self.assertNotIn("power electronics", text)
         self.assertLessEqual(len(text), track.DRAFT_MAX_CHARS)
+
+
+    def test_new_layout_and_essence_placeholder(self):
+        hits = [{"metadata": {"identifier": ["HORIZON-CL4-2027-01-AI"],
+                              "title": ["Artificial intelligence for supply chain logistics"],
+                              "deadlineDate": ["2027-02-02T17:00:00.000+0000"]}}]
+        details = {"HORIZON-CL4-2027-01-AI": {"action_full": "HORIZON-RIA x", "mga": "HORIZON-AG-LS"}}
+        _, (_, summary, _), _ = track.run(hits, {"seen": {}, "last_run": None},
+                                          now=datetime(2026, 10, 21, tzinfo=timezone.utc),
+                                          details_fetcher=lambda i: details[i])
+        row = summary.split("## Lump sum öncelikli")[1].split("\n\n")[1]
+        lines = row.split("\n")
+        self.assertTrue(lines[0].startswith("- **`HORIZON-CL4-2027-01-AI`** · RIA · Lump Sum · ⏰ 02.02.2027"))
+        self.assertIn("[Artificial intelligence for supply chain logistics](", lines[1])  # then the title
+        self.assertIn("<!--oz:HORIZON-CL4-2027-01-AI-->", lines[2])                       # then the essence slot
+        html_out = track.markdown_to_html("t", summary)
+        self.assertNotIn("oz:HORIZON", html_out)
+
+    def test_check_portal_flags_sorry_page(self):
+        class Resp:
+            status_code, url = 200, "https://sorry.ec.europa.eu/"
+        orig = track.requests.get
+        track.requests.get = lambda *a, **k: Resp()
+        try:
+            self.assertIn("erişilemedi", track.check_portal(["https://ec.europa.eu/x"]))
+            Resp.url = "https://ec.europa.eu/x"
+            self.assertIsNone(track.check_portal(["https://ec.europa.eu/x"]))
+        finally:
+            track.requests.get = orig
 
 
 if __name__ == "__main__":
