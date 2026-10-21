@@ -318,5 +318,25 @@ class TrackTest(unittest.TestCase):
             track.requests.get = orig
 
 
+    def test_portal_url_never_links_to_json_data(self):
+        data = "https://ec.europa.eu/info/funding-tenders/opportunities/data/topicDetails/X-01.json"
+        page = track.TOPIC_URL.format("X-01")
+        self.assertEqual(track.portal_url("X-01", data), page)
+        self.assertEqual(track.portal_url("X-01", None), page)
+        self.assertEqual(track.portal_url("X-01", page), page)
+
+    def test_upcoming_calls_get_essence_slot_in_topics(self):
+        hits = [{"metadata": {"identifier": ["HORIZON-JU-EUROHPC-2026-TEST-99-01"],
+                              "title": ["Quantum testing infrastructure for quantum sensors and photonics"],
+                              "deadlineDate": ["2026-11-17T17:00:00.000+0000"],
+                              "descriptionByte": ["Expected Outcome: Open test facilities. Scope: Qu-Test."]}}]
+        eng = track.load_profile(track.HERE / "profile_muhendislik.json")
+        details = {"HORIZON-JU-EUROHPC-2026-TEST-99-01": {"action_full": "HORIZON-JU-RIA x", "mga": "HORIZON-AG"}}
+        state = {"seen": {"HORIZON-JU-EUROHPC-2026-TEST-99-01": {}}, "last_run": None}  # not new, budget-based
+        track.run(hits, state, now=datetime(2026, 10, 21, tzinfo=timezone.utc), profile=eng,
+                  details_fetcher=lambda i: details[i])
+        self.assertIn("HORIZON-JU-EUROHPC-2026-TEST-99-01", state["_topics"])
+
+
 if __name__ == "__main__":
     unittest.main()

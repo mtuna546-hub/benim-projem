@@ -208,6 +208,13 @@ def strip_html(text):
     return re.sub(r"\s+", " ", html.unescape(re.sub(r"<[^>]+>", " ", text or ""))).strip()
 
 
+def portal_url(identifier, url):
+    """Link to the human-readable topic page; the API sometimes gives the topicDetails JSON instead."""
+    if url and "/portal/screen/" in url:
+        return url
+    return TOPIC_URL.format(identifier)
+
+
 def parse_calls(hits):
     calls, seen = [], set()
     for hit in hits:
@@ -234,7 +241,7 @@ def parse_calls(hits):
                 "deadline": None,
                 "status": STATUS_LABELS.get(one(meta, "status"), one(meta, "status")),
                 "programme": programme_label(programme_id, identifier),
-                "url": one(meta, "url") or hit.get("url") or TOPIC_URL.format(identifier),
+                "url": portal_url(identifier, one(meta, "url") or hit.get("url")),
                 "title_text": title.lower(),
                 "body_text": body.lower(),
                 # Cascade-funding (FSTP) calls run by EU projects, not regular portal topics.
@@ -865,7 +872,8 @@ def run(hits, state, now=None, profile=None, details_fetcher=None, details_cache
     state["last_run"] = now.isoformat()
 
     shown = (new_matches[:profile.get("summary_new", SUMMARY_NEW)]
-             + [cm for cm in matched if priority_group(cm[0]) < 3][:SUMMARY_LUMP_SUM] + best + drafts)
+             + [cm for cm in matched if priority_group(cm[0]) < 3][:SUMMARY_LUMP_SUM] + best + drafts
+             + upcoming[:SUMMARY_UPCOMING])
     topics, essences = {}, load_essences()
     for c, _ in shown:
         if c["identifier"] in topics or c["identifier"] in essences or c["cascade"]:
@@ -926,7 +934,10 @@ def main():
 
     if not args.fixture:
         global PORTAL_WARNING
-        sample = [c["url"] for c in parse_calls(hits) if not c["cascade"]][:3]
+        # Check pages of calls that are really open (not stale portal entries), as linked in the report.
+        today = datetime.now(timezone.utc).strftime("%Y-%m-%d")
+        sample = [c["url"] for c in parse_calls(hits)
+                  if not c["cascade"] and any(d >= today for d in c["deadlines"])][:3]
         PORTAL_WARNING = check_portal(sample)
 
     REPORTS_DIR.mkdir(exist_ok=True)
