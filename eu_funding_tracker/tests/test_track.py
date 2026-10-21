@@ -277,5 +277,17 @@ class TrackTest(unittest.TestCase):
             track.ESSENCES_PATH = orig
 
 
+    def test_partner_search_offer_uses_matched_keywords(self):
+        eng = track.load_profile(track.HERE / "profile_muhendislik.json")
+        call = {"identifier": "HORIZON-CL4-2027-05-DIGITAL-EMERGING-03", "programme": "Horizon Europe",
+                "details": {"action": "RIA"}}
+        m = {"areas": [{"id": "electrical_electronics", "name": "x",
+                        "matched": ["photonics", "photonic", "semiconductors", "electronics"]}]}
+        text = track.partner_search_text(call, m, eng)
+        self.assertIn("research & WP lead on photonics, semiconductors and electronics", text)
+        self.assertNotIn("power electronics", text)
+        self.assertLessEqual(len(text), track.DRAFT_MAX_CHARS)
+
+
 if __name__ == "__main__":
     unittest.main()

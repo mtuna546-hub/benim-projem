@@ -518,10 +518,19 @@ def partner_search_text(call, m, profile):
     """English partner-search announcement, shortened step by step until it fits DRAFT_MAX_CHARS."""
     action = ((call.get("details") or {}).get("action") or "").replace("JU-", "")
     offer, wanted = DRAFT_ROLES.get(action, DRAFT_ROLES["RIA"])
-    by_id = {a["id"]: a for a in profile["focus_areas"]}
-    expertise = [by_id[a["id"]].get("expertise_en") or a["name"] for a in m["areas"] if a["id"] in by_id]
-    full = expertise[0] if expertise else "the topic's core challenges"
-    parts = [x.strip() for x in full.replace(" and ", ", ").split(",") if x.strip()]
+    # Name the call's own matched keywords (e.g. "photonics, semiconductors"); a profile's
+    # generic expertise line is only the fallback, so the offer always fits the topic.
+    parts = []
+    title = call.get("title_text") or (call.get("title") or "").lower()
+    matched = [k for a in m["areas"] for k in a.get("matched", [])]
+    for kw in sorted(matched, key=lambda k: k.lower() not in title):  # title keywords first
+        low = kw.lower()
+        if len(low) > 3 and not any(low.startswith(p.lower()) or p.lower().startswith(low) for p in parts):
+            parts.append(kw if kw.isupper() or len(kw) <= 4 else low)
+    if not parts:
+        by_id = {a["id"]: a for a in profile["focus_areas"]}
+        expertise = [by_id[a["id"]].get("expertise_en") for a in m["areas"] if by_id.get(a["id"], {}).get("expertise_en")]
+        parts = [x.strip() for x in (expertise[0] if expertise else "the topic's core challenges").split(",") if x.strip()]
     who = profile.get("institution_en", profile["institution"])
     where = "TR, Horizon Europe associated" if (call.get("programme") or "").startswith("Horizon") else "Istanbul, TR"
     contact = "Contact: [name, e-mail]"
