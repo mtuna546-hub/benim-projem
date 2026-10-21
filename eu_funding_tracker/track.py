@@ -234,7 +234,7 @@ def parse_calls(hits):
                 "deadline": None,
                 "status": STATUS_LABELS.get(one(meta, "status"), one(meta, "status")),
                 "programme": programme_label(programme_id, identifier),
-                "url": one(meta, "url") or hit.get("url") or TOPIC_URL.format(identifier.lower()),
+                "url": one(meta, "url") or hit.get("url") or TOPIC_URL.format(identifier),
                 "title_text": title.lower(),
                 "body_text": body.lower(),
                 # Cascade-funding (FSTP) calls run by EU projects, not regular portal topics.
@@ -566,6 +566,51 @@ def partner_search_draft(call, m, profile):
     ]
 
 
+PORTAL_WARNING = None  # set by check_portal() when the portal could not be reached at scan time
+
+
+def check_portal(urls):
+    """Open a few report links from the runner; return a warning text if the portal is unreachable."""
+    problems = []
+    for url in urls[:3]:
+        try:
+            resp = requests.get(url, timeout=30, allow_redirects=True)
+            print(f"Bağlantı kontrolü: {resp.status_code} {url} -> {resp.url}")
+            if resp.status_code >= 400 or "sorry." in resp.url:
+                problems.append(f"{resp.status_code} → {resp.url}")
+        except Exception as exc:  # noqa: BLE001 - a link check must never stop the scan
+            print(f"Bağlantı kontrolü hatası: {url}: {exc}")
+            problems.append(str(exc)[:80])
+    if problems and len(problems) == len(urls[:3]):
+        return ("⚠️ Tarama sırasında EU Funding & Tenders portalına erişilemedi "
+                f"({problems[0]}). Bağlantılar portal yeniden açıldığında çalışır; hata sürerse bildirin.")
+    return None
+
+
+def type_badge(call):
+    """'RIA · Lump Sum', 'IA · Budget-Based', 'Kaskad (FSTP)'..."""
+    d = call.get("details") or {}
+    if d.get("action") == "FSTP":
+        return "Kaskad (FSTP)"
+    mga = {"HORIZON-AG-LS": "Lump Sum", "HORIZON-AG": "Budget-Based"}.get(d.get("mga"))
+    mga = mga or MGA_LABELS.get(d.get("mga") or "") or "MGA bilgisi yok"
+    return f"{d.get('action') or 'Aksiyon ?'} · {mga}"
+
+
+def tr_date(iso):
+    return f"{iso[8:10]}.{iso[5:7]}.{iso[:4]}" if iso else "tarih yok"
+
+
+def essence_line(call, summary):
+    """The essence, or (in the summary) a marked placeholder the weekly Claude check replaces."""
+    text = essence_of(call)
+    if text:
+        return f"💡 **Özü:** {text}"
+    if summary and not call.get("cascade"):
+        return f"💡 _Özü bu sabah 09:35'te eklenecek._ <!--oz:{call['identifier']}-->"
+    return None
+
+
 def build_report(new_matches, best, upcoming, profile, academics_count, stats, summary=False, all_matches=(),
                  drafts=()):
     """Render the report. summary=True gives the short version used for the GitHub issue."""
@@ -578,6 +623,8 @@ def build_report(new_matches, best, upcoming, profile, academics_count, stats, s
         f"Kurumla eşleşen: **{stats['matched']}** · Yeni: **{len(new_matches)}** · "
         f"Kayıtlı akademisyen: **{academics_count}**"
     )
+    if PORTAL_WARNING:
+        md.append(f"\n> {PORTAL_WARNING}")
     if academics_count == 0:
         md.append(
             "\n> Not: `academics.csv` henüz boş; eşleştirmeler şimdilik odak alanı düzeyinde. "
@@ -585,14 +632,22 @@ def build_report(new_matches, best, upcoming, profile, academics_count, stats, s
         )
     md.append("")
 
+    def eco_short(m):
+        return ", ".join(e["name"].split(" — ")[0] for e in m["ecosystem"])
+
     def call_md(call, m):
-        out = [f"### {call['title']}"]
-        out.append(f"- **Kod:** `{call['identifier']}` · **Program:** {call['programme'] or '-'} · **Durum:** {call['status'] or '-'}")
-        weight = f" (program ağırlığı {m['weight']:+d})" if m.get("weight") else ""
+        """Detailed block: code · action · MGA, then title, essence and details."""
+        out = [f"#### `{call['identifier']}` · {type_badge(call)}", f"**[{call['title']}]({call['url']})**"]
+        ess = essence_line(call, summary)
+        if ess:
+            out += ["", ess]
+        weight = f" (program {m['weight']:+d})" if m.get("weight") else ""
         if m.get("type_weight"):
-            weight += f" (aksiyon/MGA ağırlığı {m['type_weight']:+d})"
-        out.append(f"- **Son başvuru:** {call['deadline'] or 'Belirtilmemiş'} · **Uygunluk puanı:** {m['total']}{weight}")
-        out.append(f"- **Aksiyon / MGA:** {details_text(call)}")
+            weight += f" (aksiyon/MGA {m['type_weight']:+d})"
+        out.append("")
+        out.append(f"- **Son başvuru:** {tr_date(call['deadline'])} · **Puan:** {m['total']}{weight} · "
+                   f"**Program:** {call['programme'] or '-'} · **Durum:** {call['status'] or '-'}")
+        out.append(f"- **Bütçe / oran:** {details_text(call)}")
         out.append(f"- **Türkiye:** {turkey_note(profile, call['programme'])}")
         out.append("- **Odak alanları:** " + "; ".join(f"{a['name']} ({', '.join(a['matched'][:4])})" for a in m["areas"]))
         if m["academics"]:
@@ -601,17 +656,19 @@ def build_report(new_matches, best, upcoming, profile, academics_count, stats, s
                 for p in m["academics"]))
         if m["ecosystem"]:
             out.append("- **Ekosistem ortakları:** " + "; ".join(f"{e['name']}: {e['role']}" for e in m["ecosystem"]))
-        out.append(f"- **Bağlantı:** {call['url']}")
-        if essence_of(call):
-            out.append(f"- 💡 **Özü:** {essence_of(call)}")
         out.append("")
         return out
 
-    def line_md(call, m, lead):
-        eco = ", ".join(e["name"] for e in m["ecosystem"]) or "-"
-        row = (f"- **{lead}** — [{call['title']}]({call['url']}) (`{call['identifier']}`, {short_tag(call)}, "
-               f"puan {m['total']}, ekosistem: {eco})")
-        return row + (f"\n  - 💡 **Özü:** {essence_of(call)}" if summary and essence_of(call) else "")
+    def line_md(call, m, lead=None):
+        """Compact item: code · action · MGA · deadline · score, then linked title, then essence."""
+        eco = eco_short(m)
+        row = (f"- **`{call['identifier']}`** · {type_badge(call)} · ⏰ {tr_date(call['deadline'])} · "
+               f"puan {m['total']}" + (f" · 🤝 {eco}" if eco else ""))
+        row += f"  \n  [{call['title']}]({call['url']})"
+        ess = essence_line(call, summary)
+        if ess:
+            row += f"  \n  {ess}"
+        return row + "\n"
 
     shown_new = new_matches[:profile.get("summary_new", SUMMARY_NEW)] if summary else new_matches
     md.append(f"## Yeni eşleşen çağrılar ({len(new_matches)})\n")
@@ -638,7 +695,6 @@ def build_report(new_matches, best, upcoming, profile, academics_count, stats, s
         lump = [cm for cm in all_matches if priority_group(cm[0]) < 3][:SUMMARY_LUMP_SUM]
         if lump:
             md.append(f"## Lump sum öncelikli çağrılar (ilk {len(lump)}: önce RIA/CSA, sonra IA)\n")
-            md.append("Kısaltmalar: LS = Lump Sum, BB = Budget-Based.\n")
             for call, m in lump:
                 md.append(line_md(call, m, call["deadline"] or "tarih yok"))
             md.append("")
@@ -677,7 +733,7 @@ def build_report(new_matches, best, upcoming, profile, academics_count, stats, s
 def markdown_to_html(title, markdown):
     """Tiny renderer for the subset of Markdown build_report emits."""
     def inline(s):
-        s = html.escape(s)
+        s = html.escape(re.sub(r"<!--.*?-->", "", s))
         s = re.sub(r"\*\*(.+?)\*\*", r"<b>\1</b>", s)
         s = re.sub(r"`(.+?)`", r"<code>\1</code>", s)
         s = re.sub(r"\[(.+?)\]\((https?://[^)]+)\)", r'<a href="\2">\1</a>', s)
@@ -695,7 +751,9 @@ def markdown_to_html(title, markdown):
         if in_list:
             out.append("</ul>")
             in_list = False
-        if line.startswith("### "):
+        if line.startswith("#### "):
+            out.append(f"<h4 style='margin:16px 0 2px'>{inline(line[5:])}</h4>")
+        elif line.startswith("### "):
             out.append(f"<h3 style='margin:18px 0 4px;color:#1a3d7c'>{inline(line[4:])}</h3>")
         elif line.startswith("## "):
             out.append(f"<h2 style='border-bottom:2px solid #1a3d7c;padding-bottom:4px'>{inline(line[3:])}</h2>")
@@ -865,6 +923,11 @@ def main():
             send_email("AB Fon Taraması BAŞARISIZ", f"Portal taraması başarısız: {exc}",
                        f"<p>Portal taraması başarısız: {html.escape(str(exc))}</p>")
         sys.exit(1)
+
+    if not args.fixture:
+        global PORTAL_WARNING
+        sample = [c["url"] for c in parse_calls(hits) if not c["cascade"]][:3]
+        PORTAL_WARNING = check_portal(sample)
 
     REPORTS_DIR.mkdir(exist_ok=True)
     details_cache = load_details_cache()

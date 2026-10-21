@@ -69,6 +69,25 @@ MGA türü (Lump Sum / Budget-Based), proje başı AB katkısı ve beklenen proj
 Kısa özette "Lump sum öncelikli çağrılar" bölümü ilk 15 çağrıyı gösterir. Tam raporda ise eşleşen tüm
 çağrılar bu üç gruba ayrılmış olarak listelenir. İptal edilmiş (`CANCELLED`) çağrılar rapora alınmaz.
 
+### Rapordaki çağrı biçimi
+
+Her çağrı üç satırda gösterilir:
+
+```
+- `HORIZON-CL4-2027-01-MAT-PROD-03` · RIA · Lump Sum · ⏰ 02.02.2027 · puan 15 · 🤝 İTO, BTM
+  Factory processes and automation for de- and re-manufacturing (bağlantı)
+  💡 Özü: ...
+```
+
+1. **Bilgi satırı:** çağrı kodu, aksiyon türü (RIA / IA / CSA / EIC), Lump Sum mı Budget-Based mi,
+   son başvuru tarihi, puan ve eşleşen ekosistem ortakları.
+2. **Başlık:** çağrının adı; portaldaki çağrı sayfasına bağlıdır.
+3. **Öz:** çağrının kısa Türkçe özeti. Özü henüz yazılmamış çağrılarda bu satırda geçici bir not ve
+   görünmeyen bir işaret (`<!--oz:KOD-->`) bulunur. Çarşamba 09:35'teki kontrol, özü bu işaretin yerine yazar.
+
+**Bağlantı kontrolü:** Her taramada rapordaki birkaç bağlantı GitHub sunucusundan açılarak denenir.
+Portal erişilemiyorsa, örneğin `sorry.ec.europa.eu` sayfasına yönleniyorsa, raporun başında bir uyarı çıkar.
+
 ### Çağrıların özü
 
 Raporun kısa özetinde, her çağrının altında **💡 Özü** satırı yer alır. Bu satır, çağrının portaldaki
