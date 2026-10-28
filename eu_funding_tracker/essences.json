@@ -75,6 +75,10 @@
   "date": "2026-10-19",
   "text": "Apply AI Innovation Booster. Proje, sağlık, ileri imalat (YZ destekli robotik dahil) ya da otonom sürüş sektörlerinden yalnızca birinde çok aşamalı bir yarışma tasarlayıp düzenleyecek. Klasik bir Ar-Ge projesinden farklı olarak bir yarışma ve ekosistem işi; en az bir proje otonom sürüş alanında olacak."
  },
+ "HORIZON-CL4-2027-04-DIGITAL-EMERGING-06": {
+  "date": "2026-10-28",
+  "text": "Avrupa'da geliştirilen YZ çözümlerinin Afrika'daki düşük ve orta gelirli ülkelerde yerel veriyle uyarlanıp yerel inovasyon merkezlerinde gerçek ortamda gösterilmesi. Eğitim, sağlık, tarım ve çevre öncelikli. Global Gateway kapsamında bir IA; yaşayan laboratuvar (Living Lab) yaklaşımı önerilebilir."
+ },
  "HORIZON-CL4-2027-05-DIGITAL-EMERGING-03": {
   "date": "2026-10-19",
   "text": "Daha yüksek performanslı ve ultra düşük güç tüketen entegre fotonik cihaz ve devreler. İnce film LiNbO3, grafen, SiC gibi yeni malzemeler; çipletler ve elektronik-fotonik entegrasyonu öne çıkıyor. Listedeki dört yönden en az ikisi ele alınmalı ve sonuçlar gerçek bir uygulama konfigürasyonunda gösterilmeli."
@@ -146,5 +150,9 @@
  "HORIZON-MISS-2027-04-CIT-CCRI-04": {
   "date": "2026-10-19",
   "text": "Kentsel lojistikte döngüsellik: modüler ve yeniden kullanılabilir ambalaj ve yükleme birimleri, tersine lojistik, kaynak optimizasyonu. Önerilen eylemlerin tamamı ele alınmalı. AB Ambalaj ve Ambalaj Atıkları Tüzüğü'ne (PPWR) uyum ve e-ticaret kaynaklı atıkların azaltılması öne çıkıyor."
+ },
+ "JUST-2027-JTRA": {
+  "date": "2026-10-28",
+  "text": "Hâkim, savcı ve diğer adalet profesyonellerine AB hukuku ve Temel Haklar Şartı üzerine ulusötesi eğitim projeleri. Yeni Yargısal Eğitim Stratejisi çerçevesinde; eğitim sağlayıcılar için ulusal düzeyde yaygınlaştırılacak araç ve faaliyetler de destekleniyor (Justice Programme)."
  }
 }
