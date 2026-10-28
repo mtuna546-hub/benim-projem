@@ -1,6 +1,6 @@
 # AB Fon Çağrıları — İstanbul Ticaret Üniversitesi Mühendislik Fakültesi Eşleştirme Raporu (2026-10-28)
 
-Taranan açık/yakında açılacak çağrı: **461** (süresi geçtiği hâlde portalda açık görünen 589 çağrı elendi) · Kurumla eşleşen: **52** · Yeni: **0** · Kayıtlı akademisyen: **0**
+Taranan açık/yakında açılacak çağrı: **457** (süresi geçtiği hâlde portalda açık görünen 591 çağrı elendi) · Kurumla eşleşen: **53** · Yeni: **0** · Kayıtlı akademisyen: **0**
 
 > Not: `academics.csv` henüz boş; eşleştirmeler şimdilik odak alanı düzeyinde. Akademisyen eklendiğinde kişi bazlı öneriler de görünecek.
 
@@ -12,17 +12,17 @@ Bu dönemde kurum profiliyle eşleşen yeni bir çağrı bulunamadı.
 
 İngilizce metni kopyalayıp portalda çağrının *Partner search* bölümüne yapıştırın ve köşeli parantezli alanı doldurun. Daha önce örneği verilen çağrılar tekrar edilmez.
 
-### Artificial Intelligence for Cybersecurity applications
-- `HORIZON-CL3-2027-02-CS-ECCC-01` · RIA·LS · son başvuru 2027-09-15 · puan 17 · Araştırma ve İnovasyon (RIA) · AB oranı %100 · Lump Sum · proje başı 4–5 M€ · ~5 proje
-- **Portalda:** [çağrı sayfası](https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-CL3-2027-02-CS-ECCC-01) → *Partner search* → ilan oluştur (EU Login ve kurum PIC numarası gerekir). Metin 489/500 karakter; diğer ilanlar için örnek olarak uyarlayın.
+### Novel approaches towards next-generation battery concepts, leveraging the enabling role of innovative advanced materials (BATT4EU and IAM4EU Partnerships)
+- `HORIZON-CL5-2027-04-Two-Stage-D2-07` · RIA·LS · son başvuru 2027-04-14 · puan 15 · Araştırma ve İnovasyon (RIA) · AB oranı %100 · Lump Sum · proje başı 4.8 M€ · ~10 proje
+- **Portalda:** [çağrı sayfası](https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-CL5-2027-04-Two-Stage-D2-07) → *Partner search* → ilan oluştur (EU Login ve kurum PIC numarası gerekir). Metin 490/500 karakter; diğer ilanlar için örnek olarak uyarlayın.
 
 ```text
-Istanbul Ticaret University, Faculty of Engineering (TR, Horizon Europe associated) seeks a consortium for HORIZON-CL3-2027-02-CS-ECCC-01. We offer: research & WP lead on artificial intelligence and cybersecurity. With our ecosystem (Türkiye's leading technology park, a leading start-up incubation centre and the chamber of commerce with the widest business network) we add SME access, pilots and exploitation. Seeking: coordinator, research & industrial partners. Contact: [name, e-mail]
+Istanbul Ticaret University, Faculty of Engineering (TR, Horizon Europe associated) seeks a consortium for HORIZON-CL5-2027-04-Two-Stage-D2-07. We offer: research & WP lead on battery, batteries and energy storage. With our ecosystem (Türkiye's leading technology park, a leading start-up incubation centre and the chamber of commerce with the widest business network) we add SME access, pilots and exploitation. Seeking: coordinator, research & industrial partners. Contact: [name, e-mail]
 ```
 
-## Tüm eşleşen çağrılar (52)
+## Tüm eşleşen çağrılar (53)
 
-### Lump sum + RIA/CSA (9)
+### Lump sum + RIA/CSA (10)
 
 - **`HORIZON-CL4-2027-01-MAT-PROD-03`** · RIA · Lump Sum · ⏰ 02.02.2027 · puan 20  
   [Factory processes and automation for de- and re-manufacturing (RIA) (Made in Europe partnership)](https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-CL4-2027-01-MAT-PROD-03)  
@@ -43,6 +43,10 @@ Istanbul Ticaret University, Faculty of Engineering (TR, Horizon Europe associat
 - **`HORIZON-EIC-2026-PATHFINDERCHALLENGES-01-03`** · EIC · Lump Sum · ⏰ 28.10.2026 · puan 15 · 🤝 Teknopark İstanbul, İTO, BTM  
   [DeepRAP: Deep Reasoning, Abstraction & Planning towards trustworthy Cognitive AI Systems](https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-EIC-2026-PATHFINDERCHALLENGES-01-03)  
   💡 **Özü:** Bugünkü üretken YZ'nin zayıf kaldığı mantık, soyutlama ve uzun vadeli planlama yeteneklerini aşan bilişsel YZ mimarileri. Sınırlı hesaplama kaynağıyla çalışmalı, güvenilirliği kanıtlanabilir olmalı. TRL4 düzeyinde gerçek bir görevde gösterim ve yeni değerlendirme metrikleri bekleniyor. EIC portföy yaklaşımı uygulanıyor.
+
+- **`HORIZON-CL5-2027-04-Two-Stage-D2-07`** · RIA · Lump Sum · ⏰ 14.04.2027 · puan 15  
+  [Novel approaches towards next-generation battery concepts, leveraging the enabling role of innovative advanced materials (BATT4EU and IAM4EU Partnerships)](https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-CL5-2027-04-Two-Stage-D2-07)  
+  💡 **Özü:** Yeni nesil batarya kavramları, üç alandan biri seçilecek. A: kWh başına 35 €'nun altında ana bileşen maliyetiyle elektrikli araç ve sabit depolama. B: 500 Wh/kg üzeri havacılık ve denizcilik. C: sistem maliyeti 50 €/kWh'in altında şebeke ve endüstri depolaması. Hedefler sayısal ve iddialı; iki aşamalı başvuru.
 
 - **`HORIZON-CL4-2027-SPACE-03-33`** · RIA · Lump Sum · ⏰ 02.09.2027 · puan 15 · 🤝 İTO  
   [Digital enablers and building blocks for collaborative Earth Observation and Satellite telecommunications for Space solutions (Space Partnership)](https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-CL4-2027-SPACE-03-33)  
@@ -67,13 +71,13 @@ Istanbul Ticaret University, Faculty of Engineering (TR, Horizon Europe associat
   [Onboard renewable energy solutions and energy saving measures to reduce the fuel consumption of ships by at least 55% (ZEWT Partnership)](https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-CL5-2027-03-D5-14)  
   💡 **Özü:** Gemilerde yenilenebilir enerji ve enerji tasarrufu çözümlerini birleştirerek 2008'e göre en az %55 sera gazı ve enerji azaltımı. Tam ölçekli gösterim, standart doğrulama çerçevesi, deniz testi prosedürleri ve mevcut gemilere 2030'a kadar uyarlama isteniyor. Veri odaklı optimizasyon için standart arayüzler de kapsamda.
 
-- **`HORIZON-CL5-2027-05-D4-06`** · IA · Lump Sum · ⏰ 15.09.2027 · puan 16 · 🤝 İTO  
-  [Thermal energy optimisation and waste heat recovery of high energy demand IT rooms in buildings or small edge data centres](https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-CL5-2027-05-D4-06)  
-  💡 **Özü:** Binalardaki BT odaları ve küçük edge veri merkezlerinde ısı yönetimi ve atık ısının geri kazanımı. Farkı: büyük veri merkezleri yerine, düzenlemelerin dışında kalan küçük ölçekli tesisleri hedeflemesi. Yeni tasarımlar ve performans verilerinin açık paylaşımı bekleniyor.
-
 - **`HORIZON-CL3-2027-02-CS-ECCC-02`** · IA · Lump Sum · ⏰ 15.09.2027 · puan 16 · 🤝 BTM  
   [Secure Computing Continuum (IoT, Edge, Cloud, Data spaces)](https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-CL3-2027-02-CS-ECCC-02)  
   💡 **Özü:** IoT'den edge'e, buluttan veri alanlarına uzanan hesaplama sürekliliğinin uçtan uca güvenliği. Zero-trust mimariler, hafif ve kuantum sonrası kriptografi, katmanlar ve sağlayıcılar arası birlikte çalışabilirlik öne çıkıyor. Gizlilik (GDPR) çekirdek gereklilik; iyileşmeler ölçülebilir olmalı.
+
+- **`HORIZON-CL5-2027-05-D4-06`** · IA · Lump Sum · ⏰ 15.09.2027 · puan 16 · 🤝 İTO  
+  [Thermal energy optimisation and waste heat recovery of high energy demand IT rooms in buildings or small edge data centres](https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-CL5-2027-05-D4-06)  
+  💡 **Özü:** Binalardaki BT odaları ve küçük edge veri merkezlerinde ısı yönetimi ve atık ısının geri kazanımı. Farkı: büyük veri merkezleri yerine, düzenlemelerin dışında kalan küçük ölçekli tesisleri hedeflemesi. Yeni tasarımlar ve performans verilerinin açık paylaşımı bekleniyor.
 
 - **`HORIZON-CL5-2027-07-D3-17`** · IA · Lump Sum · ⏰ 01.12.2027 · puan 14 · 🤝 BTM  
   [PV based electrification of the economy: Designing & optimising PV systems supporting industrial electrification and promoting participation in electricity markets (EUPI-PV Partnership)](https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-CL5-2027-07-D3-17)  
@@ -84,7 +88,8 @@ Istanbul Ticaret University, Faculty of Engineering (TR, Horizon Europe associat
   💡 **Özü:** 150–400°C aralığındaki sanayi ısısı için yoğunlaştırılmış güneş termal sistemleri ve depolama. Yıllık en az %50 güneş payı, en az 6 ay sürekli gösterim ve ekonomik olarak uygulanabilir bir iş modeli şart. Odak güneş termal sistemde olmalı, sanayi sürecinde değil.
 
 - **`HORIZON-CL4-2027-04-DIGITAL-EMERGING-06`** · IA · Lump Sum · ⏰ 18.03.2027 · puan 12 · 🤝 Teknopark İstanbul, BTM  
-  [International cooperation in AI (IA)](https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-CL4-2027-04-DIGITAL-EMERGING-06)
+  [International cooperation in AI (IA)](https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-CL4-2027-04-DIGITAL-EMERGING-06)  
+  💡 **Özü:** Avrupa'da geliştirilen YZ çözümlerinin Afrika'daki düşük ve orta gelirli ülkelerde yerel veriyle uyarlanıp yerel inovasyon merkezlerinde gerçek ortamda gösterilmesi. Eğitim, sağlık, tarım ve çevre öncelikli. Global Gateway kapsamında bir IA; yaşayan laboratuvar (Living Lab) yaklaşımı önerilebilir.
 
 - **`HORIZON-CL4-2027-SPACE-03-12`** · IA · Lump Sum · ⏰ 02.09.2027 · puan 12 · 🤝 İTO, Teknopark İstanbul  
   [Digital solutions for autonomy for space transportation systems, design and simulation tools - Digital enablers and building blocks (Space Partnership)](https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-CL4-2027-SPACE-03-12)
@@ -132,11 +137,11 @@ Istanbul Ticaret University, Faculty of Engineering (TR, Horizon Europe associat
 - **`DIGITAL-JU-CHIPS-2026-SG-JAPAN`** · JU-SIMPLE · MGA bilgisi yok · ⏰ 08.12.2026 · puan 14 · 🤝 BTM  
   [International collaboration EU and Japan on semiconductors](https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/DIGITAL-JU-CHIPS-2026-SG-JAPAN)
 
-- **`DIGITAL-ECCC-2027-DEPLOY-CYBER-11-AI4SME`** · JU-SME · MGA bilgisi yok · ⏰ 14.01.2027 · puan 14 · 🤝 İTO  
-  [Strengthening cybersecurity capacities of European SMEs  with cybersecure AI-powered solutions](https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/DIGITAL-ECCC-2027-DEPLOY-CYBER-11-AI4SME)
-
 - **`DIGITAL-ECCC-2027-DEPLOY-CYBER-11-CYBERAI`** · JU-SIMPLE · MGA bilgisi yok · ⏰ 14.01.2027 · puan 14  
   [Cybersecure tools, technologies and services relying on AI](https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/DIGITAL-ECCC-2027-DEPLOY-CYBER-11-CYBERAI)
+
+- **`DIGITAL-ECCC-2027-DEPLOY-CYBER-11-AI4SME`** · JU-SME · MGA bilgisi yok · ⏰ 14.01.2027 · puan 14 · 🤝 İTO  
+  [Strengthening cybersecurity capacities of European SMEs  with cybersecure AI-powered solutions](https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/DIGITAL-ECCC-2027-DEPLOY-CYBER-11-AI4SME)
 
 - **`HORIZON-BRIDGING-2027-01-12`** · IA · Budget-Based · ⏰ 16.02.2027 · puan 14 · 🤝 İTO  
   [Large-Scale piloting of next-generation AI-driven digital platforms for a more affordable, secure and sustainable European energy system (IA) - Apply AI](https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-BRIDGING-2027-01-12)
