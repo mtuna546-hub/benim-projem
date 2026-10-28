@@ -1058,5 +1058,15 @@
   "max": 7500000,
   "mga": "HORIZON-AG",
   "min": 7500000
+ },
+ "JUST-2027-JTRA": {
+  "action_full": "JUST-LS JUST Lump Sum Grants",
+  "budget": 4075000,
+  "description": "Scope: The objective of this call is to contribute to the effective and consistent application of EU law, including the Charter of Fundamental Rights of the EU, by helping to address the training needs of justice professionals in line with the new Judicial Training Strategy. This call finances also training activities and tools for training providers to be then rolled out at national level.",
+  "fetched": "2026-10-28T07:24:05.393098+00:00",
+  "grants": 0,
+  "max": 0,
+  "mga": "JUST-AG-LS",
+  "min": 0
  }
 }
