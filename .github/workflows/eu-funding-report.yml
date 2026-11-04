@@ -2,8 +2,9 @@ name: AB Fon Çağrı Taraması
 
 on:
   schedule:
-    # Her Çarşamba 09:00 (İstanbul, UTC+3)
-    - cron: "0 6 * * 3"
+    # Her Çarşamba 08:47 (İstanbul, UTC+3). Tam saat başı GitHub'da en yoğun an olduğu için
+    # zamanlanmış işler saatlerce gecikebiliyor; dakikayı kaydırmak bunu azaltır.
+    - cron: "47 5 * * 3"
   workflow_dispatch:
 
 permissions:
@@ -20,23 +21,37 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      # Gecikmeli gelen zamanlanmış çalıştırma, o gün elle yapılmış bir taramanın ardından
+      # ikinci bir rapor issue'su açmasın.
+      - name: Bugünün raporu zaten var mı?
+        id: guard
+        run: |
+          if [ "${{ github.event_name }}" = "schedule" ] && [ -f "eu_funding_tracker/reports/issue-$(date -u +%F).md" ]; then
+            echo "Bugünün raporu zaten üretilmiş; zamanlanmış çalıştırma atlanıyor."
+            echo "skip=true" >> "$GITHUB_OUTPUT"
+          fi
+
       - uses: actions/setup-python@v5
+        if: steps.guard.outputs.skip != 'true'
         with:
           python-version: "3.12"
 
       - name: Bağımlılıklar
+        if: steps.guard.outputs.skip != 'true'
         run: pip install -r eu_funding_tracker/requirements.txt
 
       - name: Testler
+        if: steps.guard.outputs.skip != 'true'
         working-directory: eu_funding_tracker
         run: python -m unittest discover -s tests
 
       - name: Portalı tara ve eşleştir
+        if: steps.guard.outputs.skip != 'true'
         working-directory: eu_funding_tracker
         run: python track.py
 
       - name: Raporu sakla
-        if: always()
+        if: always() && steps.guard.outputs.skip != 'true'
         uses: actions/upload-artifact@v4
         with:
           name: ab-fon-raporu
@@ -44,6 +59,7 @@ jobs:
           if-no-files-found: ignore
 
       - name: Raporu ve durumu kaydet
+        if: steps.guard.outputs.skip != 'true'
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
@@ -55,6 +71,7 @@ jobs:
       # GitHub, repo sahibine yeni issue'ları kendi bildirim e-postasıyla iletir;
       # bu yüzden SMTP ya da Gmail şifresi gerekmez.
       - name: Raporu GitHub Issue olarak yayınla
+        if: steps.guard.outputs.skip != 'true'
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
@@ -73,7 +90,7 @@ jobs:
           gh issue create --title "$title" --body-file issue_body.md
 
       - name: Hata bildir
-        if: failure()
+        if: failure() && steps.guard.outputs.skip != 'true'
         env:
           GH_TOKEN: ${{ github.token }}
         run: |

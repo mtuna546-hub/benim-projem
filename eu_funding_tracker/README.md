@@ -96,7 +96,7 @@ Raporun kısa özetinde, her çağrının altında **💡 Özü** satırı yer a
 
 İşleyiş:
 
-1. **Çarşamba 09:00, tarama:** Rapordaki çağrıların *Expected Outcome* ve *Scope* metinleri
+1. **Çarşamba 08:47, tarama:** Rapordaki çağrıların *Expected Outcome* ve *Scope* metinleri
    `reports/muhendislik-topics-TARİH.json` ve `reports/topics-TARİH.json` dosyalarına yazılır.
    Bu dosyalara yalnızca henüz özü olmayan çağrılar girer.
 2. **Çarşamba 09:35, Claude:** Claude bu metinleri okuyup Türkçe özleri yazar. Özler
@@ -148,8 +148,10 @@ göre uyarlayabilirsiniz. Örnek sayısını profildeki `partner_search_drafts` 
 2. **İlk raporu hemen alın.** Actions → "AB Fon Çağrı Taraması" → **Run workflow** yolunu izleyin.
    İlk çalıştırmada tüm eşleşen açık çağrılar yeni sayılır, bu yüzden ilk rapor uzun olur.
 
-Workflow her **Çarşamba 09:00'da (İstanbul saati)** çalışır. GitHub yoğunluğa göre birkaç dakika
-gecikebilir. Zamanı değiştirmek için workflow dosyasındaki `cron` satırını (UTC) düzenleyin.
+Workflow her **Çarşamba 08:47'de (İstanbul saati)** çalışır. GitHub zamanlanmış işleri yoğunluğa göre
+geciktirebilir. En yoğun an tam saat başı olduğu için dakika olarak 47 seçildi. O gün elle bir tarama
+yapılmışsa, gecikmeyle gelen zamanlanmış çalıştırma ikinci bir rapor üretmez. Zamanı değiştirmek için
+workflow dosyasındaki `cron` satırını (UTC) düzenleyin.
 
 ## Rapor nasıl ulaşır (şifre gerekmez)
 
