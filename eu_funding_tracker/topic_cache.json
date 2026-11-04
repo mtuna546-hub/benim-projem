@@ -799,6 +799,16 @@
   "mga": "HORIZON-AG-LS",
   "min": 5000000
  },
+ "HORIZON-EIC-2026-ACCELERATOR-01": {
+  "action_full": "HORIZON-EIC-ACC HORIZON EIC Accelerator",
+  "budget": null,
+  "description": "Scope: The EIC Accelerator supports companies (principally SMEs, including start-ups) to scale up high impact innovations with the potential to create new markets or disrupt existing ones. The EIC Accelerator provides a unique combination of grant and investment funding and Business Acceleration Services (see Section VII of EIC Work Programme 2026). The EIC Accelerator focuses in particular on innovations building on scientific discovery or technological breakthroughs (‘deep tech’) and where significant funding is needed over a long timeframe before returns can be generated (‘patient capital’). Such innovations often struggle to attract financing because the risks and time period involved are too high. Funding and support from the EIC Accelerator is designed to enable such innovators to attract the full investment amounts needed for scale up in a shorter timeframe. The EIC Accelerator supports the later stages of technology development as well as scale up. The technology component of your innovation must therefore have been tested and validated in a laboratory and other relevant environment (e.g., at least Technology Readiness Level 5 completed). The EIC Accelerator looks to support companies where the EIC support will act as a catalyst to crowd in other investors necessary for the scale up of the innovation. Applicants to EIC Accelerator can submit proposals through: EIC Accelerator Open - which has no predefined thematic priorities and is open to proposals in any field of technology or application EIC Accelerator Challenges - in predefined areas of emerging and strategic technologies. For further information please see the EIC Work Programme 2026 .",
+  "fetched": "2026-11-04T14:16:21.225684+00:00",
+  "grants": 0,
+  "max": 0,
+  "mga": "HORIZON-AG-LS",
+  "min": 0
+ },
  "HORIZON-EIC-2026-PATHFINDERCHALLENGES-01-03": {
   "action_full": "HORIZON-EIC HORIZON EIC Grants",
   "budget": 96000000,
@@ -809,6 +819,26 @@
   "mga": "HORIZON-AG-LS",
   "min": 500000
  },
+ "HORIZON-EIC-2026-PRIZE-WIP": {
+  "action_full": "HORIZON-RPr HORIZON Recognition Prize",
+  "budget": 100000,
+  "description": "Expected Impact: The prize will boost public awareness of the potential, importance and contribution of women to the EU innovation ecosystem and create strong role models, inspiring more women to become innovators themselves. Expected Outcome: The prize will boost public awareness of the potential, importance and contribution of women to the EU innovation ecosystem and create strong role models, inspiring more women to become innovators themselves. Objective: The European Prize for Women Innovators celebrates the women entrepreneurs behind Europe’s game-changing innovations, so that they may inspire other women and girls realise their full potential as the EU’s future scientists, innovators, and tech leaders. This prize supports a culture within research and innovation organisations and companies allowing women to become the innovators and entrepreneurs of tomorrow. The prize is awarded every year to women from across the EU and countries associated to Horizon Europe, who have transformed their ideas into disruptive innovations to benefit people and the planet and who are inspiring leaders. As for the previous edition, the 2027 European Prize for Women Innovators is organised in coordination between the Agency and the European Institute of Innovation & Technology (EIT). The winners are chosen by an independent expert jury. The prize has three categories, two funded by the EIC (the Women Innovators and the Rising Innovators categories) and one by the EIT (the EIT Women Leadership category). The Rules of Contest apply to both the EIC and EIT prize categories. Scope: The European Prize for Women Innovators celebrates the women entrepreneurs behind Europe’s game-changing innovations, so that they may inspire other women and girls realise their full potential as the EU’s future scientists, innovators, and tech leaders. This prize supports a culture within research and innovation organisations and companies allowing women to become the innovators and entrepreneurs of tomorrow. The prize is awarded every year to women from across the EU and countries associated to Horizon Europe, who have transformed their ideas into disruptive innovations to benefit people and the planet and who are inspiring leaders. As for the previous edition, the 2027 European Prize for Women Innovators is organised in coordination between the Agency and the European Institute of Innovation & Technology (EIT). The winners are chosen by an independent expert jury. The prize has three categories, two funded by the EIC (the Women Innovators and the Rising Innovators categories) and one by the EIT (the EIT Women Leadership category). The Rules of Contest apply to both the EIC and EIT prize categories.",
+  "fetched": "2026-11-04T14:16:21.225684+00:00",
+  "grants": 3,
+  "max": 50000,
+  "mga": "HORIZON-PR",
+  "min": 20000
+ },
+ "HORIZON-EIC-2026-PRIZE-WIP-RisingInnovators": {
+  "action_full": "HORIZON-RPr HORIZON Recognition Prize",
+  "budget": 100000,
+  "description": "Expected Impact: The prize will boost public awareness of the potential, importance and contribution of women to the EU innovation ecosystem and create strong role models, inspiring more women to become innovators themselves. Expected Outcome: The prize will boost public awareness of the potential, importance and contribution of women to the EU innovation ecosystem and create strong role models, inspiring more women to become innovators themselves. Objective: The European Prize for Women Innovators celebrates the women entrepreneurs behind Europe’s game-changing innovations, so that they may inspire other women and girls realise their full potential as the EU’s future scientists, innovators, and tech leaders. This prize supports a culture within research and innovation organisations and companies allowing women to become the innovators and entrepreneurs of tomorrow. The prize is awarded every year to women from across the EU and countries associated to Horizon Europe, who have transformed their ideas into disruptive innovations to benefit people and the planet and who are inspiring leaders. As for the previous edition, the 2027 European Prize for Women Innovators is organised in coordination between the Agency and the European Institute of Innovation & Technology (EIT). The winners are chosen by an independent expert jury. The prize has three categories, two funded by the EIC (the Women Innovators and the Rising Innovators categories) and one by the EIT (the EIT Women Leadership category). The Rules of Contest apply to both the EIC and EIT prize categories. Scope: The European Prize for Women Innovators celebrates the women entrepreneurs behind Europe’s game-changing innovations, so that they may inspire other women and girls realise their full potential as the EU’s future scientists, innovators, and tech leaders. This prize supports a culture within research and innovation organisations and companies allowing women to become the innovators and entrepreneurs of tomorrow. The prize is awarded every year to women from across the EU and countries associated to Horizon Europe, who have transformed their ideas into disruptive innovations to benefit people and the planet and who are inspiring leaders. As for the previous edition, the 2027 European Prize for Women Innovators is organised in coordination between the Agency and the European Institute of Innovation & Technology (EIT). The winners are chosen by an independent expert jury. The prize has three categories, two funded by the EIC (the Women Innovators and the Rising Innovators categories) and one by the EIT (the EIT Women Leadership category). The Rules of Contest apply to both the EIC and EIT prize categories.",
+  "fetched": "2026-11-04T14:16:21.225684+00:00",
+  "grants": 3,
+  "max": 50000,
+  "mga": "HORIZON-PR",
+  "min": 20000
+ },
  "HORIZON-EIE-2027-02-CONNECT-01": {
   "action_full": "HORIZON-COFUND HORIZON Programme Cofund Actions",
   "budget": 40000000,
@@ -818,6 +848,16 @@
   "max": 20000000,
   "mga": "HORIZON-AG",
   "min": 20000000
+ },
+ "HORIZON-EIT-2026-PRIZE-WIP-LEADERSHIP": {
+  "action_full": "HORIZON-RPr HORIZON Recognition Prize",
+  "budget": 100000,
+  "description": "Expected Impact: The prize will boost public awareness of the potential, importance and contribution of women to the EU innovation ecosystem and create strong role models, inspiring more women to become innovators themselves.",
+  "fetched": "2026-11-04T14:16:21.225684+00:00",
+  "grants": 3,
+  "max": 50000,
+  "mga": "HORIZON-PR",
+  "min": 20000
  },
  "HORIZON-HLTH-2027-02-TOOL-01-two-stage": {
   "action_full": "HORIZON-RIA HORIZON  Research and Innovation Actions",

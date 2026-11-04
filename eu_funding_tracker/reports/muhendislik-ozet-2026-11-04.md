@@ -1,29 +1,75 @@
 # AB Fon Çağrıları — İstanbul Ticaret Üniversitesi Mühendislik Fakültesi Eşleştirme Raporu (2026-11-04)
 
-Taranan açık/yakında açılacak çağrı: **466** (süresi geçtiği hâlde portalda açık görünen 591 çağrı elendi) · Kurumla eşleşen: **53** · Yeni: **1** · Kayıtlı akademisyen: **0**
+Taranan açık/yakında açılacak çağrı: **463** (süresi geçtiği hâlde portalda açık görünen 589 çağrı elendi) · Kurumla eşleşen: **58** · Yeni: **5** · Kayıtlı akademisyen: **0**
+
+<sub>Taranan programlar: Horizon Europe 343 · Kaskad (FSTP) 42 · 111111 17 · Creative Europe 17 · Digital Europe Programme 12 · Citizens, Equality, Rights and Values 11 · European Union Bodies and Agencies 4 · 44773066 2 · Interregional Innovation Investments 2 · Pilot Projects and Preparatory Actions 2 · diğer 11</sub>
 
 > Not: `academics.csv` henüz boş; eşleştirmeler şimdilik odak alanı düzeyinde. Akademisyen eklendiğinde kişi bazlı öneriler de görünecek.
 
-## Yeni eşleşen çağrılar (1)
+## Yeni eşleşen çağrılar (5)
 
-#### `HORIZON-CL4-2025-03-DIGITAL-EMERGING-07` · Kaskad (FSTP)
-**[Robust and trustworthy GenerativeAI for Robotics and industrial automation (RIA) (AI/Data/Robotics & Made in Europe Partnerships)](https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/competitive-calls-cs/48401116)**
+#### `HORIZON-EIC-2026-ACCELERATOR-01` · EIC-ACC · Lump Sum
+**[EIC Accelerator 2026 - Short proposal](https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-EIC-2026-ACCELERATOR-01)**
 
-- **Son başvuru:** 10.02.2027 · **Puan:** 12 (program +3) · **Program:** Horizon Europe · **Durum:** Yakında açılacak
+💡 _Özü bu sabah 09:35'te eklenecek._ <!--oz:HORIZON-EIC-2026-ACCELERATOR-01-->
+
+- **Son başvuru:** 04.11.2026 · **Puan:** 3 (aksiyon/MGA +3) · **Program:** Horizon Europe · **Durum:** Açık
+- **Bütçe / oran:** EIC-ACC · Lump Sum
+- **Türkiye:** Türkiye ilişkili (associated) ülke — tam katılım
+- **Odak alanları:** 
+- **Ekosistem ortakları:** Teknopark İstanbul: Teknoloji geliştirme bölgesi / kuluçka ortağı; start-up ve Ar-Ge firmaları, test-deney altyapısı; BTM — Bilgiyi Ticarileştirme Merkezi: Ticarileştirme ve girişim destek ortağı; start-up/spin-off hızlandırma, mentorluk, yatırımcı ağı, sonuçların pazara taşınması; İTO — İstanbul Ticaret Odası: KOBİ ağı / iş destek kuruluşu ortağı; üyelere yaygınlaştırma, pilot firma sağlama
+
+#### `HORIZON-EIC-2026-PRIZE-WIP` · RPR · MGA bilgisi yok
+**[The European Prize for Women Innovators](https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-EIC-2026-PRIZE-WIP)**
+
+💡 _Özü bu sabah 09:35'te eklenecek._ <!--oz:HORIZON-EIC-2026-PRIZE-WIP-->
+
+- **Son başvuru:** 01.12.2026 · **Puan:** 0 · **Program:** Horizon Europe · **Durum:** Açık
+- **Bütçe / oran:** RPR · HORIZON-PR · proje başı 0.02–0.05 M€ · ~3 proje
+- **Türkiye:** Türkiye ilişkili (associated) ülke — tam katılım
+- **Odak alanları:** 
+- **Ekosistem ortakları:** Teknopark İstanbul: Teknoloji geliştirme bölgesi / kuluçka ortağı; start-up ve Ar-Ge firmaları, test-deney altyapısı; İTO — İstanbul Ticaret Odası: KOBİ ağı / iş destek kuruluşu ortağı; üyelere yaygınlaştırma, pilot firma sağlama; BTM — Bilgiyi Ticarileştirme Merkezi: Ticarileştirme ve girişim destek ortağı; start-up/spin-off hızlandırma, mentorluk, yatırımcı ağı, sonuçların pazara taşınması
+
+#### `HORIZON-EIT-2026-PRIZE-WIP-LEADERSHIP` · RPR · MGA bilgisi yok
+**[Women Leadership Category](https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-EIT-2026-PRIZE-WIP-LEADERSHIP)**
+
+💡 _Özü bu sabah 09:35'te eklenecek._ <!--oz:HORIZON-EIT-2026-PRIZE-WIP-LEADERSHIP-->
+
+- **Son başvuru:** 01.12.2026 · **Puan:** 0 · **Program:** Horizon Europe · **Durum:** Açık
+- **Bütçe / oran:** RPR · HORIZON-PR · proje başı 0.02–0.05 M€ · ~3 proje
+- **Türkiye:** Türkiye ilişkili (associated) ülke — tam katılım
+- **Odak alanları:** 
+- **Ekosistem ortakları:** Teknopark İstanbul: Teknoloji geliştirme bölgesi / kuluçka ortağı; start-up ve Ar-Ge firmaları, test-deney altyapısı
+
+#### `HORIZON-EIC-2026-PRIZE-WIP-RisingInnovators` · RPR · MGA bilgisi yok
+**[Rising Innovators category](https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-EIC-2026-PRIZE-WIP-RisingInnovators)**
+
+💡 _Özü bu sabah 09:35'te eklenecek._ <!--oz:HORIZON-EIC-2026-PRIZE-WIP-RisingInnovators-->
+
+- **Son başvuru:** 01.12.2026 · **Puan:** 0 · **Program:** Horizon Europe · **Durum:** Açık
+- **Bütçe / oran:** RPR · HORIZON-PR · proje başı 0.02–0.05 M€ · ~3 proje
+- **Türkiye:** Türkiye ilişkili (associated) ülke — tam katılım
+- **Odak alanları:** 
+- **Ekosistem ortakları:** Teknopark İstanbul: Teknoloji geliştirme bölgesi / kuluçka ortağı; start-up ve Ar-Ge firmaları, test-deney altyapısı; İTO — İstanbul Ticaret Odası: KOBİ ağı / iş destek kuruluşu ortağı; üyelere yaygınlaştırma, pilot firma sağlama; BTM — Bilgiyi Ticarileştirme Merkezi: Ticarileştirme ve girişim destek ortağı; start-up/spin-off hızlandırma, mentorluk, yatırımcı ağı, sonuçların pazara taşınması
+
+#### `HORIZON-CL6-2023-GOVERNANCE-01-13` · Kaskad (FSTP)
+**[Open source solutions for edge, cloud and mixed model applications to strengthen production and administrative capacities in agriculture](https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/competitive-calls-cs/45657640)**
+
+- **Son başvuru:** 02.12.2026 · **Puan:** 0 (program -3) · **Program:** Horizon Europe · **Durum:** Açık
 - **Bütçe / oran:** Kaskad fonlama (FSTP) — bir AB projesinin açtığı alt çağrı
 - **Türkiye:** Türkiye ilişkili (associated) ülke — tam katılım
-- **Odak alanları:** Bilgisayar ve Yapay Zeka (ai, robotics); Endüstri Mühendisliği (automation)
+- **Odak alanları:** Bilgisayar ve Yapay Zeka (cloud)
 
 ## Ortak arama ilanı örneği (bu haftanın en uygun çağrısı)
 
 İngilizce metni kopyalayıp portalda çağrının *Partner search* bölümüne yapıştırın ve köşeli parantezli alanı doldurun. Daha önce örneği verilen çağrılar tekrar edilmez.
 
-### Towards the next generation of frontier Artificial Intelligence models for healthcare
-- `HORIZON-HLTH-2027-03-TOOL-08` · CSA·LS · son başvuru 2027-09-16 · puan 14 · Koordinasyon ve Destek (CSA) · AB oranı %100 · Lump Sum · proje başı 2.9 M€ · ~1 proje
-- **Portalda:** [çağrı sayfası](https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-HLTH-2027-03-TOOL-08) → *Partner search* → ilan oluştur (EU Login ve kurum PIC numarası gerekir). Metin 497/500 karakter; diğer ilanlar için örnek olarak uyarlayın.
+### Sustainable aircraft circular design and additive manufacturing, towards a climate neutral aviation
+- `HORIZON-CL5-2027-03-D5-08` · RIA·LS · son başvuru 2027-04-14 · puan 13 · Araştırma ve İnovasyon (RIA) · AB oranı %100 · Lump Sum · proje başı 2.5 M€ · ~2 proje
+- **Portalda:** [çağrı sayfası](https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-CL5-2027-03-D5-08) → *Partner search* → ilan oluştur (EU Login ve kurum PIC numarası gerekir). Metin 478/500 karakter; diğer ilanlar için örnek olarak uyarlayın.
 
 ```text
-Istanbul Ticaret University, Faculty of Engineering (TR, Horizon Europe associated) seeks a consortium for HORIZON-HLTH-2027-03-TOOL-08. We offer: stakeholder engagement & dissemination on artificial intelligence and machine learning. With our ecosystem (Türkiye's leading technology park, a leading start-up incubation centre and the chamber of commerce with the widest business network) we add SME access, pilots and exploitation. Seeking: coordinator & network partners. Contact: [name, e-mail]
+Istanbul Ticaret University, Faculty of Engineering (TR, Horizon Europe associated) seeks a consortium for HORIZON-CL5-2027-03-D5-08. We offer: research & WP lead on manufacturing and energy efficiency. With our ecosystem (Türkiye's leading technology park, a leading start-up incubation centre and the chamber of commerce with the widest business network) we add SME access, pilots and exploitation. Seeking: coordinator, research & industrial partners. Contact: [name, e-mail]
 ```
 
 ## Lump sum öncelikli çağrılar (ilk 15: önce RIA/CSA, sonra IA)
@@ -68,13 +114,13 @@ Istanbul Ticaret University, Faculty of Engineering (TR, Horizon Europe associat
   [Onboard renewable energy solutions and energy saving measures to reduce the fuel consumption of ships by at least 55% (ZEWT Partnership)](https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-CL5-2027-03-D5-14)  
   💡 **Özü:** Gemilerde yenilenebilir enerji ve enerji tasarrufu çözümlerini birleştirerek 2008'e göre en az %55 sera gazı ve enerji azaltımı. Tam ölçekli gösterim, standart doğrulama çerçevesi, deniz testi prosedürleri ve mevcut gemilere 2030'a kadar uyarlama isteniyor. Veri odaklı optimizasyon için standart arayüzler de kapsamda.
 
-- **`HORIZON-CL3-2027-02-CS-ECCC-02`** · IA · Lump Sum · ⏰ 15.09.2027 · puan 16 · 🤝 BTM  
-  [Secure Computing Continuum (IoT, Edge, Cloud, Data spaces)](https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-CL3-2027-02-CS-ECCC-02)  
-  💡 **Özü:** IoT'den edge'e, buluttan veri alanlarına uzanan hesaplama sürekliliğinin uçtan uca güvenliği. Zero-trust mimariler, hafif ve kuantum sonrası kriptografi, katmanlar ve sağlayıcılar arası birlikte çalışabilirlik öne çıkıyor. Gizlilik (GDPR) çekirdek gereklilik; iyileşmeler ölçülebilir olmalı.
-
 - **`HORIZON-CL5-2027-05-D4-06`** · IA · Lump Sum · ⏰ 15.09.2027 · puan 16 · 🤝 İTO  
   [Thermal energy optimisation and waste heat recovery of high energy demand IT rooms in buildings or small edge data centres](https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-CL5-2027-05-D4-06)  
   💡 **Özü:** Binalardaki BT odaları ve küçük edge veri merkezlerinde ısı yönetimi ve atık ısının geri kazanımı. Farkı: büyük veri merkezleri yerine, düzenlemelerin dışında kalan küçük ölçekli tesisleri hedeflemesi. Yeni tasarımlar ve performans verilerinin açık paylaşımı bekleniyor.
+
+- **`HORIZON-CL3-2027-02-CS-ECCC-02`** · IA · Lump Sum · ⏰ 15.09.2027 · puan 16 · 🤝 BTM  
+  [Secure Computing Continuum (IoT, Edge, Cloud, Data spaces)](https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-CL3-2027-02-CS-ECCC-02)  
+  💡 **Özü:** IoT'den edge'e, buluttan veri alanlarına uzanan hesaplama sürekliliğinin uçtan uca güvenliği. Zero-trust mimariler, hafif ve kuantum sonrası kriptografi, katmanlar ve sağlayıcılar arası birlikte çalışabilirlik öne çıkıyor. Gizlilik (GDPR) çekirdek gereklilik; iyileşmeler ölçülebilir olmalı.
 
 - **`HORIZON-CL5-2027-07-D3-17`** · IA · Lump Sum · ⏰ 01.12.2027 · puan 14 · 🤝 BTM  
   [PV based electrification of the economy: Designing & optimising PV systems supporting industrial electrification and promoting participation in electricity markets (EUPI-PV Partnership)](https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-CL5-2027-07-D3-17)  
@@ -87,6 +133,37 @@ Istanbul Ticaret University, Faculty of Engineering (TR, Horizon Europe associat
 - **`HORIZON-CL4-2027-04-DIGITAL-EMERGING-06`** · IA · Lump Sum · ⏰ 18.03.2027 · puan 12 · 🤝 Teknopark İstanbul, BTM  
   [International cooperation in AI (IA)](https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-CL4-2027-04-DIGITAL-EMERGING-06)  
   💡 **Özü:** Avrupa'da geliştirilen YZ çözümlerinin Afrika'daki düşük ve orta gelirli ülkelerde yerel veriyle uyarlanıp yerel inovasyon merkezlerinde gerçek ortamda gösterilmesi. Eğitim, sağlık, tarım ve çevre öncelikli. Global Gateway kapsamında bir IA; yaşayan laboratuvar (Living Lab) yaklaşımı önerilebilir.
+
+
+## EIC, EIT ve açık uçlu programlar (4)
+
+- **`HORIZON-EIC-2026-ACCELERATOR-01`** · EIC-ACC · Lump Sum · ⏰ 04.11.2026 · puan 3 · 🤝 Teknopark İstanbul, BTM, İTO  
+  [EIC Accelerator 2026 - Short proposal](https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-EIC-2026-ACCELERATOR-01)  
+  💡 _Özü bu sabah 09:35'te eklenecek._ <!--oz:HORIZON-EIC-2026-ACCELERATOR-01-->
+
+- **`HORIZON-EIC-2026-PRIZE-WIP`** · RPR · MGA bilgisi yok · ⏰ 01.12.2026 · puan 0 · 🤝 Teknopark İstanbul, İTO, BTM  
+  [The European Prize for Women Innovators](https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-EIC-2026-PRIZE-WIP)  
+  💡 _Özü bu sabah 09:35'te eklenecek._ <!--oz:HORIZON-EIC-2026-PRIZE-WIP-->
+
+- **`HORIZON-EIT-2026-PRIZE-WIP-LEADERSHIP`** · RPR · MGA bilgisi yok · ⏰ 01.12.2026 · puan 0 · 🤝 Teknopark İstanbul  
+  [Women Leadership Category](https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-EIT-2026-PRIZE-WIP-LEADERSHIP)  
+  💡 _Özü bu sabah 09:35'te eklenecek._ <!--oz:HORIZON-EIT-2026-PRIZE-WIP-LEADERSHIP-->
+
+- **`HORIZON-EIC-2026-PRIZE-WIP-RisingInnovators`** · RPR · MGA bilgisi yok · ⏰ 01.12.2026 · puan 0 · 🤝 Teknopark İstanbul, İTO, BTM  
+  [Rising Innovators category](https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-EIC-2026-PRIZE-WIP-RisingInnovators)  
+  💡 _Özü bu sabah 09:35'te eklenecek._ <!--oz:HORIZON-EIC-2026-PRIZE-WIP-RisingInnovators-->
+
+
+## Kaskad fonlama (FSTP) çağrıları (3)
+
+- **`HORIZON-CL4-2023-DIGITAL-EMERGING-01-02`** · Kaskad (FSTP) · ⏰ 04.11.2026 · puan 12  
+  [Industrial leadership in AI, Data and Robotics – advanced human robot interaction (AI Data and Robotics Partnership) (IA)](https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/competitive-calls-cs/45634882)
+
+- **`HORIZON-CL4-2025-03-DIGITAL-EMERGING-07`** · Kaskad (FSTP) · ⏰ 10.02.2027 · puan 12  
+  [Robust and trustworthy GenerativeAI for Robotics and industrial automation (RIA) (AI/Data/Robotics & Made in Europe Partnerships)](https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/competitive-calls-cs/48401116)
+
+- **`HORIZON-CL6-2023-GOVERNANCE-01-13`** · Kaskad (FSTP) · ⏰ 02.12.2026 · puan 0  
+  [Open source solutions for edge, cloud and mixed model applications to strengthen production and administrative capacities in agriculture](https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/competitive-calls-cs/45657640)
 
 
 ## En uygun açık çağrılar (ilk 10, yeni olsun olmasın)
@@ -119,23 +196,27 @@ Istanbul Ticaret University, Faculty of Engineering (TR, Horizon Europe associat
   [Onboard renewable energy solutions and energy saving measures to reduce the fuel consumption of ships by at least 55% (ZEWT Partnership)](https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-CL5-2027-03-D5-14)  
   💡 **Özü:** Gemilerde yenilenebilir enerji ve enerji tasarrufu çözümlerini birleştirerek 2008'e göre en az %55 sera gazı ve enerji azaltımı. Tam ölçekli gösterim, standart doğrulama çerçevesi, deniz testi prosedürleri ve mevcut gemilere 2030'a kadar uyarlama isteniyor. Veri odaklı optimizasyon için standart arayüzler de kapsamda.
 
-- **`HORIZON-CL3-2027-02-CS-ECCC-02`** · IA · Lump Sum · ⏰ 15.09.2027 · puan 16 · 🤝 BTM  
-  [Secure Computing Continuum (IoT, Edge, Cloud, Data spaces)](https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-CL3-2027-02-CS-ECCC-02)  
-  💡 **Özü:** IoT'den edge'e, buluttan veri alanlarına uzanan hesaplama sürekliliğinin uçtan uca güvenliği. Zero-trust mimariler, hafif ve kuantum sonrası kriptografi, katmanlar ve sağlayıcılar arası birlikte çalışabilirlik öne çıkıyor. Gizlilik (GDPR) çekirdek gereklilik; iyileşmeler ölçülebilir olmalı.
-
 - **`HORIZON-CL5-2027-05-D4-06`** · IA · Lump Sum · ⏰ 15.09.2027 · puan 16 · 🤝 İTO  
   [Thermal energy optimisation and waste heat recovery of high energy demand IT rooms in buildings or small edge data centres](https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-CL5-2027-05-D4-06)  
   💡 **Özü:** Binalardaki BT odaları ve küçük edge veri merkezlerinde ısı yönetimi ve atık ısının geri kazanımı. Farkı: büyük veri merkezleri yerine, düzenlemelerin dışında kalan küçük ölçekli tesisleri hedeflemesi. Yeni tasarımlar ve performans verilerinin açık paylaşımı bekleniyor.
+
+- **`HORIZON-CL3-2027-02-CS-ECCC-02`** · IA · Lump Sum · ⏰ 15.09.2027 · puan 16 · 🤝 BTM  
+  [Secure Computing Continuum (IoT, Edge, Cloud, Data spaces)](https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-CL3-2027-02-CS-ECCC-02)  
+  💡 **Özü:** IoT'den edge'e, buluttan veri alanlarına uzanan hesaplama sürekliliğinin uçtan uca güvenliği. Zero-trust mimariler, hafif ve kuantum sonrası kriptografi, katmanlar ve sağlayıcılar arası birlikte çalışabilirlik öne çıkıyor. Gizlilik (GDPR) çekirdek gereklilik; iyileşmeler ölçülebilir olmalı.
 
 - **`HORIZON-CL4-2027-04-DIGITAL-EMERGING-04`** · RIA · Budget-Based · ⏰ 18.03.2027 · puan 16 · 🤝 İTO, Teknopark İstanbul  
   [Apply AI: Challenge-Driven AI Innovation Booster in Apply AI prioritised sectors (RIA) (Partnership in AI, Data and Robotics)](https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-CL4-2027-04-DIGITAL-EMERGING-04)  
   💡 **Özü:** Apply AI Innovation Booster. Proje, sağlık, ileri imalat (YZ destekli robotik dahil) ya da otonom sürüş sektörlerinden yalnızca birinde çok aşamalı bir yarışma tasarlayıp düzenleyecek. Klasik bir Ar-Ge projesinden farklı olarak bir yarışma ve ekosistem işi; en az bir proje otonom sürüş alanında olacak.
 
 
-## Son başvurusu 30 gün içinde olan eşleşen çağrılar (6)
+## Önümüzdeki 6 ay içinde kapanacak eşleşen çağrılar (43)
 
 - **`HORIZON-CL4-2023-DIGITAL-EMERGING-01-02`** · Kaskad (FSTP) · ⏰ 04.11.2026 · puan 12  
   [Industrial leadership in AI, Data and Robotics – advanced human robot interaction (AI Data and Robotics Partnership) (IA)](https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/competitive-calls-cs/45634882)
+
+- **`HORIZON-EIC-2026-ACCELERATOR-01`** · EIC-ACC · Lump Sum · ⏰ 04.11.2026 · puan 3 · 🤝 Teknopark İstanbul, BTM, İTO  
+  [EIC Accelerator 2026 - Short proposal](https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-EIC-2026-ACCELERATOR-01)  
+  💡 _Özü bu sabah 09:35'te eklenecek._ <!--oz:HORIZON-EIC-2026-ACCELERATOR-01-->
 
 - **`HORIZON-JU-EUROHPC-2026-QEXP-14-01`** · JU-RIA · Budget-Based · ⏰ 17.11.2026 · puan 9 · 🤝 İTO, Teknopark İstanbul, BTM  
   [Quantum Experimental Pilot Lines for Quantum Technologies](https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-JU-EUROHPC-2026-QEXP-14-01)  
@@ -157,6 +238,137 @@ Istanbul Ticaret University, Faculty of Engineering (TR, Horizon Europe associat
   [Data sharing to support the training and development of AI foundation models in the energy sector](https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-CL5-2026-11-D3-23)  
   💡 **Özü:** Enerji sektörü için YZ temel modellerini (foundation model) eğitmek amacıyla güvenli veri paylaşımı: veri alanı bağlayıcıları, federe eğitim, sentetik veri. Şebeke gözlemlenebilirliği, arz-talep tahmini ve esneklik öne çıkıyor. Dikkat: başvuru anında büyük ve ilgili veri setlerine erişimin kanıtlanması bekleniyor.
 
+- **`HORIZON-EIC-2026-PRIZE-WIP`** · RPR · MGA bilgisi yok · ⏰ 01.12.2026 · puan 0 · 🤝 Teknopark İstanbul, İTO, BTM  
+  [The European Prize for Women Innovators](https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-EIC-2026-PRIZE-WIP)  
+  💡 _Özü bu sabah 09:35'te eklenecek._ <!--oz:HORIZON-EIC-2026-PRIZE-WIP-->
+
+- **`HORIZON-EIT-2026-PRIZE-WIP-LEADERSHIP`** · RPR · MGA bilgisi yok · ⏰ 01.12.2026 · puan 0 · 🤝 Teknopark İstanbul  
+  [Women Leadership Category](https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-EIT-2026-PRIZE-WIP-LEADERSHIP)  
+  💡 _Özü bu sabah 09:35'te eklenecek._ <!--oz:HORIZON-EIT-2026-PRIZE-WIP-LEADERSHIP-->
+
+- **`HORIZON-EIC-2026-PRIZE-WIP-RisingInnovators`** · RPR · MGA bilgisi yok · ⏰ 01.12.2026 · puan 0 · 🤝 Teknopark İstanbul, İTO, BTM  
+  [Rising Innovators category](https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-EIC-2026-PRIZE-WIP-RisingInnovators)  
+  💡 _Özü bu sabah 09:35'te eklenecek._ <!--oz:HORIZON-EIC-2026-PRIZE-WIP-RisingInnovators-->
+
+- **`HORIZON-CL6-2023-GOVERNANCE-01-13`** · Kaskad (FSTP) · ⏰ 02.12.2026 · puan 0  
+  [Open source solutions for edge, cloud and mixed model applications to strengthen production and administrative capacities in agriculture](https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/competitive-calls-cs/45657640)
+
+- **`DIGITAL-JU-CHIPS-2026-SG-JAPAN`** · JU-SIMPLE · MGA bilgisi yok · ⏰ 08.12.2026 · puan 14 · 🤝 BTM  
+  [International collaboration EU and Japan on semiconductors](https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/DIGITAL-JU-CHIPS-2026-SG-JAPAN)  
+  💡 _Özü bu sabah 09:35'te eklenecek._ <!--oz:DIGITAL-JU-CHIPS-2026-SG-JAPAN-->
+
+- **`DIGITAL-ECCC-2027-DEPLOY-CYBER-11-AI4SME`** · JU-SME · MGA bilgisi yok · ⏰ 14.01.2027 · puan 14 · 🤝 İTO  
+  [Strengthening cybersecurity capacities of European SMEs  with cybersecure AI-powered solutions](https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/DIGITAL-ECCC-2027-DEPLOY-CYBER-11-AI4SME)  
+  💡 _Özü bu sabah 09:35'te eklenecek._ <!--oz:DIGITAL-ECCC-2027-DEPLOY-CYBER-11-AI4SME-->
+
+- **`DIGITAL-ECCC-2027-DEPLOY-CYBER-11-CYBERAI`** · JU-SIMPLE · MGA bilgisi yok · ⏰ 14.01.2027 · puan 14  
+  [Cybersecure tools, technologies and services relying on AI](https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/DIGITAL-ECCC-2027-DEPLOY-CYBER-11-CYBERAI)  
+  💡 _Özü bu sabah 09:35'te eklenecek._ <!--oz:DIGITAL-ECCC-2027-DEPLOY-CYBER-11-CYBERAI-->
+
+- **`DIGITAL-ECCC-2027-DEPLOY-CYBER-11-EULEG`** · JU-SIMPLE · MGA bilgisi yok · ⏰ 14.01.2027 · puan 10 · 🤝 İTO, Teknopark İstanbul, BTM  
+  [Strengthening EU cybersecurity capacities & capabilities in line with legislative requirements](https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/DIGITAL-ECCC-2027-DEPLOY-CYBER-11-EULEG)  
+  💡 _Özü bu sabah 09:35'te eklenecek._ <!--oz:DIGITAL-ECCC-2027-DEPLOY-CYBER-11-EULEG-->
+
+- **`HORIZON-JU-EUROHPC-2026-QML-07-01`** · JU-RIA · Budget-Based · ⏰ 28.01.2027 · puan 15 · 🤝 İTO, BTM  
+  [Quantum Machine Learning](https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-JU-EUROHPC-2026-QML-07-01)  
+  💡 _Özü bu sabah 09:35'te eklenecek._ <!--oz:HORIZON-JU-EUROHPC-2026-QML-07-01-->
+
+- **`HORIZON-CL4-2027-01-MAT-PROD-03`** · RIA · Lump Sum · ⏰ 02.02.2027 · puan 20  
+  [Factory processes and automation for de- and re-manufacturing (RIA) (Made in Europe partnership)](https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-CL4-2027-01-MAT-PROD-03)  
+  💡 **Özü:** Fabrika düzeyinde söküm (de-manufacturing) ve yeniden üretim teknolojileri. Listedeki beş alandan en az üçü ele alınmalı: YZ ve sensörle parça durumu analizi ve kestirimci bakım, robotik söküm, dijital ikiz/CAD tabanlı süreçler, yerinde onarım, operasyon sıralama. İş modeli ve ticarileştirme stratejisi zorunlu.
+
+- **`HORIZON-CL4-2027-02-DIGITAL-EMERGING-52-two-stage`** · RIA · Lump Sum · ⏰ 02.02.2027 · puan 17 · 🤝 BTM  
+  [New approaches for Human/AI collaboration for the workforce of the future (RIA) (Made in Europe and AI, Data and Robotics partnerships)](https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-CL4-2027-02-DIGITAL-EMERGING-52-two-stage)  
+  💡 **Özü:** Fabrikalarda insan-YZ iş birliği. Çalışanın dağınık bilgisini YZ ile kayıt altına almak, işe alıştırma süresini kısaltmak, makineyi çalışanın yeteneğine ve kültürüne uyarlamak hedefleniyor. Kapsayıcılık, beceri geliştirme ve iyi oluş ön planda. İki aşamalı başvuru.
+
+- **`HORIZON-CL4-2027-01-MAT-PROD-08`** · IA · Lump Sum · ⏰ 02.02.2027 · puan 11 · 🤝 İTO, Teknopark İstanbul, BTM  
+  [Textile circularity through advanced processing and manufacturing technologies and system approaches (IA) (Textiles for the Future partnership)](https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-CL4-2027-01-MAT-PROD-08)  
+  💡 _Özü bu sabah 09:35'te eklenecek._ <!--oz:HORIZON-CL4-2027-01-MAT-PROD-08-->
+
+- **`HORIZON-CL4-2027-01-MAT-PROD-02`** · IA · Budget-Based · ⏰ 02.02.2027 · puan 10  
+  [Advanced manufacturing for key products (IA) (Made in Europe partnership)](https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-CL4-2027-01-MAT-PROD-02)  
+  💡 _Özü bu sabah 09:35'te eklenecek._ <!--oz:HORIZON-CL4-2027-01-MAT-PROD-02-->
+
+- **`HORIZON-CL4-2025-03-DIGITAL-EMERGING-07`** · Kaskad (FSTP) · ⏰ 10.02.2027 · puan 12  
+  [Robust and trustworthy GenerativeAI for Robotics and industrial automation (RIA) (AI/Data/Robotics & Made in Europe Partnerships)](https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/competitive-calls-cs/48401116)
+
+- **`HORIZON-BRIDGING-2027-01-12`** · IA · Budget-Based · ⏰ 16.02.2027 · puan 14 · 🤝 İTO  
+  [Large-Scale piloting of next-generation AI-driven digital platforms for a more affordable, secure and sustainable European energy system (IA) - Apply AI](https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-BRIDGING-2027-01-12)  
+  💡 _Özü bu sabah 09:35'te eklenecek._ <!--oz:HORIZON-BRIDGING-2027-01-12-->
+
+- **`HORIZON-BRIDGING-2027-01-10`** · IA · Budget-Based · ⏰ 16.02.2027 · puan 13 · 🤝 BTM  
+  [Autonomous Drive Ambition Cities (IA) - Apply AI](https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-BRIDGING-2027-01-10)  
+  💡 _Özü bu sabah 09:35'te eklenecek._ <!--oz:HORIZON-BRIDGING-2027-01-10-->
+
+- **`HORIZON-BRIDGING-2027-01-13`** · RIA · Budget-Based · ⏰ 16.02.2027 · puan 12  
+  [EU Frontier AI Initiative: Advanced Scaling Frameworks for High-Performance AI Models (RIA) - Apply AI](https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-BRIDGING-2027-01-13)  
+  💡 _Özü bu sabah 09:35'te eklenecek._ <!--oz:HORIZON-BRIDGING-2027-01-13-->
+
+- **`HORIZON-HLTH-2027-02-TOOL-01-two-stage`** · RIA · Budget-Based · ⏰ 17.02.2027 · puan 9 · 🤝 İTO, BTM  
+  [Development of predictive biomarkers of disease progression and treatment response by using AI methodologies for chronic non-communicable diseases](https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-HLTH-2027-02-TOOL-01-two-stage)  
+  💡 _Özü bu sabah 09:35'te eklenecek._ <!--oz:HORIZON-HLTH-2027-02-TOOL-01-two-stage-->
+
+- **`HORIZON-CL4-2027-05-DIGITAL-EMERGING-03`** · RIA · Lump Sum · ⏰ 18.03.2027 · puan 19  
+  [Advanced integrated photonic devices for extended features and ultra-low power consumption (RIA) (Photonics Partnership)](https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-CL4-2027-05-DIGITAL-EMERGING-03)  
+  💡 **Özü:** Daha yüksek performanslı ve ultra düşük güç tüketen entegre fotonik cihaz ve devreler. İnce film LiNbO3, grafen, SiC gibi yeni malzemeler; çipletler ve elektronik-fotonik entegrasyonu öne çıkıyor. Listedeki dört yönden en az ikisi ele alınmalı ve sonuçlar gerçek bir uygulama konfigürasyonunda gösterilmeli.
+
+- **`HORIZON-CL4-2027-04-DIGITAL-EMERGING-06`** · IA · Lump Sum · ⏰ 18.03.2027 · puan 12 · 🤝 Teknopark İstanbul, BTM  
+  [International cooperation in AI (IA)](https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-CL4-2027-04-DIGITAL-EMERGING-06)  
+  💡 **Özü:** Avrupa'da geliştirilen YZ çözümlerinin Afrika'daki düşük ve orta gelirli ülkelerde yerel veriyle uyarlanıp yerel inovasyon merkezlerinde gerçek ortamda gösterilmesi. Eğitim, sağlık, tarım ve çevre öncelikli. Global Gateway kapsamında bir IA; yaşayan laboratuvar (Living Lab) yaklaşımı önerilebilir.
+
+- **`HORIZON-CL4-2027-04-DATA-09`** · IA · Budget-Based · ⏰ 18.03.2027 · puan 20 · 🤝 İTO  
+  [Energy efficiency and sustainability of AI data processing in Data Centres (IA)](https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-CL4-2027-04-DATA-09)  
+  💡 **Özü:** YZ yüklerinde veri merkezlerinin enerji verimliliği. Doğrudan çip üzeri soğutma, minimum soğutmalı yedek güç (ör. grafen katkılı bataryalar), karbona duyarlı iş planlama, atık ısının değerlendirilmesi ve yenilenebilir enerji entegrasyonu öne çıkıyor. Gösterim sahaları ve pilotlar bekleniyor.
+
+- **`HORIZON-CL4-2027-04-DATA-08`** · IA · Budget-Based · ⏰ 18.03.2027 · puan 17 · 🤝 Teknopark İstanbul, BTM, İTO  
+  [Demand-side 3C pilot demonstrators on converged Telco Edge Cloud Infrastructure (IA)](https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-CL4-2027-04-DATA-08)  
+  💡 **Özü:** Telekom-edge-bulut (3C) altyapısında talep tarafı pilotları. Biri akıllı mobilite ve otomotiv alanında olmak üzere sektöre özgü pilotlarla açık orkestrasyon platformları doğrulanacak. KOBİ ve start-up'lar için bir ekosistem ile ticarileştirme yolu da isteniyor; 6G ve ISAC kapsamda.
+
+- **`HORIZON-CL4-2027-04-DIGITAL-EMERGING-04`** · RIA · Budget-Based · ⏰ 18.03.2027 · puan 16 · 🤝 İTO, Teknopark İstanbul  
+  [Apply AI: Challenge-Driven AI Innovation Booster in Apply AI prioritised sectors (RIA) (Partnership in AI, Data and Robotics)](https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-CL4-2027-04-DIGITAL-EMERGING-04)  
+  💡 **Özü:** Apply AI Innovation Booster. Proje, sağlık, ileri imalat (YZ destekli robotik dahil) ya da otonom sürüş sektörlerinden yalnızca birinde çok aşamalı bir yarışma tasarlayıp düzenleyecek. Klasik bir Ar-Ge projesinden farklı olarak bir yarışma ve ekosistem işi; en az bir proje otonom sürüş alanında olacak.
+
+- **`HORIZON-CL4-2027-04-DIGITAL-EMERGING-05`** · IA · Budget-Based · ⏰ 18.03.2027 · puan 15 · 🤝 İTO, BTM  
+  [Apply AI: AI-Driven Robotics for Industry: Enabling System Integration and Adoption (IA) (Partnership in AI, Data and Robotics)](https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-CL4-2027-04-DIGITAL-EMERGING-05)  
+  💡 _Özü bu sabah 09:35'te eklenecek._ <!--oz:HORIZON-CL4-2027-04-DIGITAL-EMERGING-05-->
+
+- **`HORIZON-CL4-2027-04-DATA-03`** · RIA · Budget-Based · ⏰ 18.03.2027 · puan 15  
+  [New approaches for decentralized, federated and sustainable AI data processing (RIA)](https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-CL4-2027-04-DATA-03)  
+  💡 _Özü bu sabah 09:35'te eklenecek._ <!--oz:HORIZON-CL4-2027-04-DATA-03-->
+
+- **`HORIZON-CL4-2027-04-DIGITAL-EMERGING-11`** · RIA · Budget-Based · ⏰ 18.03.2027 · puan 13  
+  [EU Frontier AI Initiative:  Developing frontier AI solutions that are safe and computationally efficient within Apply AI (RIA)](https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-CL4-2027-04-DIGITAL-EMERGING-11)  
+  💡 _Özü bu sabah 09:35'te eklenecek._ <!--oz:HORIZON-CL4-2027-04-DIGITAL-EMERGING-11-->
+
+- **`HORIZON-CL5-2027-02-D3-07`** · IA · Lump Sum · ⏰ 31.03.2027 · puan 13  
+  [Concentrated solar thermal systems for decarbonising industrial processes](https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-CL5-2027-02-D3-07)  
+  💡 **Özü:** 150–400°C aralığındaki sanayi ısısı için yoğunlaştırılmış güneş termal sistemleri ve depolama. Yıllık en az %50 güneş payı, en az 6 ay sürekli gösterim ve ekonomik olarak uygulanabilir bir iş modeli şart. Odak güneş termal sistemde olmalı, sanayi sürecinde değil.
+
+- **`HORIZON-CL5-2027-02-D3-09`** · IA · Budget-Based · ⏰ 31.03.2027 · puan 14 · 🤝 İTO, Teknopark İstanbul, BTM  
+  [Innovative technologies and solutions to improve wave and tidal energy systems](https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-CL5-2027-02-D3-09)  
+  💡 _Özü bu sabah 09:35'te eklenecek._ <!--oz:HORIZON-CL5-2027-02-D3-09-->
+
+- **`HORIZON-CL5-2027-02-D3-24`** · IA · Budget-Based · ⏰ 31.03.2027 · puan 13 · 🤝 İTO  
+  [Large scale operational validation and upscaling of state-of-the-art (Generative) AI tools and models powering a next generation digital energy system](https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-CL5-2027-02-D3-24)  
+  💡 _Özü bu sabah 09:35'te eklenecek._ <!--oz:HORIZON-CL5-2027-02-D3-24-->
+
+- **`HORIZON-CL5-2027-02-D3-15`** · IA · Budget-Based · ⏰ 31.03.2027 · puan 12 · 🤝 Teknopark İstanbul, BTM  
+  [Production technologies for solar photovoltaics beyond the state-of-the-art (EUPI-PV Partnership)](https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-CL5-2027-02-D3-15)  
+  💡 _Özü bu sabah 09:35'te eklenecek._ <!--oz:HORIZON-CL5-2027-02-D3-15-->
+
+- **`HORIZON-CL5-2027-02-D3-10`** · IA · Budget-Based · ⏰ 31.03.2027 · puan 12 · 🤝 İTO, BTM  
+  [Renewable Energy Valleys in Africa to increase energy security and energy access in Africa](https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-CL5-2027-02-D3-10)  
+  💡 _Özü bu sabah 09:35'te eklenecek._ <!--oz:HORIZON-CL5-2027-02-D3-10-->
+
+- **`HORIZON-CL5-2027-02-D2-06`** · IA · Budget-Based · ⏰ 31.03.2027 · puan 11 · 🤝 BTM  
+  [Sustainable and Competitive Cell Production Techniques for Lithium-ion And Sodium-ion Batteries (BATT4EU Partnership)](https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-CL5-2027-02-D2-06)  
+  💡 _Özü bu sabah 09:35'te eklenecek._ <!--oz:HORIZON-CL5-2027-02-D2-06-->
+
+- **`HORIZON-CL5-2027-04-Two-Stage-D2-07`** · RIA · Lump Sum · ⏰ 14.04.2027 · puan 15  
+  [Novel approaches towards next-generation battery concepts, leveraging the enabling role of innovative advanced materials (BATT4EU and IAM4EU Partnerships)](https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-CL5-2027-04-Two-Stage-D2-07)  
+  💡 **Özü:** Yeni nesil batarya kavramları, üç alandan biri seçilecek. A: kWh başına 35 €'nun altında ana bileşen maliyetiyle elektrikli araç ve sabit depolama. B: 500 Wh/kg üzeri havacılık ve denizcilik. C: sistem maliyeti 50 €/kWh'in altında şebeke ve endüstri depolaması. Hedefler sayısal ve iddialı; iki aşamalı başvuru.
+
+- _…ve 3 çağrı daha: tam rapora bakın._
 
 ---
 Otomatik olarak EU Funding & Tenders Portal verisinden üretilmiştir; uygunluk ve Türkiye katılım bilgilerini çağrı metninden teyit edin.

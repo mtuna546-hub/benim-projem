@@ -5,10 +5,11 @@
     "HORIZON-CL4-2027-02-DIGITAL-EMERGING-52-two-stage": "2026-10-21",
     "HORIZON-CL4-2027-05-DIGITAL-EMERGING-03": "2026-10-21",
     "HORIZON-CL4-2027-SPACE-03-33": "2026-11-04",
+    "HORIZON-CL5-2027-03-D5-08": "2026-11-04",
     "HORIZON-CL5-2027-04-Two-Stage-D2-07": "2026-10-28",
     "HORIZON-HLTH-2027-03-TOOL-08": "2026-11-04"
   },
-  "last_run": "2026-11-04T13:33:52.968923+00:00",
+  "last_run": "2026-11-04T14:16:21.225684+00:00",
   "seen": {
     "CEF-E-2026-PCI-PMI-STUDIES": {
       "first_seen": "2026-09-29T13:16:33.898930+00:00",
@@ -242,9 +243,29 @@
       "first_seen": "2026-09-29T13:16:33.898930+00:00",
       "title": "Integrated Approaches for Retrofitting Infrastructures with Innovative Energy Storage Technologies"
     },
+    "HORIZON-CL6-2023-GOVERNANCE-01-13": {
+      "first_seen": "2026-11-04T14:16:21.225684+00:00",
+      "title": "Open source solutions for edge, cloud and mixed model applications to strengthen production and administrative capacities in agriculture"
+    },
+    "HORIZON-EIC-2026-ACCELERATOR-01": {
+      "first_seen": "2026-11-04T14:16:21.225684+00:00",
+      "title": "EIC Accelerator 2026 - Short proposal"
+    },
     "HORIZON-EIC-2026-PATHFINDERCHALLENGES-01-03": {
       "first_seen": "2026-09-29T13:16:33.898930+00:00",
       "title": "DeepRAP: Deep Reasoning, Abstraction & Planning towards trustworthy Cognitive AI Systems"
+    },
+    "HORIZON-EIC-2026-PRIZE-WIP": {
+      "first_seen": "2026-11-04T14:16:21.225684+00:00",
+      "title": "The European Prize for Women Innovators"
+    },
+    "HORIZON-EIC-2026-PRIZE-WIP-RisingInnovators": {
+      "first_seen": "2026-11-04T14:16:21.225684+00:00",
+      "title": "Rising Innovators category"
+    },
+    "HORIZON-EIT-2026-PRIZE-WIP-LEADERSHIP": {
+      "first_seen": "2026-11-04T14:16:21.225684+00:00",
+      "title": "Women Leadership Category"
     },
     "HORIZON-HLTH-2027-02-TOOL-01-two-stage": {
       "first_seen": "2026-09-29T13:16:33.898930+00:00",

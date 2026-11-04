@@ -1,5 +1,5 @@
 {
-  "last_run": "2026-11-04T13:33:58.458357+00:00",
+  "last_run": "2026-11-04T14:16:28.711314+00:00",
   "seen": {
     "CEF-T-2026-SUSTMOBGEN-EMS-WORKS": {
       "first_seen": "2026-09-29T13:16:38.997378+00:00",
@@ -24,6 +24,10 @@
     "CREA-CROSS-2027-MEDIALITERACY": {
       "first_seen": "2026-10-21T06:22:49.182108+00:00",
       "title": "NEWS - Media Literacy"
+    },
+    "CREA-CULT-2025-COOP-UA-2": {
+      "first_seen": "2026-11-04T14:16:28.711314+00:00",
+      "title": "Fostering Ukrainians’ access to culture and cultural heritage"
     },
     "CREA-MEDIA-2027-INNOVBUSMOD": {
       "first_seen": "2026-09-30T06:07:48.502345+00:00",
@@ -201,6 +205,10 @@
       "first_seen": "2026-09-29T13:16:38.997378+00:00",
       "title": "EU Frontier AI Initiative:  Developing frontier AI solutions that are safe and computationally efficient within Apply AI (RIA)"
     },
+    "HORIZON-CL5-2021-D2-01-16": {
+      "first_seen": "2026-11-04T14:16:28.711314+00:00",
+      "title": "Co-Funded Partnership: Driving Urban Transitions to a sustainable future (DUT)"
+    },
     "HORIZON-CL5-2026-10-D6-03": {
       "first_seen": "2026-09-29T13:16:38.997378+00:00",
       "title": "Generative AI for smarter CCAM: enhancing perception, decision-making, and validation (CCAM Partnership)"
@@ -232,6 +240,10 @@
     "HORIZON-CL5-2027-05-D4-06": {
       "first_seen": "2026-09-29T13:16:38.997378+00:00",
       "title": "Thermal energy optimisation and waste heat recovery of high energy demand IT rooms in buildings or small edge data centres"
+    },
+    "HORIZON-CL6-2023-GOVERNANCE-01-13": {
+      "first_seen": "2026-11-04T14:16:28.711314+00:00",
+      "title": "Open source solutions for edge, cloud and mixed model applications to strengthen production and administrative capacities in agriculture"
     },
     "HORIZON-CL6-2027-01-CIRCBIO-01": {
       "first_seen": "2026-09-29T13:16:38.997378+00:00",
@@ -277,9 +289,21 @@
       "first_seen": "2026-09-29T13:16:38.997378+00:00",
       "title": "AI supporting informed advice for farmers and foresters to improve competitiveness and sustainability"
     },
+    "HORIZON-EIC-2026-ACCELERATOR-01": {
+      "first_seen": "2026-11-04T14:16:28.711314+00:00",
+      "title": "EIC Accelerator 2026 - Short proposal"
+    },
     "HORIZON-EIC-2026-PATHFINDERCHALLENGES-01-03": {
       "first_seen": "2026-09-29T13:16:38.997378+00:00",
       "title": "DeepRAP: Deep Reasoning, Abstraction & Planning towards trustworthy Cognitive AI Systems"
+    },
+    "HORIZON-EIC-2026-PRIZE-WIP": {
+      "first_seen": "2026-11-04T14:16:28.711314+00:00",
+      "title": "The European Prize for Women Innovators"
+    },
+    "HORIZON-EIC-2026-PRIZE-WIP-RisingInnovators": {
+      "first_seen": "2026-11-04T14:16:28.711314+00:00",
+      "title": "Rising Innovators category"
     },
     "HORIZON-EIE-2027-01-CONNECT-01": {
       "first_seen": "2026-09-29T13:16:38.997378+00:00",
@@ -292,6 +316,14 @@
     "HORIZON-EIE-2027-02-CONNECT-01": {
       "first_seen": "2026-10-07T06:07:19.482669+00:00",
       "title": "European Startup and Scaleup Hubs pilot"
+    },
+    "HORIZON-EIT-2025-KIC-IBA-HEI": {
+      "first_seen": "2026-11-04T14:16:28.711314+00:00",
+      "title": "Higher Education Initiative Business Plan 2026"
+    },
+    "HORIZON-EIT-2026-PRIZE-WIP-LEADERSHIP": {
+      "first_seen": "2026-11-04T14:16:28.711314+00:00",
+      "title": "Women Leadership Category"
     },
     "HORIZON-HLTH-2027-02-TOOL-01-two-stage": {
       "first_seen": "2026-09-29T13:16:38.997378+00:00",
@@ -308,6 +340,10 @@
     "HORIZON-JU-IHI-2026-13-two-stage-02": {
       "first_seen": "2026-09-29T13:16:38.997378+00:00",
       "title": "An AI Foundation Toxicology Model and Framework to Support Waiving a Second Species in Drug Safety Studies"
+    },
+    "HORIZON-MISS-2025-CIT-SGA": {
+      "first_seen": "2026-11-04T14:16:28.711314+00:00",
+      "title": "Specific Grant Agreement to the FPA to reinforce the operations of the Climate-Neutral and Smart Cities Mission Platform"
     },
     "HORIZON-MISS-2026-04-CIT-01": {
       "first_seen": "2026-09-29T13:16:38.997378+00:00",
