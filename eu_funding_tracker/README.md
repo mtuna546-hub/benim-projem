@@ -40,7 +40,7 @@ Her profil için `reports/` klasöründe şu dosyalar üretilir:
 - **Kısa özet** (`muhendislik-ozet-*.md`, `ozet-*.md`):
   - en yüksek puanlı 25 yeni çağrı, ayrıntılarıyla;
   - yeni olsun olmasın en uygun 10 açık çağrı;
-  - önümüzdeki 6 ay içinde açılacak çağrılar;
+  - son başvurusu önümüzdeki 6 ay içinde olan çağrılar;
   - EIC/EIT ve kaskad (FSTP) çağrıları ayrı bölümlerde.
 - **Tam rapor** (`muhendislik-rapor-*.md/.html`, `rapor-*.md/.html`): eşleşen tüm çağrılar.
 
@@ -84,8 +84,8 @@ Kısa özette "Lump sum öncelikli çağrılar" bölümü ilk 15 çağrıyı gö
 - **Kaskad fonlama (FSTP):** Kaskad çağrılarının başlıkları kısa ve geneldir. Bu yüzden bir odak
   kelimesinin metnin herhangi bir yerinde geçmesi yeterlidir. Bu çağrılar **"Kaskad fonlama (FSTP)
   çağrıları"** bölümünde listelenir.
-- **Önümüzdeki 6 ayda açılacak çağrılar:** Açılış tarihi (`startDate`) önümüzdeki 6 ay içinde olan
-  eşleşen çağrılar, açılış tarihine göre sıralanır.
+- **Önümüzdeki 6 ay içinde kapanacak çağrılar:** Bir sonraki son başvuru tarihi bugünden itibaren 6 ay
+  içinde olan eşleşen çağrılar, son başvuru tarihine göre sıralanır.
 - **Not:** EIT'nin KIC'leri ve HEI Initiative bazı çağrılarını portalda değil kendi sitelerinde
   yayımlar. Bu çağrılar taramaya giremez.
 

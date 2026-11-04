@@ -325,22 +325,19 @@ class TrackTest(unittest.TestCase):
         self.assertEqual(track.portal_url("X-01", None), page)
         self.assertEqual(track.portal_url("X-01", page), page)
 
-    def test_calls_opening_within_six_months_are_listed(self):
+    def test_calls_closing_within_six_months_are_listed(self):
         eng = track.load_profile(track.HERE / "profile_muhendislik.json")
         now = datetime(2026, 11, 4, tzinfo=timezone.utc)
-        mk = lambda i, start: {"metadata": {"identifier": [i], "title": ["Quantum sensors and photonics testbeds"],
-                                            "startDate": [start + "T00:00:00.000+0000"],
-                                            "deadlineDate": ["2027-09-01T17:00:00.000+0000"]}}
-        hits = [mk("HORIZON-CL4-2027-OPEN-SOON", "2027-01-15"), mk("HORIZON-CL4-2027-OPEN-LATE", "2027-08-01"),
-                mk("HORIZON-CL4-2026-ALREADY-OPEN", "2026-09-01")]
+        mk = lambda i, dl: {"metadata": {"identifier": [i], "title": ["Quantum sensors and photonics testbeds"],
+                                         "deadlineDate": [dl + "T17:00:00.000+0000"]}}
+        hits = [mk("HORIZON-CL4-2027-CLOSE-LATE", "2027-04-20"), mk("HORIZON-CL4-2027-CLOSE-SOON", "2026-12-01"),
+                mk("HORIZON-CL4-2027-CLOSE-AFTER", "2027-09-15")]
         state = {"seen": {}, "last_run": None}
         _, (_, summary, _), _ = track.run(hits, state, now=now, profile=eng)
-        section = summary.split("## Önümüzdeki 6 ayda açılacak eşleşen çağrılar (1)")[1]
-        self.assertIn("`HORIZON-CL4-2027-OPEN-SOON`", section)
-        self.assertIn("🟢 açılış 15.01.2027", section)
-        self.assertNotIn("OPEN-LATE", section)
-        self.assertNotIn("ALREADY-OPEN", section)
-        self.assertIn("HORIZON-CL4-2027-OPEN-SOON", state["_topics"])  # gets an essence slot
+        section = summary.split("## Önümüzdeki 6 ay içinde kapanacak eşleşen çağrılar (2)")[1]
+        self.assertLess(section.index("CLOSE-SOON"), section.index("CLOSE-LATE"))  # by deadline
+        self.assertIn("⏰ 01.12.2026", section)
+        self.assertNotIn("CLOSE-AFTER", section)  # > 6 months away
 
     def test_eic_eit_kept_without_title_keywords_and_cascade_relaxed(self):
         hits = [

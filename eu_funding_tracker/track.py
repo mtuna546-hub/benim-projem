@@ -90,7 +90,7 @@ MIN_AREA_SCORE = 6
 BODY_SCORE_CAP = 3
 MAX_ACADEMICS_PER_CALL = 5
 UPCOMING_DAYS = 30
-OPENING_DAYS = 183     # list matched calls that open within the next ~6 months
+CLOSING_DAYS = 183     # list matched calls whose deadline falls within the next ~6 months
 SUMMARY_SPECIAL = 15   # EIC/EIT and cascade (FSTP) sections in the summary
 SUMMARY_NEW = 25       # detailed new calls in the short summary (GitHub issue)
 SUMMARY_BEST = 10      # best-matching open calls, new or not
@@ -748,11 +748,11 @@ def build_report(new_matches, best, upcoming, profile, academics_count, stats, s
                 md.append("")
 
     shown_up = upcoming[:SUMMARY_UPCOMING] if summary else upcoming
-    md.append(f"## Önümüzdeki 6 ayda açılacak eşleşen çağrılar ({len(upcoming)})\n")
+    md.append(f"## Önümüzdeki 6 ay içinde kapanacak eşleşen çağrılar ({len(upcoming)})\n")
     if not upcoming:
         md.append("Yok.\n")
     for call, m in shown_up:
-        md.append(line_md(call, m, "open"))
+        md.append(line_md(call, m))
     if len(upcoming) > len(shown_up):
         md.append(f"- _…ve {len(upcoming) - len(shown_up)} çağrı daha: tam rapora bakın._")
     md.append("")
@@ -894,10 +894,10 @@ def run(hits, state, now=None, profile=None, details_fetcher=None, details_cache
     matched.sort(key=lambda cm: (priority_group(cm[0]), -cm[1]["total"]))
 
     new_matches = [(c, m) for c, m in matched if c["identifier"] not in state["seen"]]
-    horizon = (now + timedelta(days=OPENING_DAYS)).strftime("%Y-%m-%d")
-    upcoming = sorted(  # calls that open (startDate) within the next ~6 months
-        [(c, m) for c, m in matched if c.get("start") and today < c["start"] <= horizon],
-        key=lambda cm: cm[0]["start"],
+    horizon = (now + timedelta(days=CLOSING_DAYS)).strftime("%Y-%m-%d")
+    upcoming = sorted(  # calls whose next deadline falls within the next ~6 months
+        [(c, m) for c, m in matched if c["deadline"] and today <= c["deadline"] <= horizon],
+        key=lambda cm: cm[0]["deadline"],
     )
     best = sorted(matched, key=lambda cm: -cm[1]["total"])[:SUMMARY_BEST]
     drafts = select_draft_calls(matched, state, profile, today)
