@@ -1,0 +1,13 @@
+{
+  "_aciklama": "EU Funding & Tenders portalında yayımlanmayan EIT / HEI çağrı sayfaları. Her hafta bu sayfalardaki çağrı bağlantıları toplanır; yeni çıkanlar 🆕 ile işaretlenir. Adres değiştiyse 'url' alanını güncelleyin.",
+  "sources": [
+    {"id": "eit", "name": "EIT (genel fırsatlar)", "url": "https://www.eit.europa.eu/our-activities/opportunities"},
+    {"id": "eit_hei", "name": "EIT HEI Initiative", "url": "https://eit-hei.eu/calls/"},
+    {"id": "eit_digital", "name": "EIT Digital", "url": "https://www.eitdigital.eu/our-impact/calls/"},
+    {"id": "eit_manufacturing", "name": "EIT Manufacturing", "url": "https://www.eitmanufacturing.eu/calls/"},
+    {"id": "eit_innoenergy", "name": "EIT InnoEnergy", "url": "https://www.innoenergy.com/"},
+    {"id": "eit_rawmaterials", "name": "EIT RawMaterials", "url": "https://eitrawmaterials.eu/calls/"},
+    {"id": "eit_urbanmobility", "name": "EIT Urban Mobility", "url": "https://www.eiturbanmobility.eu/calls/"},
+    {"id": "eit_climate", "name": "EIT Climate-KIC", "url": "https://www.climate-kic.org/opportunities/"}
+  ]
+}

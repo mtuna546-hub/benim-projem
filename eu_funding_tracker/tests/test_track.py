@@ -325,17 +325,68 @@ class TrackTest(unittest.TestCase):
         self.assertEqual(track.portal_url("X-01", None), page)
         self.assertEqual(track.portal_url("X-01", page), page)
 
-    def test_upcoming_calls_get_essence_slot_in_topics(self):
-        hits = [{"metadata": {"identifier": ["HORIZON-JU-EUROHPC-2026-TEST-99-01"],
-                              "title": ["Quantum testing infrastructure for quantum sensors and photonics"],
-                              "deadlineDate": ["2026-11-17T17:00:00.000+0000"],
-                              "descriptionByte": ["Expected Outcome: Open test facilities. Scope: Qu-Test."]}}]
+    def test_calls_closing_within_six_months_are_listed(self):
         eng = track.load_profile(track.HERE / "profile_muhendislik.json")
-        details = {"HORIZON-JU-EUROHPC-2026-TEST-99-01": {"action_full": "HORIZON-JU-RIA x", "mga": "HORIZON-AG"}}
-        state = {"seen": {"HORIZON-JU-EUROHPC-2026-TEST-99-01": {}}, "last_run": None}  # not new, budget-based
-        track.run(hits, state, now=datetime(2026, 10, 21, tzinfo=timezone.utc), profile=eng,
-                  details_fetcher=lambda i: details[i])
-        self.assertIn("HORIZON-JU-EUROHPC-2026-TEST-99-01", state["_topics"])
+        now = datetime(2026, 11, 4, tzinfo=timezone.utc)
+        mk = lambda i, dl: {"metadata": {"identifier": [i], "title": ["Quantum sensors and photonics testbeds"],
+                                         "deadlineDate": [dl + "T17:00:00.000+0000"]}}
+        hits = [mk("HORIZON-CL4-2027-CLOSE-LATE", "2027-04-20"), mk("HORIZON-CL4-2027-CLOSE-SOON", "2026-12-01"),
+                mk("HORIZON-CL4-2027-CLOSE-AFTER", "2027-09-15")]
+        state = {"seen": {}, "last_run": None}
+        _, (_, summary, _), _ = track.run(hits, state, now=now, profile=eng)
+        section = summary.split("## Önümüzdeki 6 ay içinde kapanacak eşleşen çağrılar (2)")[1]
+        self.assertLess(section.index("CLOSE-SOON"), section.index("CLOSE-LATE"))  # by deadline
+        self.assertIn("⏰ 01.12.2026", section)
+        self.assertNotIn("CLOSE-AFTER", section)  # > 6 months away
+
+    def test_eic_eit_kept_without_title_keywords_and_cascade_relaxed(self):
+        hits = [
+            {"metadata": {"identifier": ["HORIZON-EIC-2027-PATHFINDEROPEN-01"], "title": ["EIC Pathfinder Open 2027"]}},
+            {"metadata": {"identifier": ["HORIZON-EIT-2027-HEI-01"], "title": ["HEI Initiative pilot call"]}},
+            {"metadata": {"identifier": ["FSTP-OPENCALL-3"], "title": ["Open Call 3"],
+                          "url": ["https://ec.europa.eu/.../competitive-calls-cs/123"],
+                          "descriptionByte": ["Funding for SMEs deploying machine learning in manufacturing."]}},
+            {"metadata": {"identifier": ["HORIZON-CL2-2027-X"], "title": ["Open call for culture"]}},
+        ]
+        state = {"seen": {}, "last_run": None}
+        _, (_, summary, _), _ = track.run(hits, state)
+        self.assertIn("## EIC, EIT ve açık uçlu programlar (2)", summary)
+        self.assertIn("`HORIZON-EIC-2027-PATHFINDEROPEN-01`", summary)
+        self.assertIn("`HORIZON-EIT-2027-HEI-01`", summary)
+        self.assertIn("## Kaskad fonlama (FSTP) çağrıları (1)", summary)
+        self.assertNotIn("HORIZON-CL2-2027-X", summary)
+        self.assertIn("Taranan programlar: Horizon Europe 3 · Kaskad (FSTP) 1", summary)
+
+
+class EitSourcesTest(unittest.TestCase):
+    def test_call_links_marked_new_and_errors_reported(self):
+        import eit_sources
+        page = ('<a href="/calls/open-call-for-deep-tech-startups-2027">Open Call for Deep Tech Start-ups 2027</a>'
+                '<a href="/privacy">Privacy policy and cookie notice</a>'
+                '<a href="https://other.org/calls/x">External call for proposals here</a>'
+                '<a href="/calls/old-booster-call">EIT Booster call 2026 (closed)</a>')
+        with tempfile.TemporaryDirectory() as tmp:
+            old_src, old_state = eit_sources.SOURCES_PATH, eit_sources.STATE_PATH
+            eit_sources.SOURCES_PATH = Path(tmp) / "s.json"
+            eit_sources.STATE_PATH = Path(tmp) / "st.json"
+            eit_sources.SOURCES_PATH.write_text(json.dumps({"sources": [
+                {"id": "a", "name": "EIT A", "url": "https://eit-a.eu/calls/"},
+                {"id": "b", "name": "EIT B", "url": "https://eit-b.eu/"}]}))
+            eit_sources.STATE_PATH.write_text(json.dumps({"a": ["https://eit-a.eu/calls/old-booster-call"]}))
+            try:
+                def fetch(url):
+                    return (200, url, page) if "eit-a" in url else (404, url, "")
+                results, state = eit_sources.collect(fetch=fetch)
+            finally:
+                eit_sources.SOURCES_PATH, eit_sources.STATE_PATH = old_src, old_state
+        links = results[0]["links"]
+        self.assertEqual([l["url"] for l in links], ["https://eit-a.eu/calls/open-call-for-deep-tech-startups-2027",
+                                                     "https://eit-a.eu/calls/old-booster-call"])
+        self.assertEqual([l["new"] for l in links], [True, False])
+        md = eit_sources.section_md(results)
+        self.assertIn("🆕 [Open Call for Deep Tech Start-ups 2027]", md)
+        self.assertIn("**EIT B** · [sayfa](https://eit-b.eu/) · ⚠️ okunamadı (HTTP 404)", md)
+        self.assertEqual(len(state["a"]), 2)
 
 
 if __name__ == "__main__":

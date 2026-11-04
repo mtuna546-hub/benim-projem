@@ -40,7 +40,8 @@ Her profil için `reports/` klasöründe şu dosyalar üretilir:
 - **Kısa özet** (`muhendislik-ozet-*.md`, `ozet-*.md`):
   - en yüksek puanlı 25 yeni çağrı, ayrıntılarıyla;
   - yeni olsun olmasın en uygun 10 açık çağrı;
-  - son başvurusu 30 gün içinde olan çağrılar.
+  - son başvurusu önümüzdeki 6 ay içinde olan çağrılar;
+  - EIC/EIT ve kaskad (FSTP) çağrıları ayrı bölümlerde.
 - **Tam rapor** (`muhendislik-rapor-*.md/.html`, `rapor-*.md/.html`): eşleşen tüm çağrılar.
 
 Her çağrı için şunlar verilir: uygunluk puanı (varsa program ağırlığıyla birlikte), eşleşen odak
@@ -68,6 +69,33 @@ MGA türü (Lump Sum / Budget-Based), proje başı AB katkısı ve beklenen proj
 
 Kısa özette "Lump sum öncelikli çağrılar" bölümü ilk 15 çağrıyı gösterir. Tam raporda ise eşleşen tüm
 çağrılar bu üç gruba ayrılmış olarak listelenir. İptal edilmiş (`CANCELLED`) çağrılar rapora alınmaz.
+
+### Tarama kapsamı ve özel bölümler
+
+- **Tarama kapsamı:** Tarama, EU Funding & Tenders portalındaki tüm hibe çağrılarını ve kaskad (FSTP)
+  çağrılarını çeker. Horizon Europe, Digital Europe, CEF, LIFE, Erasmus+, Creative Europe, CERV ve
+  JUST bunlara dahildir. Raporun başındaki **"Taranan programlar"** satırı, o hafta taranan açık
+  çağrıların programlara göre dağılımını gösterir.
+- **EIC, EIT ve HEI:** EIC Pathfinder/Transition/Accelerator ile EIT ve HEI çağrıları açık uçludur;
+  başlıklarında konu kelimesi geçmez. Bu yüzden anahtar kelime puanına bakılmadan rapora alınır ve
+  **"EIC, EIT ve açık uçlu programlar"** bölümünde listelenir. Hangi programların bu şekilde alınacağı
+  `profile.json` içindeki `always_include` alanında tutulur; değerler çağrı koduna uygulanan düzenli
+  ifadelerdir.
+- **Kaskad fonlama (FSTP):** Kaskad çağrılarının başlıkları kısa ve geneldir. Bu yüzden bir odak
+  kelimesinin metnin herhangi bir yerinde geçmesi yeterlidir. Bu çağrılar **"Kaskad fonlama (FSTP)
+  çağrıları"** bölümünde listelenir.
+- **Önümüzdeki 6 ay içinde kapanacak çağrılar:** Bir sonraki son başvuru tarihi bugünden itibaren 6 ay
+  içinde olan eşleşen çağrılar, son başvuru tarihine göre sıralanır.
+- **EIT ve HEI çağrıları (portal dışı):** EIT'nin KIC'leri ve HEI Initiative çağrılarının çoğunu
+  portalda değil kendi sitelerinde yayımlar. Tarama bu sayfaları da her hafta okur
+  (`eit_sources.py`). Sayfalardaki çağrı bağlantılarını toplar ve Mühendislik özetinin altında
+  **"EIT ve HEI çağrıları"** bölümünde listeler. Geçen haftadan beri yeni görünen bağlantılar 🆕 ile
+  işaretlenir; okunamayan siteler ⚠️ ile belirtilir.
+  - Okunan siteler `eit_sources.json` dosyasındadır. Bir sitenin adresi değişirse ya da yeni bir
+    KIC eklemek isterseniz bu dosyayı düzenleyin.
+  - Her sayfanın metin kopyası `reports/sources/` klasörüne kaydedilir. Böylece bir sitede çağrı
+    bulunamadığında nedeni kontrol edilebilir.
+  - Bu siteler anahtar kelimeyle puanlanmaz; liste olduğu gibi verilir. Uygunluğu sitesinden teyit edin.
 
 ### Rapordaki çağrı biçimi
 
