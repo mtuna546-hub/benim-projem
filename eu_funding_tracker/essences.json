@@ -174,5 +174,121 @@
  "JUST-2027-JTRA": {
   "date": "2026-10-28",
   "text": "Hâkim, savcı ve diğer adalet profesyonellerine AB hukuku ve Temel Haklar Şartı üzerine ulusötesi eğitim projeleri. Yeni Yargısal Eğitim Stratejisi çerçevesinde; eğitim sağlayıcılar için ulusal düzeyde yaygınlaştırılacak araç ve faaliyetler de destekleniyor (Justice Programme)."
+ },
+ "HORIZON-EIC-2026-ACCELERATOR-01": {
+  "text": "Atılım teknolojiye (deep tech) dayanan ve uzun vadeli \"sabırlı sermaye\" gerektiren start-up/KOBİ'lerin ölçeklenmesini destekler. Hibe ile özsermaye yatırımını ve iş hızlandırma hizmetlerini birleştiren tek AB aracıdır. Başvuran şirkettir; üniversite ancak spin-off üzerinden yararlanabilir. Kısa başvuru bugün kapanıyor.",
+  "date": "2026-11-04"
+ },
+ "HORIZON-EIC-2026-PRIZE-WIP": {
+  "text": "Avrupa'nın çığır açan yeniliklerinin arkasındaki kadın girişimcileri ödüllendirir. Amaç, rol modeller yaratıp daha fazla kadını inovatör olmaya teşvik etmektir. Proje değil ödül başvurusudur: kendi şirketini kurmuş kadın girişimciler ve spin-off kurucuları için uygundur.",
+  "date": "2026-11-04"
+ },
+ "HORIZON-EIT-2026-PRIZE-WIP-LEADERSHIP": {
+  "text": "Kadın İnovatörler Ödülü'nün liderlik kategorisidir; inovasyon ekosisteminde örnek liderlik sergileyen kadınları ödüllendirir. Proje değil bireysel ödül başvurusudur.",
+  "date": "2026-11-04"
+ },
+ "HORIZON-EIC-2026-PRIZE-WIP-RisingInnovators": {
+  "text": "Kadın İnovatörler Ödülü'nün genç girişimciler (Rising Innovators) kategorisidir. Yıkıcı bir yeniliği şirkete dönüştürmüş genç kadın girişimcilere yöneliktir; mezun ve öğrenci girişimcileri için değerlendirilebilir. Bireysel ödül başvurusudur.",
+  "date": "2026-11-04"
+ },
+ "DIGITAL-JU-CHIPS-2026-SG-JAPAN": {
+  "text": "AB-Japonya işbirliğiyle yapay zekâya yönelik 2.5D/3D paketleme, entegre fotonik ve standart chiplet arayüzleri geliştirilmesini hedefler. TRL 5-7; çözümler yarı iletken üretim kullanım senaryolarında, laboratuvar ve pilot ortamda doğrulanmalıdır. Japon ortaklarla birlikte başvuru gerektirir.",
+  "date": "2026-11-04"
+ },
+ "DIGITAL-ECCC-2027-DEPLOY-CYBER-11-AI4SME": {
+  "text": "KOBİ'lerin siber güvenlik kapasitesini, piyasaya hazır yapay zekâ tabanlı araçların yaygınlaştırılmasıyla güçlendirir. Araştırma değil yaygınlaştırma odaklıdır: AB projelerinde geliştirilmiş çözümlerin KOBİ'lere ulaştırılması ve çalışan eğitimi öne çıkar. KOBİ ağlarıyla birlikte girilebilir.",
+  "date": "2026-11-04"
+ },
+ "DIGITAL-ECCC-2027-DEPLOY-CYBER-11-CYBERAI": {
+  "text": "Siber merkezler (Cyber Hub), CSIRT ve ulusal siber güvenlik merkezleri için yapay zekâ tabanlı tehdit istihbaratı (CTI) ve otomasyon araçlarının geliştirilip devreye alınmasını destekler. Son kullanıcı bu kurumlar olduğundan, onlarla ortaklık kritik önemdedir.",
+  "date": "2026-11-04"
+ },
+ "DIGITAL-ECCC-2027-DEPLOY-CYBER-11-EULEG": {
+  "text": "NIS2 ve Siber Dayanıklılık Yasası (CRA) gibi AB mevzuatının uygulanmasını destekler: rehberler, KOBİ'ler için CRA uygunluk değerlendirmesi araçları, olay bildirimi için tek giriş noktası. Teknik araştırmadan çok uygulama, uyum ve farkındalık odaklıdır.",
+  "date": "2026-11-04"
+ },
+ "HORIZON-JU-EUROHPC-2026-QML-07-01": {
+  "text": "Kuantum makine öğrenmesi modellerinin mevcut yapay zekâ altyapılarına entegre edilmesini hedefler. NISQ dönemi donanımda klasik yöntemlere göre ölçülebilir hız ve doğruluk kazanımı, titiz kıyaslamayla gösterilmelidir. Kuantum algoritmaları ve yapay zekâ ekipleri için uygundur.",
+  "date": "2026-11-04"
+ },
+ "HORIZON-CL4-2027-01-MAT-PROD-08": {
+  "text": "Tekstilde fosil kaynaklı malzeme ve kimyasalların yerine yenilenebilir alternatiflerin büyük ölçekte kullanılmasını hedefler. 2035'e kadar mutlak azaltım yol haritası ve ölçeklenebilir iş modelleri beklenir. Lump sum IA'dır; Textiles for the Future ortaklığı kapsamındadır.",
+  "date": "2026-11-04"
+ },
+ "HORIZON-CL4-2027-01-MAT-PROD-02": {
+  "text": "Kilit ve yüksek performanslı ürünler için ileri üretim teknolojileri ve makinelerinin Avrupa'da geliştirilmesini hedefler. Döngüsellik, ikincil hammadde kullanımı ve kaynak/enerji verimliliğinde belirgin artış beklenir. Made in Europe ortaklığı kapsamında, endüstri ağırlıklı bir IA'dır.",
+  "date": "2026-11-04"
+ },
+ "HORIZON-BRIDGING-2027-01-12": {
+  "text": "Şebeke işletimi, yenilenebilir ve depolama entegrasyonu ile veri merkezlerinin şebekeye bağlanması için yapay zekâ tabanlı dijital platformların büyük ölçekli pilotlarını destekler. Enerji operatörleri, kamu ve son kullanıcılarla gerçek ortamda pilot uygulama zorunludur.",
+  "date": "2026-11-04"
+ },
+ "HORIZON-BRIDGING-2027-01-10": {
+  "text": "Şehir trafiğinde seviye 4 elektrikli otonom mobilite hizmetlerini yaygınlaştırmayı hedefler. 5 veya daha fazla ülkede 5-7 koordineli şehir pilotu ve en az bir sınır ötesi pilot zorunludur. Büyük konsorsiyum ister; teknolojiden çok ticari ölçeklenme odaklıdır.",
+  "date": "2026-11-04"
+ },
+ "HORIZON-BRIDGING-2027-01-13": {
+  "text": "Avrupa'nın öncü (frontier) yapay zekâ modelleri için ölçekleme yasaları ve öngörü çerçeveleri geliştirmeyi hedefler. Büyük hesaplama yatırımından önce model performansının tahmini ile veri karışımı, mimari ve hiperparametre optimizasyonu öne çıkar. Güçlü yapay zekâ araştırma ekipleri için RIA'dır.",
+  "date": "2026-11-04"
+ },
+ "HORIZON-HLTH-2027-02-TOOL-01-two-stage": {
+  "text": "Bulaşıcı olmayan kronik hastalıklarda hastalığın seyrini ve tedavi yanıtını öngören biyobelirteçlerin yapay zekâ ile geliştirilip klinik olarak doğrulanmasını hedefler. İki aşamalı başvurudur; klinik ortak şarttır. Mühendislik tarafı yapay zekâ ve veri modellemesiyle katkı verebilir.",
+  "date": "2026-11-04"
+ },
+ "HORIZON-CL4-2027-04-DIGITAL-EMERGING-05": {
+  "text": "Endüstride yapay zekâ destekli robotiğin yaygınlaşması için birden çok sektörde kullanılabilecek, modüler ve birlikte çalışabilir entegrasyon çerçeveleri ile yeniden kullanılabilir yapı taşları ister. Veri, eğitim ve güvenlik testleri için standart protokoller öne çıkar. Teknoloji sağlayıcılar ile son kullanıcılar arasındaki boşluğu kapatmayı amaçlar.",
+  "date": "2026-11-04"
+ },
+ "HORIZON-CL4-2027-04-DATA-03": {
+  "text": "Merkezi yapay zekâ hesaplamasının enerji, çip ve gecikme darboğazlarını aşmak için bulut-uç (edge) sürekliliğinde dağıtık, federe ve sürdürülebilir veri işleme yaklaşımları ister. Farklı donanım mimarilerinden yararlanma öne çıkar. Bilgisayar mühendisliği için doğrudan uygun bir RIA'dır.",
+  "date": "2026-11-04"
+ },
+ "HORIZON-CL4-2027-04-DIGITAL-EMERGING-11": {
+  "text": "Frontier AI Initiative kapsamında, tasarımdan itibaren güvenli (safety by design) ve hesaplama açısından verimli egemen Avrupa öncü yapay zekâ modelleri geliştirmeyi hedefler. Düşük hesaplama maliyeti ve güvenlik değerlendirme araçları öne çıkar.",
+  "date": "2026-11-04"
+ },
+ "HORIZON-CL5-2027-02-D3-09": {
+  "text": "Dalga ve gelgit enerjisi sistemlerinin verim, maliyet, güvenilirlik ve bakım performansını, kurulumdan sökülmeye kadar tüm yaşam döngüsünde iyileştirmeyi hedefler. SET Plan okyanus enerjisi hedeflerine katkı beklenir. Deniz enerjisi teknolojisi geliştiren ortaklar gerekir.",
+  "date": "2026-11-04"
+ },
+ "HORIZON-CL5-2027-02-D3-24": {
+  "text": "Enerji sisteminin dijital omurgası için tutumlu (frugal) (Gen)AI araçlarının büyük ölçekte doğrulanmasını hedefler: gerçek zamanlı şebeke işletimi ve koruması, uç düğümlerde ve federe sistemlerde ajan tabanlı öğrenme. Elektrik ve bilgisayar mühendisliğini birleştiren bir IA'dır.",
+  "date": "2026-11-04"
+ },
+ "HORIZON-CL5-2027-02-D3-15": {
+  "text": "Avrupa'nın güneş paneli (PV) üretim kapasitesini yeniden kurmak için son teknolojinin ötesinde üretim teknolojileri ister. 2030 için 30 GW'lık yıllık üretim hedefine katkı beklenir. EUPI-PV ortaklığı kapsamında, üretici sanayi ortağı gerektiren bir IA'dır.",
+  "date": "2026-11-04"
+ },
+ "HORIZON-CL5-2027-02-D3-10": {
+  "text": "Afrika'da yerel ya da bölgesel yenilenebilir enerji vadilerinin (elektrik, ısı ve yakıt) kurulmasını, AB-AU ortaklığı ve Global Gateway kapsamında destekler. Afrikalı ortaklarla yerel değer zinciri ve istihdam oluşturmak şarttır.",
+  "date": "2026-11-04"
+ },
+ "HORIZON-CL5-2027-02-D2-06": {
+  "text": "Lityum-iyon ve sodyum-iyon pil hücresi üretiminde yatırım, işletme maliyeti, enerji tüketimi ve çevresel ayak izini ölçülebilir biçimde düşürmeyi hedefler. Farklı kimyalar arasında geçiş yapabilen esnek pilot üretim hatları beklenir. BATT4EU ortaklığı kapsamında, sanayi ağırlıklı bir IA'dır.",
+  "date": "2026-11-04"
+ },
+ "HORIZON-EIE-2027-02-CONNECT-01": {
+  "text": "Araştırma ve yükseköğretim ekosistemlerine yerleşik önde gelen start-up/scale-up merkezlerini Avrupa çapında birbirine bağlayan pilot bir COFUND'dır. Deep tech girişimlerine sınır ötesi altyapı, yatırımcı ve yetenek erişimi sağlar; daha az bağlantılı merkezleri ağa katmak hedeflenir. Teknopark ve kuluçka ekosistemiyle birlikte girmeye uygundur.",
+  "date": "2026-11-04"
+ },
+ "CREA-MEDIA-2027-INNOVBUSMOD": {
+  "text": "Avrupa görsel-işitsel sektörünün (video oyunları dahil) görünürlüğünü, rekabet gücünü ve yeşilleşmesini artıracak yenilikçi araç ve iş modellerini destekler. Yapay zekâ fırsatlarına uyum (Apply AI) öne çıkar. Medya ve oyun şirketleriyle birlikte başvuruya uygundur.",
+  "date": "2026-11-04"
+ },
+ "HORIZON-CL4-2027-01-MAT-PROD-47": {
+  "text": "Start-up, scale-up ve yenilikçi KOBİ'lerin teknoloji altyapılarına (test ve pilot tesisler) erişimi için pilot erişim programları tasarlanmasını destekler. Endüstriyel kullanıcıların ihtiyaç analizi şarttır. Lump sum CSA'dır; teknopark ve kuluçka ekosistemiyle güçlü bir uyumu vardır.",
+  "date": "2026-11-04"
+ },
+ "HORIZON-BRIDGING-2027-01-09": {
+  "text": "Avrupa çapında, çok dilli ve kamu yararına bir yapay zekâ medya platformu altyapısı kurmayı hedefler. Haberlerin yapay zekâ ile çevrilmesi, sınıflandırılması ve dağıtılmasının yanı sıra sürükleyici (immersive) medya deneyimlerinin prototiplenmesi öne çıkar. Medya kuruluşlarıyla girilmesi gereken bir IA'dır.",
+  "date": "2026-11-04"
+ },
+ "CERV-2026-CITIZENS-REM-TRANSITION": {
+  "text": "Avrupa'daki demokratik geçişlerin ve demokratik kurumların yeniden inşasının hatırlanmasını, hukukun üstünlüğü ve temel haklar bilincinin güçlendirilmesini destekler. Tarih, hukuk ve iletişim alanları için lump sum bir sivil toplum çağrısıdır.",
+  "date": "2026-11-04"
+ },
+ "CERV-2026-CITIZENS-REM-HISTMIGRATION": {
+  "text": "Sömürgecilik, kölelik ve göç mirasının ve bunların bugünkü çok kültürlü Avrupa toplumları üzerindeki etkisinin hatırlanmasını destekler. Yapısal ırkçılıkla mücadele ve farkındalık öne çıkar. Lump sum bir CERV çağrısıdır.",
+  "date": "2026-11-04"
  }
 }
