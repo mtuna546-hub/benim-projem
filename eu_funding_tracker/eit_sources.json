@@ -1,20 +1,16 @@
 {
-  "_aciklama": "EU Funding & Tenders portalında yayımlanmayan EIT / HEI çağrı sayfaları. Her hafta bu sayfalardaki çağrı bağlantıları toplanır; yeni çıkanlar 🆕 ile işaretlenir. 'urls' sırayla denenir: ilk okunabilen ve çağrı bağlantısı veren adres kullanılır. Bir site adres değiştirirse listeye yeni adresi ekleyin.",
+  "_aciklama": "EU Funding & Tenders portalında yayımlanmayan EIT / HEI çağrı sayfaları. Her hafta bu sayfalardaki çağrı bağlantıları toplanır; yeni çıkanlar 🆕 ile işaretlenir. 'urls' sırayla denenir: ilk okunabilen ve çağrı bağlantısı veren adres kullanılır. Bir site adres değiştirirse listeye yeni adresi ekleyin. Not: EIT HEI çağrıları ve EIT Manufacturing (sitesi eit.europa.eu'ya yönleniyor) EIT genel fırsatlar sayfasında listelenir; eit-hei.eu otomatik erişimi engelliyor.",
   "sources": [
-    {"id": "eit", "name": "EIT (genel fırsatlar, tüm EIT toplulukları)", "urls": [
+    {"id": "eit", "name": "EIT genel fırsatlar (HEI ve Manufacturing dahil tüm EIT toplulukları)", "urls": [
       "https://www.eit.europa.eu/our-activities/opportunities"]},
-    {"id": "eit_hei", "name": "EIT HEI Initiative", "urls": [
-      "https://eit-hei.eu/calls/", "https://eit-hei.eu/", "https://www.eit.europa.eu/our-activities/education/eit-higher-education-initiative"]},
     {"id": "eit_digital", "name": "EIT Digital", "urls": [
-      "https://www.eitdigital.eu/our-impact/calls/", "https://www.eitdigital.eu/news-events/calls/", "https://www.eitdigital.eu/"]},
-    {"id": "eit_manufacturing", "name": "EIT Manufacturing", "urls": [
-      "https://www.eitmanufacturing.eu/calls/", "https://www.eitmanufacturing.eu/open-calls/", "https://www.eitmanufacturing.eu/"]},
+      "https://28digital.eu/our-messages/calls-tenders/", "https://www.eitdigital.eu/"]},
     {"id": "eit_innoenergy", "name": "EIT InnoEnergy", "urls": [
       "https://www.innoenergy.com/for-innovators/", "https://www.innoenergy.com/"]},
     {"id": "eit_rawmaterials", "name": "EIT RawMaterials", "urls": [
-      "https://eitrawmaterials.eu/open-calls/", "https://eitrawmaterials.eu/calls-for-proposals/", "https://eitrawmaterials.eu/"]},
+      "https://eitrawmaterials.eu/open-calls/", "https://eitrawmaterials.eu/"]},
     {"id": "eit_urbanmobility", "name": "EIT Urban Mobility", "urls": [
-      "https://www.eiturbanmobility.eu/open-calls/", "https://www.eiturbanmobility.eu/calls-for-proposals/", "https://www.eiturbanmobility.eu/"]},
+      "https://www.eiturbanmobility.eu/join-us/call-for-proposals/", "https://www.eiturbanmobility.eu/"]},
     {"id": "eit_climate", "name": "EIT Climate-KIC", "urls": [
       "https://www.climate-kic.org/opportunities/", "https://www.climate-kic.org/"]}
   ]

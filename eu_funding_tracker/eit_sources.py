@@ -79,7 +79,7 @@ def collect(fetch=None, snapshot_dir=None):
     fetch = fetch or _fetch
     sources = json.loads(SOURCES_PATH.read_text(encoding="utf-8"))["sources"]
     state = json.loads(STATE_PATH.read_text(encoding="utf-8")) if STATE_PATH.exists() else {}
-    results = []
+    results, shown = [], set()  # a link already listed under an earlier source is not repeated
     for src in sources:
         urls = src.get("urls") or [src["url"]]
         res = {"id": src["id"], "name": src["name"], "url": urls[0], "links": [], "error": None}
@@ -97,6 +97,7 @@ def collect(fetch=None, snapshot_dir=None):
                 errors.append("sayfa değil")
                 continue
             links, text = call_links(body, final_url)
+            links = [(t, u) for t, u in links if u not in shown]
             res["url"] = url
             known = set(state.get(src["id"], []))
             res["links"] = [{"title": t, "url": u, "new": bool(known) and u not in known} for t, u in links]
@@ -108,6 +109,7 @@ def collect(fetch=None, snapshot_dir=None):
                     + "\n\n---\n" + text[:20000], encoding="utf-8")
             if links:
                 break
+        shown |= {l["url"] for l in res["links"]}
         if not res["links"] and errors and len(errors) == len(urls):
             res["error"] = " / ".join(dict.fromkeys(errors))
         print(f"EIT kaynağı {src['id']}: {res['error'] or str(len(res['links'])) + ' bağlantı'}")

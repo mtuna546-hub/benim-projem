@@ -98,6 +98,9 @@ Kısa özette "Lump sum öncelikli çağrılar" bölümü ilk 15 çağrıyı gö
     okunup okunamadığını ve bulunan bağlantıları gösterir; hiçbir şey kaydetmez.
   - Her sayfanın metin kopyası `reports/sources/` klasörüne kaydedilir. Böylece bir sitede çağrı
     bulunamadığında nedeni kontrol edilebilir.
+  - EIT HEI ve EIT Manufacturing çağrıları EIT genel fırsatlar sayfasında listelendiği için oradan
+    gelir (eit-hei.eu otomatik erişimi engelliyor; EIT Manufacturing sitesi eit.europa.eu'ya
+    yönleniyor). Bir bağlantı birden çok sitede görünürse yalnızca ilk sitede listelenir.
   - Bu siteler anahtar kelimeyle puanlanmaz; liste olduğu gibi verilir. Uygunluğu sitesinden teyit edin.
 
 ### Rapordaki çağrı biçimi
