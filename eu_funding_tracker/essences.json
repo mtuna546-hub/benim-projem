@@ -11,6 +11,18 @@
   "date": "2026-10-21",
   "text": "Medya okuryazarlığında sınır ötesi iş birlikleri: dezenformasyon ve dış bilgi manipülasyonuna (FIMI) karşı araçlar, eğitimler ve kampanyalar. Farkı: okul dışı ortamlara, erişilemeyen gruplara ve influencer, oyuncu, içerik üreticisi gibi aktörlere odaklanması; YZ üretimi içerik de kapsamda."
  },
+ "DIGITAL-JU-CHIPS-2026-AI-GFP": {
+  "date": "2026-11-04",
+  "text": "YZ çipleri ve rafları için şeffaf KPI'lar ve kıyaslama raporları sunan ortak bir AB değerlendirme platformu. Bu platform, Chips JU'nun seçim ve satın alma kararlarına temel oluşturacak. Avrupa YZ hesaplama sistemlerinin egemen veri merkezlerinde ilk pilot kurulumları ve alıcı-tedarikçi iş birliği de bekleniyor."
+ },
+ "DIGITAL-JU-CHIPS-2026-AI1-SG": {
+  "date": "2026-11-04",
+  "text": "AB'li fabless şirketlerin tasarladığı YZ çiplerinin, sistem ortaklarıyla birlikte PCB düzeyinde çalışan demonstratörlere dönüştürülmesi. Çipler ortak bir AB değerlendirme platformunda karşılaştırmalı olarak test edilecek. En iyiler 'AI Compute Excellence' etiketi alıp tam raf (rack) geliştirme aşamasına geçecek."
+ },
+ "HORIZON-BRIDGING-2027-05-01": {
+  "date": "2026-11-04",
+  "text": "Enterprise Europe Network üzerinden yenilikçi KOBİ'lere yurt dışından yüksek nitelikli araştırmacı istihdamı için ulusötesi bir mobilite programı. KOBİ'lere kaskad (FSTP) lump sum hibe verilecek. Beceri eşleştirme ve inovasyon yönetimi hizmetleri de kapsamda; 'European SME innovation associate' pilotunun devamı."
+ },
  "HORIZON-CL2-2027-01-DEMOCRACY-04": {
   "date": "2026-10-19",
   "text": "YZ, deepfake ve siber şiddetin eşitlik, demokrasi ve toplumsal uyum üzerindeki etkisi. AI Act ile uyumlu yönetişim çerçeveleri, medya okuryazarlığı ve zararları tespit eden araçlar bekleniyor. Akademinin hesaplama altyapısı ve veriye erişimi ile sanayi iş birliğinin güçlendirilmesi de hedefler arasında."
@@ -87,6 +99,10 @@
   "date": "2026-10-19",
   "text": "Yer gözlemi (EO) ve uydu haberleşmesinin (SatCom) ortak dijital yapı taşları. 5G/6G uyumlu uçtan uca SatCom, yörüngede yeniden yapılandırma, uyduda ve yerde akıllı hesaplama öne çıkıyor. Düşük-orta TRL; mevcut AB teknolojilerinin kullanılması ve sanayi-akademi iş birliği bekleniyor."
  },
+ "HORIZON-CL5-2026-11-D3-23": {
+  "date": "2026-11-04",
+  "text": "Enerji sektörü için YZ temel modellerini (foundation model) eğitmek amacıyla güvenli veri paylaşımı: veri alanı bağlayıcıları, federe eğitim, sentetik veri. Şebeke gözlemlenebilirliği, arz-talep tahmini ve esneklik öne çıkıyor. Dikkat: başvuru anında büyük ve ilgili veri setlerine erişimin kanıtlanması bekleniyor."
+ },
  "HORIZON-CL5-2027-02-D3-07": {
   "date": "2026-10-19",
   "text": "150–400°C aralığındaki sanayi ısısı için yoğunlaştırılmış güneş termal sistemleri ve depolama. Yıllık en az %50 güneş payı, en az 6 ay sürekli gösterim ve ekonomik olarak uygulanabilir bir iş modeli şart. Odak güneş termal sistemde olmalı, sanayi sürecinde değil."
@@ -150,6 +166,10 @@
  "HORIZON-MISS-2027-04-CIT-CCRI-04": {
   "date": "2026-10-19",
   "text": "Kentsel lojistikte döngüsellik: modüler ve yeniden kullanılabilir ambalaj ve yükleme birimleri, tersine lojistik, kaynak optimizasyonu. Önerilen eylemlerin tamamı ele alınmalı. AB Ambalaj ve Ambalaj Atıkları Tüzüğü'ne (PPWR) uyum ve e-ticaret kaynaklı atıkların azaltılması öne çıkıyor."
+ },
+ "HORIZON-NEB-2026-01-PARTICIPATION-01": {
+  "date": "2026-11-04",
+  "text": "Evsizliğe karşı, New European Bauhaus değerlerine uygun 'önce konut' yaklaşımları geliştirmek ve bunların etkisine dair kanıt üretmek. Önleme ve erken müdahale ile yeşil, düşük karbonlu, iklime dayanıklı konut çözümleri ve kişi odaklı destek hizmetleri öne çıkıyor."
  },
  "JUST-2027-JTRA": {
   "date": "2026-10-28",
