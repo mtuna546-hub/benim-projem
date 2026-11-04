@@ -401,7 +401,8 @@ class EitSourcesTest(unittest.TestCase):
     def test_menu_links_dropped_unless_under_page_path(self):
         import eit_sources
         page = ('<a href="/global-challenges">Global challenges overview</a>'
-                '<a href="/our-activities/opportunities/sme-market-expansion-2027">SME Market Expansion 2027</a>')
+                '<a href="/our-activities/opportunities/sme-market-expansion-2027">SME Market Expansion 2027</a>'
+                '<a href="/our-activities/opportunities/rfq-madrid">Request for Quotation - Accommodation Madrid</a>')
         links, _ = eit_sources.call_links(page, "https://www.eit.europa.eu/our-activities/opportunities")
         self.assertEqual([u for _, u in links],
                          ["https://www.eit.europa.eu/our-activities/opportunities/sme-market-expansion-2027"])

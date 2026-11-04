@@ -28,7 +28,10 @@ HEADERS = {"User-Agent": USER_AGENT, "Accept": "text/html,application/xhtml+xml"
 CALL_WORDS = re.compile(r"\b(open )?calls?\b|call for|funding|grant|tender|booster|prize|award|"
                         r"competition|apply|application|accelerat", re.I)
 SKIP_WORDS = re.compile(r"privacy|cookie|login|sign in|newsletter|linkedin|twitter|facebook|youtube|"
-                        r"instagram|contact us|terms|imprint|accessibility", re.I)
+                        r"instagram|contact us|terms|imprint|accessibility|"
+                        # procurement and staffing notices, not funding calls
+                        r"request for quotation|accommodation|travel management|supervisory board|"
+                        r"external experts?\b|vacanc|job offer", re.I)
 MAX_LINKS = 12
 NOT_HTML = re.compile(r"\.(png|jpe?g|gif|svg|webp|pdf|zip)$", re.I)
 
