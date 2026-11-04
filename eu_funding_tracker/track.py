@@ -21,6 +21,7 @@ SMTP_PORT (default 465), SMTP_USER, SMTP_PASSWORD, REPORT_TO.
 """
 
 import argparse
+import collections
 import csv
 import html
 import json
@@ -89,6 +90,8 @@ MIN_AREA_SCORE = 6
 BODY_SCORE_CAP = 3
 MAX_ACADEMICS_PER_CALL = 5
 UPCOMING_DAYS = 30
+OPENING_DAYS = 183     # list matched calls that open within the next ~6 months
+SUMMARY_SPECIAL = 15   # EIC/EIT and cascade (FSTP) sections in the summary
 SUMMARY_NEW = 25       # detailed new calls in the short summary (GitHub issue)
 SUMMARY_BEST = 10      # best-matching open calls, new or not
 SUMMARY_UPCOMING = 40  # deadline list length in the summary
@@ -238,6 +241,7 @@ def parse_calls(hits):
                 "call_title": one(meta, "callTitle"),
                 # Multi-cut-off topics list several deadlines; run() picks the next one.
                 "deadlines": sorted(d[:10] for d in values(meta, "deadlineDate") if d),
+                "start": (one(meta, "startDate") or "")[:10] or None,
                 "deadline": None,
                 "status": STATUS_LABELS.get(one(meta, "status"), one(meta, "status")),
                 "programme": programme_label(programme_id, identifier),
@@ -396,7 +400,8 @@ def load_profile(path=PROFILE_PATH):
     profile = json.loads(Path(path).read_text(encoding="utf-8"))
     if Path(path).resolve() != PROFILE_PATH.resolve():
         base = json.loads(PROFILE_PATH.read_text(encoding="utf-8"))
-        for key in ("ecosystem", "turkey_participation", "exclude_programmes", "action_weights", "mga_weights"):
+        for key in ("ecosystem", "turkey_participation", "exclude_programmes", "action_weights", "mga_weights",
+                    "always_include"):
             profile.setdefault(key, base.get(key, {}))
     return profile
 
@@ -630,6 +635,11 @@ def build_report(new_matches, best, upcoming, profile, academics_count, stats, s
         f"Kurumla eşleşen: **{stats['matched']}** · Yeni: **{len(new_matches)}** · "
         f"Kayıtlı akademisyen: **{academics_count}**"
     )
+    if stats.get("programmes"):
+        top = stats["programmes"].most_common(10)
+        rest = sum(stats["programmes"].values()) - sum(n for _, n in top)
+        md.append("\n<sub>Taranan programlar: " + " · ".join(f"{name} {n}" for name, n in top)
+                  + (f" · diğer {rest}" if rest else "") + "</sub>")
     if PORTAL_WARNING:
         md.append(f"\n> {PORTAL_WARNING}")
     if academics_count == 0:
@@ -669,7 +679,8 @@ def build_report(new_matches, best, upcoming, profile, academics_count, stats, s
     def line_md(call, m, lead=None):
         """Compact item: code · action · MGA · deadline · score, then linked title, then essence."""
         eco = eco_short(m)
-        row = (f"- **`{call['identifier']}`** · {type_badge(call)} · ⏰ {tr_date(call['deadline'])} · "
+        opens = f"🟢 açılış {tr_date(call.get('start'))} · " if lead == "open" else ""
+        row = (f"- **`{call['identifier']}`** · {type_badge(call)} · {opens}⏰ {tr_date(call['deadline'])} · "
                f"puan {m['total']}" + (f" · 🤝 {eco}" if eco else ""))
         row += f"  \n  [{call['title']}]({call['url']})"
         ess = essence_line(call, summary)
@@ -706,6 +717,20 @@ def build_report(new_matches, best, upcoming, profile, academics_count, stats, s
                 md.append(line_md(call, m, call["deadline"] or "tarih yok"))
             md.append("")
 
+    if summary:
+        special = [
+            ("EIC, EIT ve açık uçlu programlar", [cm for cm in all_matches if cm[1].get("always")]),
+            ("Kaskad fonlama (FSTP) çağrıları", [cm for cm in all_matches if cm[0]["cascade"]]),
+        ]
+        for label, rows in special:
+            if rows:
+                md.append(f"## {label} ({len(rows)})\n")
+                for call, m in rows[:SUMMARY_SPECIAL]:
+                    md.append(line_md(call, m))
+                if len(rows) > SUMMARY_SPECIAL:
+                    md.append(f"_…ve {len(rows) - SUMMARY_SPECIAL} çağrı daha: tam rapora bakın._\n")
+                md.append("")
+
     if summary and best:
         md.append(f"## En uygun açık çağrılar (ilk {len(best)}, yeni olsun olmasın)\n")
         for call, m in best:
@@ -723,11 +748,11 @@ def build_report(new_matches, best, upcoming, profile, academics_count, stats, s
                 md.append("")
 
     shown_up = upcoming[:SUMMARY_UPCOMING] if summary else upcoming
-    md.append(f"## Son başvurusu {UPCOMING_DAYS} gün içinde olan eşleşen çağrılar ({len(upcoming)})\n")
+    md.append(f"## Önümüzdeki 6 ayda açılacak eşleşen çağrılar ({len(upcoming)})\n")
     if not upcoming:
         md.append("Yok.\n")
     for call, m in shown_up:
-        md.append(line_md(call, m, call["deadline"]))
+        md.append(line_md(call, m, "open"))
     if len(upcoming) > len(shown_up):
         md.append(f"- _…ve {len(upcoming) - len(shown_up)} çağrı daha: tam rapora bakın._")
     md.append("")
@@ -842,9 +867,19 @@ def run(hits, state, now=None, profile=None, details_fetcher=None, details_cache
         calls.append(call)
 
     matched = []
+    # Open-ended programmes (EIC Pathfinder/Transition/Accelerator, EIT, HEI) have no topic words in
+    # their titles, so they are kept regardless of keyword score. Cascade (FSTP) calls have short,
+    # generic titles: any focus-area hit anywhere in the text is enough for them.
+    always = [re.compile(p) for p in profile.get("always_include", [])]
     for call in calls:
         m = match_call(call, profile, academics)
-        if m["total"] >= MIN_AREA_SCORE and m["title_hit"]:
+        area_score = sum(a["score"] for a in m["areas"])
+        m["always"] = any(p.search(call["identifier"].upper()) for p in always)
+        if call["cascade"]:
+            keep = area_score >= 3
+        else:
+            keep = m["always"] or (m["total"] >= MIN_AREA_SCORE and m["title_hit"])
+        if keep:
             matched.append((call, m))
 
     # Type of action / MGA only for matched calls: one small request each, cached.
@@ -859,10 +894,10 @@ def run(hits, state, now=None, profile=None, details_fetcher=None, details_cache
     matched.sort(key=lambda cm: (priority_group(cm[0]), -cm[1]["total"]))
 
     new_matches = [(c, m) for c, m in matched if c["identifier"] not in state["seen"]]
-    horizon = (now + timedelta(days=UPCOMING_DAYS)).strftime("%Y-%m-%d")
-    upcoming = sorted(
-        [(c, m) for c, m in matched if c["deadline"] and today <= c["deadline"] <= horizon],
-        key=lambda cm: cm[0]["deadline"],
+    horizon = (now + timedelta(days=OPENING_DAYS)).strftime("%Y-%m-%d")
+    upcoming = sorted(  # calls that open (startDate) within the next ~6 months
+        [(c, m) for c, m in matched if c.get("start") and today < c["start"] <= horizon],
+        key=lambda cm: cm[0]["start"],
     )
     best = sorted(matched, key=lambda cm: -cm[1]["total"])[:SUMMARY_BEST]
     drafts = select_draft_calls(matched, state, profile, today)
@@ -873,7 +908,8 @@ def run(hits, state, now=None, profile=None, details_fetcher=None, details_cache
 
     shown = (new_matches[:profile.get("summary_new", SUMMARY_NEW)]
              + [cm for cm in matched if priority_group(cm[0]) < 3][:SUMMARY_LUMP_SUM] + best + drafts
-             + upcoming[:SUMMARY_UPCOMING])
+             + upcoming[:SUMMARY_UPCOMING]
+             + [cm for cm in matched if cm[1].get("always")][:SUMMARY_SPECIAL])
     topics, essences = {}, load_essences()
     for c, _ in shown:
         if c["identifier"] in topics or c["identifier"] in essences or c["cascade"]:
@@ -884,7 +920,9 @@ def run(hits, state, now=None, profile=None, details_fetcher=None, details_cache
                                    "action": short_tag(c), "expected_outcome": expected or text[:SECTION_CHARS],
                                    "scope": scope}
 
-    stats = {"scanned": len(calls), "matched": len(matched), "stale": stale, "topics": topics}
+    programmes = collections.Counter("Kaskad (FSTP)" if c["cascade"] else (c["programme"] or "Diğer") for c in calls)
+    stats = {"scanned": len(calls), "matched": len(matched), "stale": stale, "topics": topics,
+             "programmes": programmes}
     state["_topics"] = topics
     args = (new_matches, best, upcoming, profile, len(academics), stats)
     return (build_report(*args, all_matches=matched, drafts=drafts),

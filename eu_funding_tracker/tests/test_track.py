@@ -325,17 +325,40 @@ class TrackTest(unittest.TestCase):
         self.assertEqual(track.portal_url("X-01", None), page)
         self.assertEqual(track.portal_url("X-01", page), page)
 
-    def test_upcoming_calls_get_essence_slot_in_topics(self):
-        hits = [{"metadata": {"identifier": ["HORIZON-JU-EUROHPC-2026-TEST-99-01"],
-                              "title": ["Quantum testing infrastructure for quantum sensors and photonics"],
-                              "deadlineDate": ["2026-11-17T17:00:00.000+0000"],
-                              "descriptionByte": ["Expected Outcome: Open test facilities. Scope: Qu-Test."]}}]
+    def test_calls_opening_within_six_months_are_listed(self):
         eng = track.load_profile(track.HERE / "profile_muhendislik.json")
-        details = {"HORIZON-JU-EUROHPC-2026-TEST-99-01": {"action_full": "HORIZON-JU-RIA x", "mga": "HORIZON-AG"}}
-        state = {"seen": {"HORIZON-JU-EUROHPC-2026-TEST-99-01": {}}, "last_run": None}  # not new, budget-based
-        track.run(hits, state, now=datetime(2026, 10, 21, tzinfo=timezone.utc), profile=eng,
-                  details_fetcher=lambda i: details[i])
-        self.assertIn("HORIZON-JU-EUROHPC-2026-TEST-99-01", state["_topics"])
+        now = datetime(2026, 11, 4, tzinfo=timezone.utc)
+        mk = lambda i, start: {"metadata": {"identifier": [i], "title": ["Quantum sensors and photonics testbeds"],
+                                            "startDate": [start + "T00:00:00.000+0000"],
+                                            "deadlineDate": ["2027-09-01T17:00:00.000+0000"]}}
+        hits = [mk("HORIZON-CL4-2027-OPEN-SOON", "2027-01-15"), mk("HORIZON-CL4-2027-OPEN-LATE", "2027-08-01"),
+                mk("HORIZON-CL4-2026-ALREADY-OPEN", "2026-09-01")]
+        state = {"seen": {}, "last_run": None}
+        _, (_, summary, _), _ = track.run(hits, state, now=now, profile=eng)
+        section = summary.split("## Önümüzdeki 6 ayda açılacak eşleşen çağrılar (1)")[1]
+        self.assertIn("`HORIZON-CL4-2027-OPEN-SOON`", section)
+        self.assertIn("🟢 açılış 15.01.2027", section)
+        self.assertNotIn("OPEN-LATE", section)
+        self.assertNotIn("ALREADY-OPEN", section)
+        self.assertIn("HORIZON-CL4-2027-OPEN-SOON", state["_topics"])  # gets an essence slot
+
+    def test_eic_eit_kept_without_title_keywords_and_cascade_relaxed(self):
+        hits = [
+            {"metadata": {"identifier": ["HORIZON-EIC-2027-PATHFINDEROPEN-01"], "title": ["EIC Pathfinder Open 2027"]}},
+            {"metadata": {"identifier": ["HORIZON-EIT-2027-HEI-01"], "title": ["HEI Initiative pilot call"]}},
+            {"metadata": {"identifier": ["FSTP-OPENCALL-3"], "title": ["Open Call 3"],
+                          "url": ["https://ec.europa.eu/.../competitive-calls-cs/123"],
+                          "descriptionByte": ["Funding for SMEs deploying machine learning in manufacturing."]}},
+            {"metadata": {"identifier": ["HORIZON-CL2-2027-X"], "title": ["Open call for culture"]}},
+        ]
+        state = {"seen": {}, "last_run": None}
+        _, (_, summary, _), _ = track.run(hits, state)
+        self.assertIn("## EIC, EIT ve açık uçlu programlar (2)", summary)
+        self.assertIn("`HORIZON-EIC-2027-PATHFINDEROPEN-01`", summary)
+        self.assertIn("`HORIZON-EIT-2027-HEI-01`", summary)
+        self.assertIn("## Kaskad fonlama (FSTP) çağrıları (1)", summary)
+        self.assertNotIn("HORIZON-CL2-2027-X", summary)
+        self.assertIn("Taranan programlar: Horizon Europe 3 · Kaskad (FSTP) 1", summary)
 
 
 if __name__ == "__main__":
