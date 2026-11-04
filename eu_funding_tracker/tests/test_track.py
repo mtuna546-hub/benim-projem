@@ -71,7 +71,7 @@ class TrackTest(unittest.TestCase):
     def test_programme_label_falls_back_to_identifier_prefix(self):
         self.assertEqual(track.programme_label("43108390", "X"), "Horizon Europe")
         self.assertEqual(track.programme_label("44181033", "EDF-2026-RA-01"), "European Defence Fund")
-        self.assertEqual(track.programme_label("999", "UNKNOWN-1"), "999")
+        self.assertEqual(track.programme_label("999", "UNKNOWN-1"), "UNKNOWN")
 
 
     def test_engineering_profile_weights_programmes(self):
@@ -371,11 +371,19 @@ class EitSourcesTest(unittest.TestCase):
             eit_sources.STATE_PATH = Path(tmp) / "st.json"
             eit_sources.SOURCES_PATH.write_text(json.dumps({"sources": [
                 {"id": "a", "name": "EIT A", "url": "https://eit-a.eu/calls/"},
-                {"id": "b", "name": "EIT B", "url": "https://eit-b.eu/"}]}))
+                {"id": "b", "name": "EIT B", "url": "https://eit-b.eu/"},
+                {"id": "c", "name": "EIT C", "urls": ["https://eit-c.eu/calls/", "https://eit-c.eu/"]}]}))
             eit_sources.STATE_PATH.write_text(json.dumps({"a": ["https://eit-a.eu/calls/old-booster-call"]}))
             try:
                 def fetch(url):
-                    return (200, url, page) if "eit-a" in url else (404, url, "")
+                    if "eit-a" in url:
+                        return 200, url, page
+                    if url == "https://eit-c.eu/calls/":  # redirects to an image, like Urban Mobility
+                        return 200, "https://eit-c.eu/uploads/calls.png", "PNG"
+                    if url == "https://eit-c.eu/":
+                        return 200, url, ('<nav><a href="/about-us/team">About us and our team</a></nav>'
+                                          '<a href="/news/open-call-for-pilots">Open call for pilots 2027</a>')
+                    return 404, url, ""
                 results, state = eit_sources.collect(fetch=fetch)
             finally:
                 eit_sources.SOURCES_PATH, eit_sources.STATE_PATH = old_src, old_state
@@ -387,6 +395,21 @@ class EitSourcesTest(unittest.TestCase):
         self.assertIn("🆕 [Open Call for Deep Tech Start-ups 2027]", md)
         self.assertIn("**EIT B** · [sayfa](https://eit-b.eu/) · ⚠️ okunamadı (HTTP 404)", md)
         self.assertEqual(len(state["a"]), 2)
+        self.assertEqual([l["url"] for l in results[2]["links"]], ["https://eit-c.eu/news/open-call-for-pilots"])
+        self.assertEqual(results[2]["url"], "https://eit-c.eu/")
+
+    def test_menu_links_dropped_unless_under_page_path(self):
+        import eit_sources
+        page = ('<a href="/global-challenges">Global challenges overview</a>'
+                '<a href="/our-activities/opportunities/sme-market-expansion-2027">SME Market Expansion 2027</a>')
+        links, _ = eit_sources.call_links(page, "https://www.eit.europa.eu/our-activities/opportunities")
+        self.assertEqual([u for _, u in links],
+                         ["https://www.eit.europa.eu/our-activities/opportunities/sme-market-expansion-2027"])
+
+    def test_numeric_programme_id_never_shown(self):
+        self.assertEqual(track.programme_label("111111", "EUROPEAID-123"), "EUROPEAID")
+        self.assertEqual(track.programme_label("44773066", "2026-01"), "Diğer")
+        self.assertEqual(track.programme_label("x", "SMP-COSME-2026"), "Single Market Programme")
 
 
 if __name__ == "__main__":
