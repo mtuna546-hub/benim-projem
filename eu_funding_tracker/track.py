@@ -1004,6 +1004,15 @@ def main():
 
     if not args.no_save:
         save_details_cache(details_cache)
+    if not args.fixture:
+        # EIT / HEI publish on their own sites, not on the portal: added under the engineering summary.
+        import eit_sources
+        results, eit_state = eit_sources.collect(snapshot_dir=REPORTS_DIR / "sources")
+        eit_md = eit_sources.section_md(results)
+        (REPORTS_DIR / f"eit-{stamp}.md").write_text(eit_md, encoding="utf-8")
+        if not args.no_save:
+            eit_sources.save_state(eit_state)
+        summaries[0] = (summaries[0][0], summaries[0][1].rstrip() + "\n\n" + eit_md)
     (REPORTS_DIR / f"issue-{stamp}.md").write_text(build_issue_body(summaries), encoding="utf-8")
     print(summaries[0][1])
     if args.email:

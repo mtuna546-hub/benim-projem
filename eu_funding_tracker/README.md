@@ -86,8 +86,16 @@ Kısa özette "Lump sum öncelikli çağrılar" bölümü ilk 15 çağrıyı gö
   çağrıları"** bölümünde listelenir.
 - **Önümüzdeki 6 ay içinde kapanacak çağrılar:** Bir sonraki son başvuru tarihi bugünden itibaren 6 ay
   içinde olan eşleşen çağrılar, son başvuru tarihine göre sıralanır.
-- **Not:** EIT'nin KIC'leri ve HEI Initiative bazı çağrılarını portalda değil kendi sitelerinde
-  yayımlar. Bu çağrılar taramaya giremez.
+- **EIT ve HEI çağrıları (portal dışı):** EIT'nin KIC'leri ve HEI Initiative çağrılarının çoğunu
+  portalda değil kendi sitelerinde yayımlar. Tarama bu sayfaları da her hafta okur
+  (`eit_sources.py`). Sayfalardaki çağrı bağlantılarını toplar ve Mühendislik özetinin altında
+  **"EIT ve HEI çağrıları"** bölümünde listeler. Geçen haftadan beri yeni görünen bağlantılar 🆕 ile
+  işaretlenir; okunamayan siteler ⚠️ ile belirtilir.
+  - Okunan siteler `eit_sources.json` dosyasındadır. Bir sitenin adresi değişirse ya da yeni bir
+    KIC eklemek isterseniz bu dosyayı düzenleyin.
+  - Her sayfanın metin kopyası `reports/sources/` klasörüne kaydedilir. Böylece bir sitede çağrı
+    bulunamadığında nedeni kontrol edilebilir.
+  - Bu siteler anahtar kelimeyle puanlanmaz; liste olduğu gibi verilir. Uygunluğu sitesinden teyit edin.
 
 ### Rapordaki çağrı biçimi
 

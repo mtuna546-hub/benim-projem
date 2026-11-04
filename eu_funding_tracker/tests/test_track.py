@@ -358,5 +358,36 @@ class TrackTest(unittest.TestCase):
         self.assertIn("Taranan programlar: Horizon Europe 3 · Kaskad (FSTP) 1", summary)
 
 
+class EitSourcesTest(unittest.TestCase):
+    def test_call_links_marked_new_and_errors_reported(self):
+        import eit_sources
+        page = ('<a href="/calls/open-call-for-deep-tech-startups-2027">Open Call for Deep Tech Start-ups 2027</a>'
+                '<a href="/privacy">Privacy policy and cookie notice</a>'
+                '<a href="https://other.org/calls/x">External call for proposals here</a>'
+                '<a href="/calls/old-booster-call">EIT Booster call 2026 (closed)</a>')
+        with tempfile.TemporaryDirectory() as tmp:
+            old_src, old_state = eit_sources.SOURCES_PATH, eit_sources.STATE_PATH
+            eit_sources.SOURCES_PATH = Path(tmp) / "s.json"
+            eit_sources.STATE_PATH = Path(tmp) / "st.json"
+            eit_sources.SOURCES_PATH.write_text(json.dumps({"sources": [
+                {"id": "a", "name": "EIT A", "url": "https://eit-a.eu/calls/"},
+                {"id": "b", "name": "EIT B", "url": "https://eit-b.eu/"}]}))
+            eit_sources.STATE_PATH.write_text(json.dumps({"a": ["https://eit-a.eu/calls/old-booster-call"]}))
+            try:
+                def fetch(url):
+                    return (200, url, page) if "eit-a" in url else (404, url, "")
+                results, state = eit_sources.collect(fetch=fetch)
+            finally:
+                eit_sources.SOURCES_PATH, eit_sources.STATE_PATH = old_src, old_state
+        links = results[0]["links"]
+        self.assertEqual([l["url"] for l in links], ["https://eit-a.eu/calls/open-call-for-deep-tech-startups-2027",
+                                                     "https://eit-a.eu/calls/old-booster-call"])
+        self.assertEqual([l["new"] for l in links], [True, False])
+        md = eit_sources.section_md(results)
+        self.assertIn("🆕 [Open Call for Deep Tech Start-ups 2027]", md)
+        self.assertIn("**EIT B** · [sayfa](https://eit-b.eu/) · ⚠️ okunamadı (HTTP 404)", md)
+        self.assertEqual(len(state["a"]), 2)
+
+
 if __name__ == "__main__":
     unittest.main()
