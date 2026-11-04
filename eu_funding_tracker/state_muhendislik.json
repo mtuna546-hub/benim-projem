@@ -5,9 +5,10 @@
     "HORIZON-CL4-2027-02-DIGITAL-EMERGING-52-two-stage": "2026-10-21",
     "HORIZON-CL4-2027-05-DIGITAL-EMERGING-03": "2026-10-21",
     "HORIZON-CL4-2027-SPACE-03-33": "2026-11-04",
-    "HORIZON-CL5-2027-04-Two-Stage-D2-07": "2026-10-28"
+    "HORIZON-CL5-2027-04-Two-Stage-D2-07": "2026-10-28",
+    "HORIZON-HLTH-2027-03-TOOL-08": "2026-11-04"
   },
-  "last_run": "2026-11-04T06:37:21.005356+00:00",
+  "last_run": "2026-11-04T13:33:52.968923+00:00",
   "seen": {
     "CEF-E-2026-PCI-PMI-STUDIES": {
       "first_seen": "2026-09-29T13:16:33.898930+00:00",
@@ -96,6 +97,10 @@
     "HORIZON-CL4-2023-DIGITAL-EMERGING-01-02": {
       "first_seen": "2026-09-29T13:16:33.898930+00:00",
       "title": "Industrial leadership in AI, Data and Robotics – advanced human robot interaction (AI Data and Robotics Partnership) (IA)"
+    },
+    "HORIZON-CL4-2025-03-DIGITAL-EMERGING-07": {
+      "first_seen": "2026-11-04T13:33:52.968923+00:00",
+      "title": "Robust and trustworthy GenerativeAI for Robotics and industrial automation (RIA) (AI/Data/Robotics & Made in Europe Partnerships)"
     },
     "HORIZON-CL4-2027-01-MAT-PROD-02": {
       "first_seen": "2026-09-29T13:16:33.898930+00:00",
