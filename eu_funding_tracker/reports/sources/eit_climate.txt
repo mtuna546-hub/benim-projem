@@ -1,14 +1,6 @@
 URL: https://www.climate-kic.org/press-releases/opportunities-for-cities-to-take-action-on-climate-change/
 HTTP 200
 
-Place-based transformations | https://www.climate-kic.org/programmes/place-based-transformations/
-Learning by doing | https://www.climate-kic.org/programmes/learning-by-doing/
-Climate entrepreneurship | https://www.climate-kic.org/programmes/climate-entrepreneurship/
-Europe 2030 missions | https://www.climate-kic.org/programmes/europe-2030-missions/
-Inclusive climate innovation | https://www.climate-kic.org/programmes/climate-entrepreneurship/inclusive-climate-innovation/
-Climate KIC Academy | https://www.climate-kic.org/programmes/learning-by-doing/academy/
-Our portfolio | https://www.climate-kic.org/programmes/our-portfolio/
-Invest with us | https://www.climate-kic.org/get-involved/investment-opportunities/
 Climate KIC opens applications for world’s largest green business ideas competition | https://www.climate-kic.org/press-releases/climatelauchpad-applications-2026/
 
 ---

@@ -29,9 +29,46 @@
   "https://www.climate-kic.org/programmes/our-portfolio/",
   "https://www.climate-kic.org/programmes/place-based-transformations/"
  ],
+ "eit_digital": [
+  "https://28digital.eu/",
+  "https://28digital.eu/alumni-startup-competition/",
+  "https://28digital.eu/co-creation-accelerator-2026-2027/",
+  "https://28digital.eu/fileadmin/2022/calls-tenders/EIT-Community-Call-innovative-startups-scaleups-SMEs-Water-Scarcity-Europe.pdf",
+  "https://28digital.eu/fileadmin/2022/calls-tenders/EIT-Cross-KIC-Initiative_Finding-Innovative-Solutions-Water-Scarcity-Southern-Europe.pdf",
+  "https://28digital.eu/our-messages/calls-tenders/accountancy-and-financial-services-tender-2024/",
+  "https://28digital.eu/our-messages/calls-tenders/call-for-proposal-venture-incubation-program-2026/",
+  "https://28digital.eu/our-messages/calls-tenders/design-of-the-master-programme-in-business-excellence/",
+  "https://28digital.eu/our-messages/calls-tenders/design-of-the-master-programme-in-data-science-with-specialization-in-sustainability/",
+  "https://28digital.eu/our-messages/calls-tenders/eit-community-booster/",
+  "https://28digital.eu/our-messages/calls-tenders/eit-digital-master-school-student-recruitment-2025-2026-achieve/",
+  "https://28digital.eu/our-messages/calls-tenders/eit-digital-master-school-student-recruitment-2025-2026-emai4eu/",
+  "https://28digital.eu/our-messages/calls-tenders/eit-digital-master-school-student-recruitment-2025-2026-reschip4eu/",
+  "https://28digital.eu/our-messages/calls-tenders/eit-digital-master-school-student-recruitment-2025-2026-spectro/",
+  "https://28digital.eu/our-messages/calls-tenders/eit-digital-master-school-student-recruitment-2025-2026/",
+  "https://28digital.eu/our-messages/calls-tenders/eit-digital-speedlauncher-2025/",
+  "https://28digital.eu/our-messages/calls-tenders/eit-stem-tech-talent-induction-building-future-ready-stem-talent/",
+  "https://28digital.eu/our-messages/calls-tenders/innovation-study-tours/",
+  "https://28digital.eu/our-messages/calls-tenders/new-european-bauhaus-acceleration-pilot-call/",
+  "https://28digital.eu/our-messages/calls-tenders/new-european-bauhaus-booster-2/",
+  "https://28digital.eu/our-messages/calls-tenders/request-for-proposal-learning-management-system-for-supporting-and-hosting-training-courses-of-28digital/",
+  "https://28digital.eu/our-messages/calls-tenders/spin-rise-2026-call-for-proposals/",
+  "https://28digital.eu/our-messages/calls-tenders/summer-school-2023/",
+  "https://28digital.eu/our-messages/calls-tenders/summer-school-programmes-2026/",
+  "https://28digital.eu/our-messages/calls-tenders/venture-program-2024/"
+ ],
  "eit_innoenergy": [
   "https://innoenergy.com/news-resources/the-business-booster-2025-the-event-where-clean-tech-transactions-happen/",
-  "https://innoenergy.com/news-resources/the-smart-grids-of-the-future-evolving-accelerating-investment-and-delivery-madrid-nov-5/"
+  "https://innoenergy.com/news-resources/the-smart-grids-of-the-future-evolving-accelerating-investment-and-delivery-madrid-nov-5/",
+  "https://innoenergy.com/startups/value-added-support/"
  ],
- "eit_urbanmobility": []
+ "eit_rawmaterials": [
+  "https://eitrawmaterials.eu/call-ris-projects-ris-capacity-building-and-ris-innovation",
+  "https://eitrawmaterials.eu/kava-call-13"
+ ],
+ "eit_urbanmobility": [
+  "https://www.eiturbanmobility.eu/call-results-statistics-2023/",
+  "https://www.eiturbanmobility.eu/call-results-statistics-2024/",
+  "https://www.eiturbanmobility.eu/call-results-statistics-2025/",
+  "https://www.eiturbanmobility.eu/wp-content/uploads/2026/03/Call-Programme-2026-V4.pdf"
+ ]
 }
