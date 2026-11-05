@@ -98,6 +98,9 @@ SUMMARY_UPCOMING = 40  # deadline list length in the summary
 SUMMARY_LUMP_SUM = 15  # lump-sum calls (RIA/CSA first, then IA) in the summary
 DRAFT_MIN_DAYS = 30    # partner-search drafts only for calls closing at least this far ahead
 
+TR_MONTHS = ["Ocak", "Şubat", "Mart", "Nisan", "Mayıs", "Haziran", "Temmuz", "Ağustos", "Eylül", "Ekim",
+             "Kasım", "Aralık"]
+
 PROGRAMME_LABELS = {
     "43108390": "Horizon Europe",
     "31045243": "Horizon 2020",
@@ -684,8 +687,9 @@ def build_report(new_matches, best, upcoming, profile, academics_count, stats, s
         """Compact item: code · action · MGA · deadline · score, then linked title, then essence."""
         eco = eco_short(m)
         opens = f"🟢 açılış {tr_date(call.get('start'))} · " if lead == "open" else ""
+        areas = " / ".join(a["name"] for a in m["areas"][:2])
         row = (f"- **`{call['identifier']}`** · {type_badge(call)} · {opens}⏰ {tr_date(call['deadline'])} · "
-               f"puan {m['total']}" + (f" · 🤝 {eco}" if eco else ""))
+               + (f"🎯 {areas} · " if areas else "") + f"puan {m['total']}" + (f" · 🤝 {eco}" if eco else ""))
         row += f"  \n  [{call['title']}]({call['url']})"
         ess = essence_line(call, summary)
         if ess:
@@ -714,14 +718,6 @@ def build_report(new_matches, best, upcoming, profile, academics_count, stats, s
         (3, "Diğer (budget-based, COFUND, kaskad veya bilgisi alınamayan)"),
     ]
     if summary:
-        lump = [cm for cm in all_matches if priority_group(cm[0]) < 3][:SUMMARY_LUMP_SUM]
-        if lump:
-            md.append(f"## Lump sum öncelikli çağrılar (ilk {len(lump)}: önce RIA/CSA, sonra IA)\n")
-            for call, m in lump:
-                md.append(line_md(call, m, call["deadline"] or "tarih yok"))
-            md.append("")
-
-    if summary:
         special = [
             ("EIC, EIT ve açık uçlu programlar", [cm for cm in all_matches if cm[1].get("always")]),
             ("Kaskad fonlama (FSTP) çağrıları", [cm for cm in all_matches if cm[0]["cascade"]]),
@@ -735,12 +731,6 @@ def build_report(new_matches, best, upcoming, profile, academics_count, stats, s
                     md.append(f"_…ve {len(rows) - SUMMARY_SPECIAL} çağrı daha: tam rapora bakın._\n")
                 md.append("")
 
-    if summary and best:
-        md.append(f"## En uygun açık çağrılar (ilk {len(best)}, yeni olsun olmasın)\n")
-        for call, m in best:
-            md.append(line_md(call, m, call["deadline"] or "tarih yok"))
-        md.append("")
-
     if not summary and all_matches:
         md.append(f"## Tüm eşleşen çağrılar ({len(all_matches)})\n")
         for group, label in groups:
@@ -751,15 +741,30 @@ def build_report(new_matches, best, upcoming, profile, academics_count, stats, s
                     md.append(line_md(call, m, call["deadline"] or "tarih yok"))
                 md.append("")
 
-    shown_up = upcoming[:SUMMARY_UPCOMING] if summary else upcoming
-    md.append(f"## Önümüzdeki 6 ay içinde kapanacak eşleşen çağrılar ({len(upcoming)})\n")
+    # Closing calendar: the best-matching calls closing in the next ~6 months, grouped by month so the
+    # whole window is visible; within a month lump sum RIA/CSA first, then IA, then by score.
+    start, end = stats.get("window") or (today, today)
+    if summary:
+        shown_up = sorted(upcoming, key=lambda cm: -cm[1]["total"])[:SUMMARY_UPCOMING]
+    else:
+        shown_up = list(upcoming)
+    md.append(f"## Kapanış takvimi: {tr_date(start)} – {tr_date(end)} "
+              f"arasında kapanacak çağrılar ({len(upcoming)})\n")
+    if summary and len(upcoming) > len(shown_up):
+        md.append(f"Odak alanlarıyla en güçlü eşleşen {len(shown_up)} çağrı aylara göre listelenmiştir; "
+                  f"kalan {len(upcoming) - len(shown_up)} çağrı tam raporda.\n")
     if not upcoming:
         md.append("Yok.\n")
+    by_month = collections.defaultdict(list)
     for call, m in shown_up:
-        md.append(line_md(call, m))
-    if len(upcoming) > len(shown_up):
-        md.append(f"- _…ve {len(upcoming) - len(shown_up)} çağrı daha: tam rapora bakın._")
-    md.append("")
+        by_month[call["deadline"][:7]].append((call, m))
+    for month in sorted(by_month):
+        rows = sorted(by_month[month], key=lambda cm: (priority_group(cm[0]), -cm[1]["total"], cm[0]["deadline"]))
+        year, mon = month.split("-")
+        md.append(f"### {TR_MONTHS[int(mon) - 1]} {year} ({len(rows)})\n")
+        for call, m in rows:
+            md.append(line_md(call, m))
+        md.append("")
     md.append("---\nOtomatik olarak EU Funding & Tenders Portal verisinden üretilmiştir; "
               "uygunluk ve Türkiye katılım bilgilerini çağrı metninden teyit edin.")
     markdown = "\n".join(md)
@@ -910,9 +915,8 @@ def run(hits, state, now=None, profile=None, details_fetcher=None, details_cache
         state["seen"].setdefault(c["identifier"], {"first_seen": now.isoformat(), "title": c["title"]})
     state["last_run"] = now.isoformat()
 
-    shown = (new_matches[:profile.get("summary_new", SUMMARY_NEW)]
-             + [cm for cm in matched if priority_group(cm[0]) < 3][:SUMMARY_LUMP_SUM] + best + drafts
-             + upcoming[:SUMMARY_UPCOMING]
+    shown = (new_matches[:profile.get("summary_new", SUMMARY_NEW)] + drafts
+             + sorted(upcoming, key=lambda cm: -cm[1]["total"])[:SUMMARY_UPCOMING]
              + [cm for cm in matched if cm[1].get("always")][:SUMMARY_SPECIAL])
     topics, essences = {}, load_essences()
     for c, _ in shown:
@@ -926,30 +930,30 @@ def run(hits, state, now=None, profile=None, details_fetcher=None, details_cache
 
     programmes = collections.Counter("Kaskad (FSTP)" if c["cascade"] else (c["programme"] or "Diğer") for c in calls)
     stats = {"scanned": len(calls), "matched": len(matched), "stale": stale, "topics": topics,
-             "programmes": programmes}
+             "programmes": programmes, "window": (today, horizon)}
     state["_topics"] = topics
     args = (new_matches, best, upcoming, profile, len(academics), stats)
     return (build_report(*args, all_matches=matched, drafts=drafts),
             build_report(*args, summary=True, all_matches=matched, drafts=drafts), len(new_matches))
 
 
-def build_issue_body(summaries):
-    """First profile's summary in full, the others in collapsible sections, within the size limit."""
+def build_issue_body(summaries, extra=""):
+    """(body, comments): the first profile's summary, the others under their own collapsible heading,
+    then `extra` (sections shared by all profiles). A summary that does not fit the issue body
+    goes into a comment on the issue instead of being dropped."""
     lead, rest = summaries[0], summaries[1:]
-    parts = []
+    body, comments = lead[1].rstrip(), []
+    tail = ("\n\n" + extra.strip()) if extra else ""
     for title, summary in rest:
-        parts.append(f"\n\n<details>\n<summary><b>{html.escape(title)}</b> (açmak için tıklayın)</summary>\n\n"
-                     f"{summary}\n\n</details>")
-    budget = ISSUE_BODY_LIMIT - len(lead[1]) - 200
-    tail = ""
-    for part in parts:
-        if len(part) <= budget:
-            tail += part
-            budget -= len(part)
+        part = (f"\n\n<details>\n<summary><b>{html.escape(title)}</b> (açmak için tıklayın)</summary>\n\n"
+                f"{summary}\n\n</details>")
+        if len(body) + len(part) + len(tail) + 400 <= ISSUE_BODY_LIMIT:
+            body += part
         else:
-            tail += "\n\n_Genel rapor bu issue'ya sığmadı; tam rapor repodaki `reports/` klasöründe._"
-            break
-    return lead[1] + tail
+            body += (f"\n\n> 📎 **{title}** bu issue'ya sığmadığı için hemen aşağıdaki ilk yorumda "
+                     f"yayımlandı.")
+            comments.append(summary[:ISSUE_BODY_LIMIT])
+    return body + tail, comments
 
 
 def main():
@@ -1016,8 +1020,12 @@ def main():
         (REPORTS_DIR / f"eit-{stamp}.md").write_text(eit_md, encoding="utf-8")
         if not args.no_save:
             eit_sources.save_state(eit_state)
-        summaries[0] = (summaries[0][0], summaries[0][1].rstrip() + "\n\n" + eit_md)
-    (REPORTS_DIR / f"issue-{stamp}.md").write_text(build_issue_body(summaries), encoding="utf-8")
+    else:
+        eit_md = ""
+    body, comments = build_issue_body(summaries, extra=eit_md)
+    (REPORTS_DIR / f"issue-{stamp}.md").write_text(body, encoding="utf-8")
+    for i, comment in enumerate(comments, 1):
+        (REPORTS_DIR / f"yorum-{i}-{stamp}.md").write_text(comment, encoding="utf-8")
     print(summaries[0][1])
     if args.email:
         title, markdown, html_body, new_count = first

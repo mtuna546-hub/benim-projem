@@ -130,7 +130,8 @@
     "^DIGITAL-": 2,
     "^HORIZON-CL2-": -4,
     "^HORIZON-CL6-": -3,
-    "^HORIZON-NEB-": -2
+    "^HORIZON-NEB-": -2,
+    "^HORIZON-HLTH-": -3
   },
   "partner_search_drafts": 1,
   "institution_en": "Istanbul Ticaret University, Faculty of Engineering"
