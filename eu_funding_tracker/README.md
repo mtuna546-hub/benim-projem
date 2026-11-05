@@ -91,10 +91,16 @@ Kısa özette "Lump sum öncelikli çağrılar" bölümü ilk 15 çağrıyı gö
   (`eit_sources.py`). Sayfalardaki çağrı bağlantılarını toplar ve Mühendislik özetinin altında
   **"EIT ve HEI çağrıları"** bölümünde listeler. Geçen haftadan beri yeni görünen bağlantılar 🆕 ile
   işaretlenir; okunamayan siteler ⚠️ ile belirtilir.
-  - Okunan siteler `eit_sources.json` dosyasındadır. Bir sitenin adresi değişirse ya da yeni bir
-    KIC eklemek isterseniz bu dosyayı düzenleyin.
+  - Okunan siteler `eit_sources.json` dosyasındadır. Her site için birden fazla adres yazılabilir
+    (`urls`); okunabilen ve çağrı bağlantısı veren ilk adres kullanılır. Bir sitenin adresi
+    değişirse ya da yeni bir KIC eklemek isterseniz bu dosyayı düzenleyin.
+  - Bu dosya değiştiğinde açılan PR'larda **"EIT kaynak kontrolü"** iş akışı çalışır. Her sitenin
+    okunup okunamadığını ve bulunan bağlantıları gösterir; hiçbir şey kaydetmez.
   - Her sayfanın metin kopyası `reports/sources/` klasörüne kaydedilir. Böylece bir sitede çağrı
     bulunamadığında nedeni kontrol edilebilir.
+  - EIT HEI ve EIT Manufacturing çağrıları EIT genel fırsatlar sayfasında listelendiği için oradan
+    gelir (eit-hei.eu otomatik erişimi engelliyor; EIT Manufacturing sitesi eit.europa.eu'ya
+    yönleniyor). Bir bağlantı birden çok sitede görünürse yalnızca ilk sitede listelenir.
   - Bu siteler anahtar kelimeyle puanlanmaz; liste olduğu gibi verilir. Uygunluğu sitesinden teyit edin.
 
 ### Rapordaki çağrı biçimi

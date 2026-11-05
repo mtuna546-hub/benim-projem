@@ -147,7 +147,11 @@ def programme_label(programme_id, identifier):
     if programme_id in PROGRAMME_LABELS:
         return PROGRAMME_LABELS[programme_id]
     prefix = (identifier or "").split("-")[0].upper()
-    return IDENTIFIER_PREFIX_LABELS.get(prefix, programme_id)
+    if prefix in IDENTIFIER_PREFIX_LABELS:
+        return IDENTIFIER_PREFIX_LABELS[prefix]
+    # Never show a bare numeric portal id: fall back to the code prefix, else "Diğer".
+    print(f"Bilinmeyen program: id={programme_id} kod={identifier}")
+    return prefix if re.fullmatch(r"[A-Z][A-Z0-9]+", prefix) else "Diğer"
 
 
 # --------------------------------------------------------------------------- API
