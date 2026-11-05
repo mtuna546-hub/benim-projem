@@ -290,5 +290,13 @@
  "CERV-2026-CITIZENS-REM-HISTMIGRATION": {
   "text": "Sömürgecilik, kölelik ve göç mirasının ve bunların bugünkü çok kültürlü Avrupa toplumları üzerindeki etkisinin hatırlanmasını destekler. Yapısal ırkçılıkla mücadele ve farkındalık öne çıkar. Lump sum bir CERV çağrısıdır.",
   "date": "2026-11-04"
+ },
+ "HORIZON-CL4-2027-SPACE-03-12": {
+  "text": "Uzay taşıma sistemleri ve fırlatıcılar için oyunu değiştiren dijital teknolojileri olgunlaştırmayı hedefler: otonomi, tasarım ve simülasyon araçları ile gelişmiş sistem izleme. Maliyet ve operasyon kısıtlarını azaltmak beklenir. Space Partnership kapsamında lump sum IA'dır; yazılım, simülasyon ve kontrol ekipleri için uygundur.",
+  "date": "2026-11-05"
+ },
+ "HORIZON-CL5-2027-03-D5-18": {
+  "text": "Gemilerde tek enerji kaynağı olarak pil kullanılarak en az 150 deniz mili menzil ve 5 MW üzeri tepe itki gücü gösterilmesini hedefler. Hızlı şarj, pil ömrü ve şarj döngüsü artışı ile gemi türüne göre iş modelleri beklenir. ZEWT ortaklığı kapsamında, armatör ve tersane ortağı gerektiren bir IA'dır.",
+  "date": "2026-11-05"
  }
 }
