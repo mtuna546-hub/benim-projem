@@ -298,5 +298,17 @@
  "HORIZON-CL5-2027-03-D5-18": {
   "text": "Gemilerde tek enerji kaynağı olarak pil kullanılarak en az 150 deniz mili menzil ve 5 MW üzeri tepe itki gücü gösterilmesini hedefler. Hızlı şarj, pil ömrü ve şarj döngüsü artışı ile gemi türüne göre iş modelleri beklenir. ZEWT ortaklığı kapsamında, armatör ve tersane ortağı gerektiren bir IA'dır.",
   "date": "2026-11-05"
+ },
+ "HORIZON-CL6-2027-01-CIRCBIO-02-two-stage": {
+  "text": "Döngüsel Şehirler ve Bölgeler Girişimi üzerinden kentsel üreticilerin malzeme verimliliğini ve döngüsel iş modellerini yaygınlaştırmayı hedefler. Döngüselliği kolaylaştıran dijital araçların paylaşımı öne çıkar. İki aşamalı, açık konulu bir IA'dır; şehirler ve yerel üretici KOBİ'lerle birlikte girilir.",
+  "date": "2026-11-05"
+ },
+ "HORIZON-CL5-2027-03-D5-03": {
+  "text": "Elektrikli araç bileşenlerinin (güç elektroniği dönüştürücüleri, motor rotor/statorları, pil termal yönetimi) ve şarj altyapısının ilk ömür sonunda döngüselliğini, standart ürün verisi ve veri odaklı tasarımla artırmayı hedefler. 2ZERO ortaklığı kapsamında lump sum IA'dır; elektrik ve endüstri mühendisliği için uygundur.",
+  "date": "2026-11-05"
+ },
+ "HORIZON-MISS-2027-05-SOIL-05-two-stage": {
+  "text": "Toprak sağlığını iyileştirecek ve tarımsal rekabetçiliği artıracak yenilikçi biyoteknolojileri pazar hazırlığına taşımayı hedefler. Toprak Misyonu kapsamında, iki aşamalı lump sum bir IA'dır; tarım ve biyoteknoloji ortakları gerektirir.",
+  "date": "2026-11-05"
  }
 }
