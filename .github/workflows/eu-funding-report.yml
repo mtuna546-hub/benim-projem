@@ -87,7 +87,13 @@ jobs:
           gh issue list --state open --search "AB Fon Çağrıları in:title" --json number,author \
             -q '.[] | select(.author.login == "app/github-actions" or .author.login == "github-actions") | .number' \
             | xargs -r -n1 gh issue close --comment "Yeni haftalık rapor yayınlandı."
-          gh issue create --title "$title" --body-file issue_body.md
+          url=$(gh issue create --title "$title" --body-file issue_body.md)
+          echo "$url"
+          # Issue gövdesine sığmayan rapor (ör. Tüm Bölümler) aynı issue'ya ilk yorum olarak eklenir.
+          stamp=$(basename "$body" .md | sed 's/^issue-//')
+          for c in $(ls -1 eu_funding_tracker/reports/yorum-*-"$stamp".md 2>/dev/null | sort); do
+            gh issue comment "$url" --body-file "$c"
+          done
 
       - name: Hata bildir
         if: failure() && steps.guard.outputs.skip != 'true'

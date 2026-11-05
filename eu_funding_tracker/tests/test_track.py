@@ -51,7 +51,7 @@ class TrackTest(unittest.TestCase):
         self.assertIn("Türkiye ilişkili", md)
         self.assertIn("15.10.2026", md)  # within 30-day deadline window
         self.assertIn("<h1", html_body)
-        self.assertIn("En uygun açık çağrılar", summary)
+        self.assertIn("### Ekim 2026 (1)", summary)
 
         # second run: nothing new
         _, (_, md2, _), new_count2 = track.run(self.hits(), state, now=now)
@@ -96,14 +96,19 @@ class TrackTest(unittest.TestCase):
         self.assertIn("AI tools for cultural heritage", md_general)
 
     def test_issue_body_nests_general_report(self):
-        body = track.build_issue_body([("Mühendislik", "# Müh raporu"), ("Genel", "# Genel rapor")])
+        body, comments = track.build_issue_body([("Mühendislik", "# Müh raporu"), ("Genel", "# Genel rapor")],
+                                                extra="## EIT ve HEI çağrıları")
         self.assertTrue(body.startswith("# Müh raporu"))
         self.assertIn("<details>", body)
         self.assertIn("# Genel rapor", body)
+        self.assertTrue(body.endswith("## EIT ve HEI çağrıları"))
+        self.assertEqual(comments, [])
 
-        big = track.build_issue_body([("Müh", "x" * 50000), ("Genel", "y" * 20000)])
+        # A general report that does not fit is posted as a comment, never dropped.
+        big, comments = track.build_issue_body([("Müh", "x" * 50000), ("Genel", "y" * 20000)], extra="EIT")
         self.assertLess(len(big), track.ISSUE_BODY_LIMIT)
-        self.assertIn("sığmadı", big)
+        self.assertIn("ilk yorumda", big)
+        self.assertEqual(comments, ["y" * 20000])
 
 
     def test_stale_and_multi_cutoff_deadlines(self):
@@ -167,8 +172,7 @@ class TrackTest(unittest.TestCase):
         # RIA/CSA lump sum, then IA lump sum, then budget-based
         self.assertLess(max(pos[3], pos[4]), pos[2])
         self.assertLess(pos[2], pos[1])
-        self.assertIn("Lump sum öncelikli çağrılar", summary)
-        self.assertIn("`HORIZON-CL4-2027-04`** · RIA · Lump Sum", summary)
+        self.assertIn("`HORIZON-CL4-2027-04`** · RIA · Lump Sum", md)
         self.assertIn("proje başı 3–5 M€", md)
         self.assertIn("Tüm eşleşen çağrılar (4)", md)
         self.assertIn("HORIZON-CL4-2027-04", cache)
@@ -297,7 +301,7 @@ class TrackTest(unittest.TestCase):
         _, (_, summary, _), _ = track.run(hits, {"seen": {}, "last_run": None},
                                           now=datetime(2026, 10, 21, tzinfo=timezone.utc),
                                           details_fetcher=lambda i: details[i])
-        row = summary.split("## Lump sum öncelikli")[1].split("\n\n")[1]
+        row = summary.split("### Şubat 2027 (1)")[1].split("\n\n")[1]
         lines = row.split("\n")
         self.assertTrue(lines[0].startswith("- **`HORIZON-CL4-2027-01-AI`** · RIA · Lump Sum · ⏰ 02.02.2027"))
         self.assertIn("[Artificial intelligence for supply chain logistics](", lines[1])  # then the title
@@ -334,10 +338,14 @@ class TrackTest(unittest.TestCase):
                 mk("HORIZON-CL4-2027-CLOSE-AFTER", "2027-09-15")]
         state = {"seen": {}, "last_run": None}
         _, (_, summary, _), _ = track.run(hits, state, now=now, profile=eng)
-        section = summary.split("## Önümüzdeki 6 ay içinde kapanacak eşleşen çağrılar (2)")[1]
-        self.assertLess(section.index("CLOSE-SOON"), section.index("CLOSE-LATE"))  # by deadline
-        self.assertIn("⏰ 01.12.2026", section)
+        section = summary.split("## Kapanış takvimi: 04.11.2026 – 06.05.2027 arasında kapanacak çağrılar (2)")[1]
+        self.assertLess(section.index("### Aralık 2026 (1)"), section.index("CLOSE-SOON"))  # grouped by month
+        self.assertLess(section.index("CLOSE-SOON"), section.index("### Nisan 2027 (1)"))
+        self.assertLess(section.index("### Nisan 2027 (1)"), section.index("CLOSE-LATE"))
+        self.assertIn("⏰ 01.12.2026 · 🎯 Elektrik-Elektronik", section)  # matched area shown
         self.assertNotIn("CLOSE-AFTER", section)  # > 6 months away
+        self.assertNotIn("Lump sum öncelikli", summary)  # no duplicate lists any more
+        self.assertNotIn("En uygun açık çağrılar", summary)
 
     def test_eic_eit_kept_without_title_keywords_and_cascade_relaxed(self):
         hits = [

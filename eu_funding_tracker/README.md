@@ -25,23 +25,30 @@ Portal bir kez taranır ve sonuçlar iki profile göre ayrı ayrı eşleştirili
 
 | Profil | Dosya | Odak |
 |---|---|---|
-| **Mühendislik Fakültesi** (ana rapor) | `profile_muhendislik.json` | Elektrik-Elektronik, Enerji, Bilgisayar ve Yapay Zeka, Endüstri Mühendisliği. Chips JU, KDT, EIC Pathfinder/Transition, Horizon Cluster 4/5 ve Digital Europe'a ek puan verilir. Cluster 2 (kültür, toplum), Cluster 6 (gıda, biyoekonomi) ve New European Bauhaus'tan puan düşülür. |
+| **Mühendislik Fakültesi** (ana rapor) | `profile_muhendislik.json` | Elektrik-Elektronik, Enerji, Bilgisayar ve Yapay Zeka, Endüstri Mühendisliği. Chips JU, KDT, EIC Pathfinder/Transition, Horizon Cluster 4/5 ve Digital Europe'a ek puan verilir. Cluster 2 (kültür, toplum), Cluster 6 (gıda, biyoekonomi), sağlık (HLTH) ve New European Bauhaus'tan puan düşülür. |
 | **Genel** (tüm üniversite) | `profile.json` | Ticaret, işletme, finans, hukuk, mimarlık ve tasarım dahil 10 odak alanı |
 
 İki profil ortak kaynakları paylaşır: ekosistem ortakları (İTO, Teknopark İstanbul, BTM), Türkiye katılım
 notları (`profile.json`) ve `academics.csv`. Her profilin kendi "görülen çağrılar" dosyası vardır:
 `state_muhendislik.json` ve `state.json`.
 
-**Haftalık GitHub Issue'su:** En üstte Mühendislik Fakültesi özeti yer alır. Genel rapor, altında
-açılır-kapanır bir bölümdedir.
+**Haftalık GitHub Issue'su** iki ayrı başlık taşır:
+
+1. **Mühendislik Fakültesi** özeti en üsttedir.
+2. **İstanbul Ticaret Üniversitesi — tüm bölümler** raporu altında, açılır-kapanır bir bölümdedir.
+   Issue'ya sığmazsa atlanmaz; aynı issue'nun ilk yorumu olarak yayımlanır.
+
+EIT ve HEI bölümü iki rapor için ortaktır ve en sonda bir kez yer alır.
 
 Her profil için `reports/` klasöründe şu dosyalar üretilir:
 
 - **Kısa özet** (`muhendislik-ozet-*.md`, `ozet-*.md`):
-  - en yüksek puanlı 25 yeni çağrı, ayrıntılarıyla;
-  - yeni olsun olmasın en uygun 10 açık çağrı;
-  - son başvurusu önümüzdeki 6 ay içinde olan çağrılar;
-  - EIC/EIT ve kaskad (FSTP) çağrıları ayrı bölümlerde.
+  - yeni eşleşen çağrılar, ayrıntılarıyla;
+  - EIC/EIT ve kaskad (FSTP) çağrıları ayrı bölümlerde;
+  - **kapanış takvimi:** tarama gününden itibaren 6 ay içinde kapanacak çağrılar, aylara göre gruplanmış.
+    Odak alanlarıyla en güçlü eşleşen 40 çağrı alınır; her ayın içinde önce lump sum RIA/CSA, sonra
+    IA, sonra puana göre sıralanır. Her satırda eşleşen bölüm/odak alanı 🎯 ile gösterilir. Her çağrı
+    özette yalnızca bir kez geçer.
 - **Tam rapor** (`muhendislik-rapor-*.md/.html`, `rapor-*.md/.html`): eşleşen tüm çağrılar.
 
 Her çağrı için şunlar verilir: uygunluk puanı (varsa program ağırlığıyla birlikte), eşleşen odak
@@ -67,7 +74,7 @@ MGA türü (Lump Sum / Budget-Based), proje başı AB katkısı ve beklenen proj
 - `mga_weights`: sözleşme türüne göre eklenen puan (varsayılan `HORIZON-AG-LS` +3)
 - `only_lump_sum`: `true` yapılırsa raporda yalnızca 1. ve 2. gruptaki çağrılar kalır
 
-Kısa özette "Lump sum öncelikli çağrılar" bölümü ilk 15 çağrıyı gösterir. Tam raporda ise eşleşen tüm
+Kısa özetteki kapanış takviminde her ayın içinde bu sıra kullanılır. Tam raporda ise eşleşen tüm
 çağrılar bu üç gruba ayrılmış olarak listelenir. İptal edilmiş (`CANCELLED`) çağrılar rapora alınmaz.
 
 ### Tarama kapsamı ve özel bölümler
@@ -84,8 +91,9 @@ Kısa özette "Lump sum öncelikli çağrılar" bölümü ilk 15 çağrıyı gö
 - **Kaskad fonlama (FSTP):** Kaskad çağrılarının başlıkları kısa ve geneldir. Bu yüzden bir odak
   kelimesinin metnin herhangi bir yerinde geçmesi yeterlidir. Bu çağrılar **"Kaskad fonlama (FSTP)
   çağrıları"** bölümünde listelenir.
-- **Önümüzdeki 6 ay içinde kapanacak çağrılar:** Bir sonraki son başvuru tarihi bugünden itibaren 6 ay
-  içinde olan eşleşen çağrılar, son başvuru tarihine göre sıralanır.
+- **Kapanış takvimi:** Bir sonraki son başvuru tarihi tarama gününden itibaren 6 ay içinde olan eşleşen
+  çağrılar. Başlıkta tarih aralığı yazar (ör. 11.11.2026 – 13.05.2027) ve çağrılar aylara göre
+  gruplanır.
 - **EIT ve HEI çağrıları (portal dışı):** EIT'nin KIC'leri ve HEI Initiative çağrılarının çoğunu
   portalda değil kendi sitelerinde yayımlar. Tarama bu sayfaları da her hafta okur
   (`eit_sources.py`). Sayfalardaki çağrı bağlantılarını toplar ve Mühendislik özetinin altında
