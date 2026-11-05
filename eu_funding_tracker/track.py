@@ -98,9 +98,6 @@ SUMMARY_UPCOMING = 40  # deadline list length in the summary
 SUMMARY_LUMP_SUM = 15  # lump-sum calls (RIA/CSA first, then IA) in the summary
 DRAFT_MIN_DAYS = 30    # partner-search drafts only for calls closing at least this far ahead
 
-TR_MONTHS = ["Ocak", "Şubat", "Mart", "Nisan", "Mayıs", "Haziran", "Temmuz", "Ağustos", "Eylül", "Ekim",
-             "Kasım", "Aralık"]
-
 PROGRAMME_LABELS = {
     "43108390": "Horizon Europe",
     "31045243": "Horizon 2020",
@@ -683,16 +680,20 @@ def build_report(new_matches, best, upcoming, profile, academics_count, stats, s
         out.append("")
         return out
 
+    shown_ess = set()
+
     def line_md(call, m, lead=None):
         """Compact item: code · action · MGA · deadline · score, then linked title, then essence."""
         eco = eco_short(m)
         opens = f"🟢 açılış {tr_date(call.get('start'))} · " if lead == "open" else ""
-        areas = " / ".join(a["name"] for a in m["areas"][:2])
         row = (f"- **`{call['identifier']}`** · {type_badge(call)} · {opens}⏰ {tr_date(call['deadline'])} · "
-               + (f"🎯 {areas} · " if areas else "") + f"puan {m['total']}" + (f" · 🤝 {eco}" if eco else ""))
+               f"puan {m['total']}" + (f" · 🤝 {eco}" if eco else ""))
         row += f"  \n  [{call['title']}]({call['url']})"
         ess = essence_line(call, summary)
+        if ess and summary and call["identifier"] in shown_ess:
+            ess = "_💡 Özü yukarıda._"  # keeps the issue within GitHub's size limit
         if ess:
+            shown_ess.add(call["identifier"])
             row += f"  \n  {ess}"
         return row + "\n"
 
@@ -718,6 +719,42 @@ def build_report(new_matches, best, upcoming, profile, academics_count, stats, s
         (3, "Diğer (budget-based, COFUND, kaskad veya bilgisi alınamayan)"),
     ]
     if summary:
+        lump = [cm for cm in all_matches if priority_group(cm[0]) < 3][:SUMMARY_LUMP_SUM]
+        if lump:
+            md.append(f"## Lump sum öncelikli çağrılar (ilk {len(lump)}: önce RIA/CSA, sonra IA)\n")
+            for call, m in lump:
+                md.append(line_md(call, m, call["deadline"] or "tarih yok"))
+            md.append("")
+
+    if summary and best:
+        md.append(f"## En uygun açık çağrılar (ilk {len(best)}, yeni olsun olmasın)\n")
+        for call, m in best:
+            md.append(line_md(call, m, call["deadline"] or "tarih yok"))
+        md.append("")
+
+    if not summary and all_matches:
+        md.append(f"## Tüm eşleşen çağrılar ({len(all_matches)})\n")
+        for group, label in groups:
+            rows = [cm for cm in all_matches if priority_group(cm[0]) == group]
+            if rows:
+                md.append(f"### {label} ({len(rows)})\n")
+                for call, m in rows:
+                    md.append(line_md(call, m, call["deadline"] or "tarih yok"))
+                md.append("")
+
+    shown_up = upcoming[:SUMMARY_UPCOMING] if summary else upcoming
+    start, end = stats.get("window") or (today, today)
+    md.append(f"## Son başvurusu 6 ay içinde olan eşleşen çağrılar ({len(upcoming)})\n")
+    md.append(f"Son başvuru tarihi {tr_date(start)} – {tr_date(end)} arasında olan çağrılar, tarih sırasıyla.\n")
+    if not upcoming:
+        md.append("Yok.\n")
+    for call, m in shown_up:
+        md.append(line_md(call, m))
+    if len(upcoming) > len(shown_up):
+        md.append(f"- _…ve {len(upcoming) - len(shown_up)} çağrı daha: tam rapora bakın._")
+    md.append("")
+
+    if summary:
         special = [
             ("EIC, EIT ve açık uçlu programlar", [cm for cm in all_matches if cm[1].get("always")]),
             ("Kaskad fonlama (FSTP) çağrıları", [cm for cm in all_matches if cm[0]["cascade"]]),
@@ -731,40 +768,6 @@ def build_report(new_matches, best, upcoming, profile, academics_count, stats, s
                     md.append(f"_…ve {len(rows) - SUMMARY_SPECIAL} çağrı daha: tam rapora bakın._\n")
                 md.append("")
 
-    if not summary and all_matches:
-        md.append(f"## Tüm eşleşen çağrılar ({len(all_matches)})\n")
-        for group, label in groups:
-            rows = [cm for cm in all_matches if priority_group(cm[0]) == group]
-            if rows:
-                md.append(f"### {label} ({len(rows)})\n")
-                for call, m in rows:
-                    md.append(line_md(call, m, call["deadline"] or "tarih yok"))
-                md.append("")
-
-    # Closing calendar: the best-matching calls closing in the next ~6 months, grouped by month so the
-    # whole window is visible; within a month lump sum RIA/CSA first, then IA, then by score.
-    start, end = stats.get("window") or (today, today)
-    if summary:
-        shown_up = sorted(upcoming, key=lambda cm: -cm[1]["total"])[:SUMMARY_UPCOMING]
-    else:
-        shown_up = list(upcoming)
-    md.append(f"## Kapanış takvimi: {tr_date(start)} – {tr_date(end)} "
-              f"arasında kapanacak çağrılar ({len(upcoming)})\n")
-    if summary and len(upcoming) > len(shown_up):
-        md.append(f"Odak alanlarıyla en güçlü eşleşen {len(shown_up)} çağrı aylara göre listelenmiştir; "
-                  f"kalan {len(upcoming) - len(shown_up)} çağrı tam raporda.\n")
-    if not upcoming:
-        md.append("Yok.\n")
-    by_month = collections.defaultdict(list)
-    for call, m in shown_up:
-        by_month[call["deadline"][:7]].append((call, m))
-    for month in sorted(by_month):
-        rows = sorted(by_month[month], key=lambda cm: (priority_group(cm[0]), -cm[1]["total"], cm[0]["deadline"]))
-        year, mon = month.split("-")
-        md.append(f"### {TR_MONTHS[int(mon) - 1]} {year} ({len(rows)})\n")
-        for call, m in rows:
-            md.append(line_md(call, m))
-        md.append("")
     md.append("---\nOtomatik olarak EU Funding & Tenders Portal verisinden üretilmiştir; "
               "uygunluk ve Türkiye katılım bilgilerini çağrı metninden teyit edin.")
     markdown = "\n".join(md)
@@ -915,8 +918,9 @@ def run(hits, state, now=None, profile=None, details_fetcher=None, details_cache
         state["seen"].setdefault(c["identifier"], {"first_seen": now.isoformat(), "title": c["title"]})
     state["last_run"] = now.isoformat()
 
-    shown = (new_matches[:profile.get("summary_new", SUMMARY_NEW)] + drafts
-             + sorted(upcoming, key=lambda cm: -cm[1]["total"])[:SUMMARY_UPCOMING]
+    shown = (new_matches[:profile.get("summary_new", SUMMARY_NEW)]
+             + [cm for cm in matched if priority_group(cm[0]) < 3][:SUMMARY_LUMP_SUM] + best + drafts
+             + upcoming[:SUMMARY_UPCOMING]
              + [cm for cm in matched if cm[1].get("always")][:SUMMARY_SPECIAL])
     topics, essences = {}, load_essences()
     for c, _ in shown:
