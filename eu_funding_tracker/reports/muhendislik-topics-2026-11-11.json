@@ -1,0 +1,26 @@
+{
+ "HORIZON-EIC-2027-ACCELERATOR-01": {
+  "title": "Short proposal",
+  "url": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-EIC-2027-ACCELERATOR-01",
+  "deadline": "2027-12-16",
+  "action": "EIC-ACC·LS",
+  "expected_outcome": "",
+  "scope": ""
+ },
+ "HORIZON-EIC-2027-DEFENCE-01": {
+  "title": "EIC STEP Defence",
+  "url": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-EIC-2027-DEFENCE-01",
+  "deadline": "2027-06-01",
+  "action": "EIC-EQU·?",
+  "expected_outcome": "",
+  "scope": ""
+ },
+ "HORIZON-EIC-2027-STEP": {
+  "title": "EIC STEP Scale Up",
+  "url": "https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-EIC-2027-STEP",
+  "deadline": "2027-11-24",
+  "action": "EIC-EQU·?",
+  "expected_outcome": "",
+  "scope": ""
+ }
+}

@@ -49,6 +49,16 @@
   "mga": "CREA-AG",
   "min": 0
  },
+ "CREA-CROSS-2027-MFP": {
+  "action_full": "CREA-PJG CREA Project Grants",
+  "budget": 3000000,
+  "description": "Expected Outcome: This action is expected to provide practical help to protect journalists under threat, including concrete tools such as advice and legal support as well as offering shelter and logistical assistance thereby enabling the targeted journalists to continue pursuing their professional activities. This can include financial support when needed. The project will also organise visits to affected countries. Anti-impunity action shall be supported through advocacy. The tools used will be adjusted to accommodate individual needs on a case-by-case basis. Violations of press and media freedom will be systematically and comprehensively monitored across the EU, countries participating in the Creative Europe Programme and candidate countries in order to ensure the provision of reliable and comprehensive information on such violations to the general public as well as to the European institutions. The monitoring should be geared to ensure early warnings about violations. The alerts related to EU, countries participating in the Creative Europe Programme and candidate countries will be systematically published on a dedicated website. Regular reports listing all alerts and identifying main trends will also be published. Such monitoring will generate data and insights beyond the scope or reach of several existing monitoring tools, covering, in particular, risks to media freedom and pluralism as well as selected serious incidents and authorities’ reactions to such incidents. Objective: Within the specific objective of promoting policy cooperation and innovative actions supporting all strands of the Programme, including the promotion of a diverse and pluralistic media environment, media literacy and social inclusion, the priorities of the cross-sectoral strand shall include: to promote cross-sectoral activities aiming at adjusting to the structural changes faced by the media sector, including enhancing a free, diverse, and pluralistic media environment, quality journalism and media literacy including in the digital environment. The Commission’s annual Rule of Law Report refers to physical and online threats and attacks on journalists as a persistent issue across Europe. In September 2021 the Commission adopted a Recommendation on ensuring the protection, safety and empowerment of journalists and other media professionals in the European Union. This action proposes sustainable funding for projects with a focus on legal and practical assistance to journalists in the EU and elsewhere, including safety and cybersecurity training for journalists and diplomatic support. Scope: Design and manage a Europe-wide rapid response mechanism to support media freedom and journalists' safety, covering all EU Member States, countries participating in the Creative Europe Programme and candidate countries; Provide legal and practical support to journalists and other media practitioners in need; Organise advocacy missions to locations where journalists are under threat; Monitor the state of media freedom in the EU Member States, countries participating in the Creative Europe Programme and candidate countries; Organise awareness raising campaigns in the field of media freedom and safety of journalists; Ensure communication and dissemination activities; Monitor and evaluation the action.",
+  "fetched": "2026-11-11T06:36:11.716503+00:00",
+  "grants": 0,
+  "max": 0,
+  "mga": "CREA-AG",
+  "min": 0
+ },
  "CREA-MEDIA-2027-INNOVBUSMOD": {
   "action_full": "CREA-PJG CREA Project Grants",
   "budget": 14000000,
@@ -838,6 +848,36 @@
   "max": 50000,
   "mga": "HORIZON-PR",
   "min": 20000
+ },
+ "HORIZON-EIC-2027-ACCELERATOR-01": {
+  "action_full": "HORIZON-EIC-ACC HORIZON EIC Accelerator",
+  "budget": null,
+  "description": "",
+  "fetched": "2026-11-11T06:36:07.056107+00:00",
+  "grants": 0,
+  "max": 0,
+  "mga": "HORIZON-AG-LS",
+  "min": 0
+ },
+ "HORIZON-EIC-2027-DEFENCE-01": {
+  "action_full": "HORIZON-EIC-EQU HORIZON EIC Equity Only",
+  "budget": 100000000,
+  "description": "",
+  "fetched": "2026-11-11T06:36:07.056107+00:00",
+  "grants": 10,
+  "max": 30000000,
+  "mga": "HORIZON-EQU",
+  "min": 10000000
+ },
+ "HORIZON-EIC-2027-STEP": {
+  "action_full": "HORIZON-EIC-EQU HORIZON EIC Equity Only",
+  "budget": 290000000,
+  "description": "",
+  "fetched": "2026-11-11T06:36:07.056107+00:00",
+  "grants": 30,
+  "max": 30000000,
+  "mga": "HORIZON-EQU",
+  "min": 10000000
  },
  "HORIZON-EIE-2027-02-CONNECT-01": {
   "action_full": "HORIZON-COFUND HORIZON Programme Cofund Actions",
