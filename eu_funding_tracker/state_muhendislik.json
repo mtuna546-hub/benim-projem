@@ -10,11 +10,12 @@
     "HORIZON-CL5-2027-03-D5-14": "2026-11-05",
     "HORIZON-CL5-2027-04-Two-Stage-D2-07": "2026-10-28",
     "HORIZON-CL5-2027-05-D4-06": "2026-11-11",
+    "HORIZON-CL5-2027-07-D3-17": "2026-11-25",
     "HORIZON-EIC-2027-PATHFINDEROPEN-two-stage": "2026-11-18",
     "HORIZON-HLTH-2027-03-TOOL-08": "2026-11-04",
     "HORIZON-MISS-2027-01-CLIMA-02": "2026-11-05"
   },
-  "last_run": "2026-11-18T06:36:30.990131+00:00",
+  "last_run": "2026-11-25T06:36:56.031077+00:00",
   "seen": {
     "CEF-E-2026-PCI-PMI-STUDIES": {
       "first_seen": "2026-09-29T13:16:33.898930+00:00",
@@ -24,6 +25,10 @@
       "first_seen": "2026-09-29T13:16:33.898930+00:00",
       "title": "Electricity, Gas, Smart Grids, Hydrogen and CO₂ networks - Works"
     },
+    "DIGITAL-2024-CLOUD-DATA-AI-07-DIGITALTWIN": {
+      "first_seen": "2026-11-25T06:36:56.031077+00:00",
+      "title": "Towards networked Local Digital Twins in the EU"
+    },
     "DIGITAL-2026-AI-PILOTING-10-SCREENING": {
       "first_seen": "2026-09-29T13:16:33.898930+00:00",
       "title": "Apply AI: Piloting AI-based image screening in medical centres"
@@ -31,6 +36,10 @@
     "DIGITAL-2026-SKILLS-10-DIGITAL-HEALTH-STEP": {
       "first_seen": "2026-09-29T13:16:33.898930+00:00",
       "title": "Advanced Digital Skills for AI Uptake in Health"
+    },
+    "DIGITAL-ECCC-2024-DEPLOY-CYBER-06-STRENGTHENCRA": {
+      "first_seen": "2026-11-25T06:36:56.031077+00:00",
+      "title": "Strengthen Cybersecurity capacities of European SMEs in line with CRA requirements and obligations"
     },
     "DIGITAL-ECCC-2027-DEPLOY-CYBER-11-AI4SME": {
       "first_seen": "2026-09-29T13:16:33.898930+00:00",
